@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SectionProps, Sections } from "../page";
 import { Title } from "../elements";
 import { useState } from "react";
+import { useViewPort } from "../viewport";
 
 enum Abouts {
   Professional = 'Professional',
@@ -54,6 +55,7 @@ function getAboutImg(about: Abouts) {
 }
 
 export function About(props: SectionProps) {
+  const { width } = useViewPort();
   const [about, setAbout] = useState(Abouts.Professional);
   return (
     <div id={Sections.About} className="section rows">
@@ -61,11 +63,13 @@ export function About(props: SectionProps) {
         <Title text="About Me" activeSelect={about} selects={Abouts} setSelect={setAbout} />
         {getAbout(about, props)}
       </div>
-      <div className="profile">
-        <div className="fancy-img">
-          {getAboutImg(about)}
+      {width >= 600 && (
+        <div className="profile">
+          <div className="fancy-img">
+            {getAboutImg(about)}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

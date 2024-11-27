@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Title } from "../elements";
 import { Sections } from "../page";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
+import { useViewPort } from "../viewport";
 
 enum Works {
   Experience = 'Experience',
@@ -15,6 +16,11 @@ enum Companies {
   SnapFinance = 'Snap Finance',
   SimpleTire = 'Simple Tire',
   TCSTire = 'TCS Technology'
+}
+
+interface CompanySelector {
+  company: Companies;
+  setCompany: any;
 }
 
 interface WorkProps {
@@ -104,6 +110,40 @@ function getWork(work: Works, company: Companies) {
   }
 }
 
+function CompanySelector({ company, setCompany }: CompanySelector) {
+  const { width } = useViewPort();
+  const [open, setOpen] = useState<boolean | undefined>(undefined);
+
+  useEffect(() => {
+    const isde = width > 600;
+    if (isde || open === undefined) setOpen(isde);
+  }, [width]);
+
+  const selectCompany = (selection: string) => {
+    setCompany(selection);
+    if (width <= 600) setOpen(false);
+  };
+
+  return (
+    <div className="companies">
+      {width <= 600 && (
+        <div className="mobile-select" onClick={() => setOpen(!open)}>
+          <span>{company}</span>
+        </div>
+      )}
+      {open && (
+        <ul>
+          {Object.keys(Companies).map((key: string) => {
+            const companyKey = Companies[key as keyof typeof Companies];
+            const style = company === companyKey ? 'active' : '';
+            return (<li key={companyKey} className={style} onClick={() => selectCompany(companyKey)}>{companyKey}</li>)
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 export function Work() {
   const [company, setCompany] = useState(Companies.ThinkingBox);
   const [work, setWork] = useState(Works.Experience);
@@ -115,15 +155,7 @@ export function Work() {
           <div className="company">
             {getWork(work, company)}
           </div>
-          <div className="companies">
-            <ul>
-              {Object.keys(Companies).map((key: string) => {
-                const companyKey = Companies[key as keyof typeof Companies];
-                const style = company === companyKey ? 'active' : '';
-                return (<li key={companyKey} className={style} onClick={() => setCompany(companyKey)}>{companyKey}</li>)
-              })}
-            </ul>
-          </div>
+          <CompanySelector company={company} setCompany={setCompany} />
         </div>
       </div>
     </div>

@@ -1,14 +1,28 @@
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --accent: #5c5ce0;
-  --transparent: rgba(240, 242, 245, 0.2);
+  --foreground: #0a0a0a;
+  --background: #ededed;
+  --accent: #3b953b;
+  --transparent: rgba(0, 0, 0, 0.1);
+  --light-text: #555;
+  --icon-fill: invert(50%) sepia(82%) saturate(355%) hue-rotate(70deg) brightness(82%) contrast(94%);
+  --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --header-background: white;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --accent: #5c5ce0;
+    --transparent: rgba(240, 242, 245, 0.2);
+    --light-text: #999;
+    --icon-fill: invert(32%) sepia(96%) saturate(574%) hue-rotate(205deg) brightness(104%) contrast(96%);
+    --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    --header-background: black;
+  }
+
+  html {
+    color-scheme: dark;
   }
 }
 
@@ -38,13 +52,17 @@ a {
   text-decoration: none;
 }
 
+a.inline:hover {
+  text-decoration: underline;
+}
+
 .header {
   position: relative;
   height: 110px;
   width: 100%;
   position: fixed;
   top: 0;
-  background-color: var(--background);
+  background-color: var(--header-background);
   padding: 10px 10px 10px 20px;
   display: flex;
   flex-direction: row;
@@ -71,6 +89,10 @@ a {
   display: inline-block;
   margin-left: 20px;
   cursor: pointer;
+}
+
+.header ul li img {
+  filter: var(--icon-fill);
 }
 
 .header ul li span {
@@ -112,9 +134,8 @@ a {
   font-size: clamp(40px, 8vw, 80px);
 }
 
-.intro h2,
-.intro p {
-  color: #999;
+.intro h2 {
+  color: var(--light-text);
   padding-right: 10px;
 }
 
@@ -129,6 +150,8 @@ a {
   margin: 20px 0px 0px;
   max-width: 540px;
   line-height: 30px;
+  color: var(--foreground);
+  padding-right: 10px;
 }
 
 .about {
@@ -165,12 +188,16 @@ a {
 
 h2.title {
   font-size: clamp(35px, 8vw, 65px);
-  border-bottom: 2px solid #999;
+  border-bottom: 2px solid var(--light-text);
   padding-bottom: 11px;
   margin-bottom: 42px;
   width: 100%;
   display: flex;
   gap: 5px;
+}
+
+h2.title .icon img {
+  filter: var(--icon-fill);
 }
 
 .about p {
@@ -249,6 +276,11 @@ button.cta {
   margin-right: 10px;
 }
 
+button.cta:hover {
+  color: white;
+  background-color: var(--accent);
+}
+
 a {
   color: var(--accent);
 }
@@ -267,7 +299,7 @@ a {
 }
 
 .company h4 {
-  color: #999;
+  color: var(--light-text);
   font-weight: 400;
   margin: 8px 0 21px;
 }
@@ -290,7 +322,7 @@ a {
 }
 
 .company li span {
-  color: #999;
+  color: var(--light-text);
   font-style: italic;
 }
 
@@ -307,17 +339,21 @@ a {
   position: relative;
 }
 
+.companies {
+  position: relative;
+}
+
 .companies ul {
   list-style: none;
   width: 185px;
-  height: 400px;
   text-align: left;
   margin-left: 30px;
+  position: relative;
 }
 
 .companies ul li {
   padding: 15px;
-  border-right: 4px solid #999;
+  border-right: 4px solid var(--light-text);
   opacity: 0.5;
   cursor: pointer;
   border-radius: 5px 0 0 5px;
@@ -327,6 +363,30 @@ a {
   border-right: 4px solid var(--accent);
   opacity: 1;
   background-color: var(--transparent);
+}
+
+.mobile-select {
+  position: absolute;
+  top: -15px;
+  background: var(--accent);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--background);
+  font-weight: bold;
+  font-size: 1.3em;
+  width: 194px;
+}
+
+.mobile-select span::after {
+  content: "";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--background);
+  font-size: 0;
+  line-height: 0;
+  position: relative;
+  float: right;
+  top: 8px;
 }
 
 .example-tiles {
@@ -342,7 +402,7 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  color: white;
+  color: var(--foreground);
   cursor: pointer;
 }
 
@@ -394,6 +454,7 @@ a {
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
+  cursor: grab;
 }
 
 .card .back {
@@ -438,10 +499,12 @@ a {
   gap: 15px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.socials img {
+  filter: var(--icon-foreground);
+}
+
+.socials a:hover img {
+  filter: var(--icon-fill);
 }
 
 .tooltip {
@@ -534,5 +597,87 @@ a {
 
 .tooltip:hover::after {
   display: block;
+}
+
+@media (max-width: 600px) {
+  .section {
+    height: auto;
+  }
+
+  .header ul {
+    margin-right: 5px;
+  }
+
+  .header ul li {
+    margin-left: 9px;
+  }
+
+  h2.title {
+    margin-top: 15px;
+  }
+
+  .intro {
+    margin-left: 25px;
+  }
+
+  .intro h5 {
+    margin-top: 40px;
+  }
+
+  .intro p {
+    margin-right: 35px;
+    font-size: 14px;
+  }
+  
+  .rows,
+  .skills {
+    flex-direction: column;
+  }
+  
+  #About.rows,
+  #Work .work .rows {
+    flex-direction: column-reverse;
+  }
+
+  .about, 
+  .work,
+  .skills-wrapper {
+    width: 100%;
+    padding: 0 25px;
+    font-size: 14px;
+  }
+
+  .about p,
+  .company p {
+    line-height: 21px;
+  }
+
+  .company {
+    width: 100%;
+  }
+
+  .company ul {
+    width: 100%;
+  }
+  
+  .companies ul {
+    margin-left: 0;
+    position: absolute;
+    top: 17px;
+    left: 5px;
+    z-index: 9;
+    background-color: var(--header-background);
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--light-text);
+    border-left: 1px solid var(--light-text);
+  }
+
+  .companies ul li {
+    border-radius: 0;
+    font-size: 16px;
+    padding: 20px 5px;
+    text-align: center;
+  }
 }
 

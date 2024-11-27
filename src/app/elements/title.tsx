@@ -31,7 +31,7 @@ export function Title(props: SectionTitle) {
     <div className="title-wrapper">
       {getSelects(props)}
       <h2 className="title">
-        <span>
+        <span className="icon">
           <Image
             src="/element.svg"
             alt="icon"

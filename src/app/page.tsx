@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { Landing, About, Skills, Work, Contact } from "./sections";
+import { useViewPort } from "./viewport";
 
 export enum Sections {
   Landing = 'Landing',
@@ -45,6 +46,7 @@ class EnumX {
 
 function Header({ active, setActive }: SectionProps) {
   const [autoScrolling, setAutoScrolling] = useState(false);
+  const { width } = useViewPort();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,9 +63,9 @@ function Header({ active, setActive }: SectionProps) {
         if (scrollActive <= 75 && ajacent >= 25) setActive(section);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    if (width > 600) window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      if (width > 600) window.removeEventListener('scroll', handleScroll);
     };
   }, [active, autoScrolling]);
 
@@ -82,6 +84,7 @@ function Header({ active, setActive }: SectionProps) {
     <div className="header">
       <div className="content">
         <Image
+          onClick={() => setActive(Sections.Landing)}
           className={styles.logo}
           src="/sa_icon.svg"
           alt="SA logo"
