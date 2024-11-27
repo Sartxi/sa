@@ -1,6 +1,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --accent: #5c5ce0;
+  --transparent: rgba(240, 242, 245, 0.2);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,8 +38,501 @@ a {
   text-decoration: none;
 }
 
+.header {
+  position: relative;
+  height: 110px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: var(--background);
+  padding: 10px 10px 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.header .content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1600px;
+}
+
+.header ul {
+  list-style: none;
+  margin-right: 50px;
+}
+
+.header ul li {
+  display: inline-block;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.header ul li span {
+  position: relative;
+  top: 3px;
+}
+
+.header ul li:hover,
+.header ul li.active,
+.header ul li span {
+  color: var(--accent);
+}
+
+.section {
+  height: 99vh;
+  padding: 110px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+}
+
+.rows {
+  flex-direction: row;
+  gap: 50px;
+}
+
+.intro {
+  align-self: flex-start;
+  margin-left: 15vw;
+}
+
+.intro h1,
+.intro h2 {
+  font-size: clamp(40px, 8vw, 80px);
+}
+
+.intro h2,
+.intro p {
+  color: #999;
+  padding-right: 10px;
+}
+
+.intro h5 {
+  margin: 0px 0px 14px 4px;
+  color: var(--accent);
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.intro p {
+  margin: 20px 0px 0px;
+  max-width: 540px;
+  line-height: 30px;
+}
+
+.about {
+  max-width: 600px;
+}
+
+.title-wrapper {
+  position: relative;
+}
+
+.title-wrapper .selects {
+  position: absolute;
+  right: 18px;
+  bottom: -11px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-wrapper .selects .select {
+  width: 23px;
+  height: 23px;
+  border-radius: 4px;
+  border: 2px solid var(--accent);
+  background-color: var(--background);
+  cursor: pointer;
+}
+
+.title-wrapper .selects .select.active,
+.title-wrapper .selects .select:hover {
+  background-color: var(--accent);
+}
+
+h2.title {
+  font-size: clamp(35px, 8vw, 65px);
+  border-bottom: 2px solid #999;
+  padding-bottom: 11px;
+  margin-bottom: 42px;
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.about p {
+  line-height: 25px;
+}
+
+.about p.space {
+  margin-bottom: 29px;
+}
+
+.fancy-photo {
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.fancy-img {
+  border-radius: 10px;
+  border: 4px solid var(--accent);
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  background-color: var(--background);
+}
+
+.fancy-img::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: 4px solid var(--accent);
+  top: 20px;
+  left: 20px;
+  z-index: -1;
+}
+
+.fancy-img.small {
+  border-width: 2px;
+}
+
+.fancy-img.small::after {
+  border-width: 2px;
+  top: 8px;
+  left: 8px;
+}
+
+.fancy-img.linked:hover::after {
+  background-color: var(--accent);
+}
+
+.profile {
+  max-width: 500px;
+}
+
+.company {
+  width: 75vw;
+  max-width: 800px;
+}
+
+button.cta {
+  color: var(--accent);
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  border-radius: var(--border-radius);
+  padding: 1.25rem 1.75rem;
+  font-size: 1em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+a {
+  color: var(--accent);
+}
+
+.company {
+  width: 50vw;
+}
+
+.company h2 a {
+  font-weight: 200;
+  margin-left: 5px;
+}
+
+.company h2 a:hover {
+  font-weight: 300;
+}
+
+.company h4 {
+  color: #999;
+  font-weight: 400;
+  margin: 8px 0 21px;
+}
+
+.company p {
+  line-height: 27px;
+  margin-bottom: 20px;
+}
+
+.company ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 16px;
+  width: 40vw;
+}
+
+.company li {
+  text-indent: -1.5em;
+  padding: 5px 1em;
+}
+
+.company li span {
+  color: #999;
+  font-style: italic;
+}
+
+.company li span strong {
+  font-style: normal;
+}
+
+.company li:before {
+  content: "+";
+  color: var(--accent);
+  padding-right: 9px;
+  font-size: 25px;
+  top: 2px;
+  position: relative;
+}
+
+.companies ul {
+  list-style: none;
+  width: 185px;
+  height: 400px;
+  text-align: left;
+  margin-left: 30px;
+}
+
+.companies ul li {
+  padding: 15px;
+  border-right: 4px solid #999;
+  opacity: 0.5;
+  cursor: pointer;
+  border-radius: 5px 0 0 5px;
+}
+
+.companies ul li.active {
+  border-right: 4px solid var(--accent);
+  opacity: 1;
+  background-color: var(--transparent);
+}
+
+.example-tiles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+  padding: 30px 0;
+}
+
+.example-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.skills-wrapper {
+  width: 68vw;
+  max-width: 1065px;
+}
+
+.skills {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+  justify-content: space-evenly;
+}
+
+.skill-cards {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.card {
+  width: 100%;
+  display: inline-block;
+  perspective: 1000px;
+}
+
+.card .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card .front, .card .back {
+  background-color: var(--transparent);
+  padding: 15px;
+  border-radius: 4px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+  line-height: 25px;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.skills .card h4 {
+  border-bottom: 2px solid var(--transparent);
+  padding-bottom: 7px;
+  margin-bottom: 7px;
+}
+
+.skills .card ul {
+  list-style: none;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.skills .card ul li {
+  height: 25px;
+}
+
+.skills .card ul li:before {
+  content: "+";
+  color: var(--accent);
+  padding-right: 9px;
+  font-size: 25px;
+  top: 2px;
+  position: relative;
+}
+
+.card .description {
+  overflow-y: scroll;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
+.tooltip {
+  position: relative;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 100%;
+  margin-left: 12px;
+  width: 100px;
+  padding: 10px;
+  border-radius: 5px;
+  background: var(--accent);
+  color: #fff;
+  text-align: left;
+  display: none;
+  z-index: 10;
+  text-align: center;
+  font-size: 13px;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  margin-left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 8px solid var(--accent);
+  border-color: transparent var(--accent) transparent transparent;
+  display: none;
+  z-index: 10;
+}
+
+.tooltip.left::before {
+  left: initial;
+  margin: initial;
+  right: 100%;
+  margin-right: 12px;
+}
+
+.tooltip.left::after {
+  left: -8px;
+  margin-right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 8px solid var(--accent);
+  border-color: transparent transparent transparent var(--accent);
+}
+
+.tooltip.top::before {
+  left: -35%;
+  transform: translateX(-50%) translateY(-100%);
+  top: -14px;
+  margin-bottom: 15px;
+}
+
+.tooltip.top::after {
+  left: 28%;
+  top: -6px;
+  transform: translateY(-50%);
+  border: 8px solid var(--accent);
+  border-color: var(--accent) transparent transparent;
+}
+
+.tooltip.bottom::before {
+  left: 50%;  
+  transform: translateX(-50%);
+  top: 100%;
+  margin-top: 12px;
+}
+
+.tooltip.bottom::after {
+  left: 50%;
+  top: calc(100% + 4px);
+  transform: translateY(-50%);
+  border: 8px solid var(--accent);
+  border-color: transparent transparent var(--accent);
+}
+
+.tooltip:hover::before {
+  display: block; 
+}
+
+.tooltip:hover::after {
+  display: block;
+}
+
