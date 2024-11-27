@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Title } from "../elements";
 import { Sections } from "../page";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
-import { useViewPort } from "../viewport";
+import { useMedia } from "../viewport";
 
 enum Works {
   Experience = 'Experience',
@@ -66,27 +66,42 @@ function Experience(props: WorkProps) {
 }
 
 function ProjectTile({ project }: ProjectProps) {
+  const { mobile, tablet } = useMedia();
   const { image, title } = project;
+  let size = 200;
+  if (tablet) size = 100;
+  else if (mobile) size = 130;
+
   return (
-    <div className="example-tile">
+    <>
       <div className='fancy-img small linked'>
         <Image
           src={image}
           className="fancy-photo"
           alt={`${title} image`}
-          width={200}
-          height={200}
+          width={size}
+          height={size}
           priority
         />
       </div>
       {title}
-    </div>
+    </>
   )
 }
 
 function Project(props: ProjectProps) {
-  if (props.project.link) return <a href={props.project.link} target="_blank"><ProjectTile {...props} /></a>
-  return <ProjectTile {...props} />;
+  if (props.project.link) {
+    return (
+      <a href={props.project.link} className="example-tile" target="_blank">
+        <ProjectTile {...props} />
+      </a>
+    );
+  }
+  return (
+    <div className="example-tile">
+      <ProjectTile {...props} />
+    </div>
+  );
 }
 
 function Projects(props: WorkProps) {
@@ -111,22 +126,21 @@ function getWork(work: Works, company: Companies) {
 }
 
 function CompanySelector({ company, setCompany }: CompanySelector) {
-  const { width } = useViewPort();
+  const { mobile } = useMedia();
   const [open, setOpen] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    const isde = width > 600;
-    if (isde || open === undefined) setOpen(isde);
-  }, [width]);
+    if (!mobile && open === undefined) setOpen(true);
+  }, [mobile]);
 
   const selectCompany = (selection: string) => {
     setCompany(selection);
-    if (width <= 600) setOpen(false);
+    if (mobile) setOpen(false);
   };
 
   return (
     <div className="companies">
-      {width <= 600 && (
+      {mobile && (
         <div className="mobile-select" onClick={() => setOpen(!open)}>
           <span>{company}</span>
         </div>

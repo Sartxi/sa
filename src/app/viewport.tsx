@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useViewPort() {
+export function useMedia() {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
@@ -16,5 +16,8 @@ export function useViewPort() {
     }
   }, []);
 
-  return { width };
+  const mobile = width <= 599;
+  const tablet = width >= 600 && width <= 1199;
+
+  return { mobile, tablet };
 }

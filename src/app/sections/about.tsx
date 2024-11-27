@@ -2,7 +2,7 @@ import Image from "next/image";
 import { SectionProps, Sections } from "../page";
 import { Title } from "../elements";
 import { useState } from "react";
-import { useViewPort } from "../viewport";
+import { useMedia } from "../viewport";
 
 enum Abouts {
   Professional = 'Professional',
@@ -40,33 +40,29 @@ function getAbout(about: Abouts, props: SectionProps) {
   }
 }
 
-function getAboutImg(about: Abouts) {
-  const src = about === Abouts.Professional ? '/profile.jpg' : '/running.png';
-  return (
-    <Image
-      src={src}
-      className="fancy-photo"
-      alt="profile photo"
-      width={400}
-      height={400}
-      priority
-    />
-  )
-}
-
 export function About(props: SectionProps) {
-  const { width } = useViewPort();
+  const { mobile, tablet } = useMedia();
   const [about, setAbout] = useState(Abouts.Professional);
+  const src = about === Abouts.Professional ? '/profile.jpg' : '/running.png';
+  const size = tablet ? 200 : 400;
+
   return (
     <div id={Sections.About} className="section rows">
       <div className="about">
         <Title text="About Me" activeSelect={about} selects={Abouts} setSelect={setAbout} />
         {getAbout(about, props)}
       </div>
-      {width >= 600 && (
+      {!mobile && (
         <div className="profile">
           <div className="fancy-img">
-            {getAboutImg(about)}
+            <Image
+              src={src}
+              className="fancy-photo"
+              alt="profile photo"
+              width={size}
+              height={size}
+              priority
+            />
           </div>
         </div>
       )}

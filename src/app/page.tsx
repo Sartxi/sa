@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { Landing, About, Skills, Work, Contact } from "./sections";
-import { useViewPort } from "./viewport";
+import { useMedia } from "./viewport";
 
 export enum Sections {
   Landing = 'Landing',
@@ -46,7 +46,7 @@ class EnumX {
 
 function Header({ active, setActive }: SectionProps) {
   const [autoScrolling, setAutoScrolling] = useState(false);
-  const { width } = useViewPort();
+  const { mobile } = useMedia();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,9 +63,9 @@ function Header({ active, setActive }: SectionProps) {
         if (scrollActive <= 75 && ajacent >= 25) setActive(section);
       }
     };
-    if (width > 600) window.addEventListener('scroll', handleScroll);
+    if (!mobile) window.addEventListener('scroll', handleScroll);
     return () => {
-      if (width > 600) window.removeEventListener('scroll', handleScroll);
+      if (!mobile) window.removeEventListener('scroll', handleScroll);
     };
   }, [active, autoScrolling]);
 
