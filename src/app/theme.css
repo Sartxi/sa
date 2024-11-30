@@ -1,0 +1,122 @@
+:root {
+  --bear-theme: #c53d2b;
+  --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+  --northface-theme: #7cca7c;
+  --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --grand-theme: #7cca7c;
+  --grand-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+
+  --color-scheme: light;
+  --logo-filter: none;
+  --roam-blend: difference;
+  --foreground: #0a0a0a;
+  --background: #ededed;
+  --detail-background: #999;
+  --transparent: rgba(0, 0, 0, 0.1);
+  --body-color: #000;
+  --light-text: #555;
+  --header-background: white;
+  --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --accent: var(--bear-theme);
+  --icon-fill: var(--bear-theme-fill);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bear-theme: #7cca7c;
+    --bear-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+    --northface-theme: #c53d2b;
+    --northface-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+    --grand-theme: #c53d2b;
+    --grand-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+
+    --color-scheme: dark;
+    --logo-filter: invert();
+    --background: #0a0a0a;
+    --detail-background: #333;
+    --foreground: #ededed;
+    --transparent: rgba(240, 242, 245, 0.2);
+    --light-text: #999;
+    --body-color: #fff;
+    --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    --header-background: black;
+    --accent: var(--bear-theme);
+    --icon-fill: var(--bear-theme-fill);
+  }
+}
+
+html[data-scheme="dark"] {
+  --bear-theme: #7cca7c;
+  --bear-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --northface-theme: #c53d2b;
+  --northface-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+  --grand-theme: #c53d2b;
+  --grand-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+
+  --color-scheme: dark;
+  --logo-filter: invert();
+  --foreground: #ededed;
+  --background: #0a0a0a;
+  --transparent: rgba(240, 242, 245, 0.2);
+  --light-text: #999;
+  --body-color: #fff;
+  --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+  --header-background: black;
+  --accent: var(--bear-theme);
+  --icon-fill: var(--bear-theme-fill);
+}
+
+html[data-scheme="light"] {
+  --bear-theme: #c53d2b;
+  --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+  --northface-theme: #7cca7c;
+  --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --grand-theme: #7cca7c;
+  --grand-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+
+  --color-scheme: light;
+  --logo-filter: none;
+  --foreground: #0a0a0a;
+  --background: #ededed;
+  --transparent: rgba(0, 0, 0, 0.1);
+  --light-text: #555;
+  --body-color: #000;
+  --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --header-background: white;
+  --accent: var(--bear-theme);
+  --icon-fill: var(--bear-theme-fill);
+}
+
+html[data-theme="Northface"] {
+  --accent: var(--northface-theme);
+  --icon-fill: var(--northface-theme-fill);
+}
+
+html[data-theme="Grand"] {
+  --accent: var(--grand-theme);
+  --icon-fill: var(--grand-theme-fill);
+}
+
+html[data-blend="diff"] {
+  --roam-blend: difference;
+}
+
+html[data-blend="color"] {
+  --roam-blend: color;
+}
+
+html[data-blend="dodge"] {
+  --roam-blend: color-dodge;
+}
+
+html[data-blend="soft"] {
+  --roam-blend: soft-light;
+}
+
+html[data-blend="hard"] {
+  --roam-blend: hard-light;
+}
+
+html[data-blend="multiply"] {
+  --roam-blend: multiply;
+}

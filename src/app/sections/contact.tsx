@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Title } from "../elements";
-import { Sections } from "../page";
+import { PageSections } from "../elements/header";
+import { useEffect, useState } from "react";
 
 interface SocialIcons {
   icon: string;
@@ -15,11 +16,26 @@ const socials: SocialIcons[] = [
   { icon: 'soundcloud', link: 'https://soundcloud.com/archn' },
 ];
 
+const greetings = ['Say Hello!', '¡Saluda!', 'Esan Kaixo!', 'Saluta!', 'Dites bonjour!'];
+
+function useGreeting() {
+  const [greeting, setActive] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const next = (greeting + 1) === greetings.length ? 0 : greeting + 1;
+      setActive(next);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [greeting]);
+  return greetings[greeting];
+}
+
 export function Contact() {
+  const greeting = useGreeting();
   return (
-    <div id={Sections.Contact} className="section">
-      <Title text="Say Hello!" />
-      <div className="socials">
+    <div id={PageSections.Contact} className="section">
+      <Title id="ContactTitle" text={greeting} hideIcon={true} />
+      <div id="Socials" className="socials">
         {socials.map(({ icon, link }: SocialIcons) => (
           <a key={icon} href={link} target="_blank">
             <Image

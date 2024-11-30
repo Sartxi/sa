@@ -6,7 +6,7 @@ export function ThinkingBox() {
       <p>I am currently consulting at Adobe, engineering the next generation web component library implementing the Consonant design system. For the last 3 years I have been embedded within multiple Adobe teams to deliver high-quality solutions utilizing modern technologies and AI tools.</p>
       <ul>
         <li>Engineered localization <span>(40+ languages)</span> and bulk publishing software <span>(up to 12k pages per job process)</span> for managing content on adobe.com</li>
-        <li>Delivered a robust functional component library with custom unit tests and detailed documentation</li>
+        <li>Delivered a robust functional component library with dilligent unit testing and detailed documentation</li>
         <li>Collaborated with cross-functional teams to address individual product needs and provided ongoing support</li>
         <li>Optimized consonant component library to meet performance standards resulting in a <span><strong>20%</strong></span> improvement in Lighthouse scores</li>
       </ul>

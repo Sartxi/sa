@@ -1,21 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Title } from "../elements";
-import { Sections } from "../page";
+import { PageSections } from "../elements/header";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
-import { useMedia } from "../viewport";
+import { useMedia } from "../hooks/viewport";
+import { Companies, Project, projects } from "./projects";
+import { PageProps } from "../page";
 
 enum Works {
   Experience = 'Experience',
   Projects = 'Projects'
-}
-
-enum Companies {
-  ThinkingBox = 'ThinkingBox',
-  JointSoftware = 'Joint Software',
-  SnapFinance = 'Snap Finance',
-  SimpleTire = 'Simple Tire',
-  TCSTire = 'TCS Technology'
 }
 
 interface CompanySelector {
@@ -27,28 +21,11 @@ interface WorkProps {
   company: Companies;
 }
 
-interface Project {
-  company: Companies;
-  title: string;
-  image: string;
-  link?: string;
-};
-
 interface ProjectProps {
   project: Project;
+  open: Project | undefined;
+  setOpen: any;
 };
-
-const projects: Project[] = [
-  { company: Companies.ThinkingBox, link: 'https://thinkingbox.com/work/consonant-adobe', image: '/consonant.png', title: 'Adobe Consonant' },
-  { company: Companies.ThinkingBox, link: 'https://milo.adobe.com/', image: '/milo.png', title: 'Adobe Milo' },
-  { company: Companies.ThinkingBox, image: '/bulkpublish.png', title: 'Milo Bulk Publishing' },
-  { company: Companies.JointSoftware, link: 'https://www.loopmein.app/', image: '/loopmein.png', title: 'LoopMeIn' },
-  { company: Companies.JointSoftware, link: 'https://www.loopmein.app/vinfo/', image: '/vinfo.png', title: 'Vinfo' },
-  { company: Companies.SnapFinance, link: 'https://snapfinance.com/', image: '/snapfinance.png', title: 'Corporate Website' },
-  { company: Companies.SimpleTire, link: 'https://simpletire.com/', image: '/simpletire.png', title: 'SimpleTire.com' },
-  { company: Companies.TCSTire, link: 'https://tcstire.com/', image: '/tcs.png', title: 'Corporate Website' },
-  { company: Companies.TCSTire, link: 'https://www.rockystirepros.com/', image: '/tirepros.png', title: 'Client Website' },
-];
 
 function Experience(props: WorkProps) {
   switch (props.company) {
@@ -65,16 +42,22 @@ function Experience(props: WorkProps) {
   }
 }
 
-function ProjectTile({ project }: ProjectProps) {
+function Tile(props: ProjectProps) {
+  const { project, open, setOpen } = props;
   const { mobile, tablet } = useMedia();
-  const { image, title } = project;
+  const { image, title, description, link, link2 } = project;
+  const isOpen = open === project;
+
   let size = 200;
   if (tablet) size = 100;
   else if (mobile) size = 130;
+  else if (open !== undefined && !isOpen) size = 50;
 
   return (
-    <>
-      <div className='fancy-img small linked'>
+    <div className={`example-tile${isOpen ? ' open' : ''}`}>
+      <div
+        className='fancy-img small linked'
+        onClick={() => setOpen()}>
         <Image
           src={image}
           className="fancy-photo"
@@ -84,33 +67,36 @@ function ProjectTile({ project }: ProjectProps) {
           priority
         />
       </div>
-      {title}
-    </>
-  )
-}
-
-function Project(props: ProjectProps) {
-  if (props.project.link) {
-    return (
-      <a href={props.project.link} className="example-tile" target="_blank">
-        <ProjectTile {...props} />
-      </a>
-    );
-  }
-  return (
-    <div className="example-tile">
-      <ProjectTile {...props} />
+      {isOpen && (
+        <div className="project-details">
+          <h2>{title}</h2>
+          <p>{description}</p>
+          {link ? <button className="cta inverse small">Open</button> : <button className="cta inverse small">Take a closer look</button>}
+          {link2 ? <button className="cta inverse small">Example</button> : ''}
+        </div>
+      )}
+      {!open && title}
     </div>
   );
 }
 
-function Projects(props: WorkProps) {
-  const examples: Project[] = projects.filter((ex) => (ex.company === props.company));
+function Projects({ projects }: { projects: Project[] }) {
+  const [open, setOpen] = useState<Project | undefined>(undefined);
+
+  useEffect(() => {
+    setOpen(projects.length === 1 ? projects[0] : undefined);
+  }, [projects]);
+
   return (
-    <div className="examples">
-      <h3>Projects:</h3>
-      <div className="example-tiles">
-        {examples.map((example, index) => <Project key={index} project={example} />)}
+    <div className='examples'>
+      <div className={`example-tiles${open ? ' open' : ''}`}>
+        {projects.map((example, index) => (
+          <Tile
+            key={index}
+            project={example}
+            open={open}
+            setOpen={() => setOpen(example)} />
+        ))}
       </div>
     </div>
   )
@@ -119,7 +105,8 @@ function Projects(props: WorkProps) {
 function getWork(work: Works, company: Companies) {
   switch (work) {
     case Works.Projects:
-      return <Projects company={company} />
+      const examples: Project[] = projects.filter((p: Project) => (p.company === company));
+      return <Projects projects={examples} />
     default:
       return <Experience company={company} />
   }
@@ -139,7 +126,7 @@ function CompanySelector({ company, setCompany }: CompanySelector) {
   };
 
   return (
-    <div className="companies">
+    <div id="CompanyList" className="companies">
       {mobile && (
         <div className="mobile-select" onClick={() => setOpen(!open)}>
           <span>{company}</span>
@@ -158,16 +145,17 @@ function CompanySelector({ company, setCompany }: CompanySelector) {
   )
 }
 
-export function Work() {
+export function Work({ setActive }: PageProps) {
   const [company, setCompany] = useState(Companies.ThinkingBox);
   const [work, setWork] = useState(Works.Experience);
   return (
-    <div id={Sections.Work} className="section">
+    <div id={PageSections.Work} className="section">
       <div className="work">
-        <Title text="My Work" activeSelect={work} selects={Works} setSelect={setWork} />
-        <div className="content rows">
+        <Title id="WorkBlock" text="My Work" activeSelect={work} selects={Works} setSelect={setWork} />
+        <div className="content rows work-examples">
           <div className="company">
             {getWork(work, company)}
+            <button className="cta" onClick={() => setActive(PageSections.Skills)}>Next is skills!</button>
           </div>
           <CompanySelector company={company} setCompany={setCompany} />
         </div>
