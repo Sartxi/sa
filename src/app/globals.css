@@ -1,4 +1,5 @@
 @import url(./theme.css);
+@import url(./loading.css);
 
 body {
   font-family: var(--font-geist-mono);
@@ -91,6 +92,10 @@ a.inline:hover {
   width: 60px;
 }
 
+/* .is-loading {
+  position: fixed !important;
+} */
+
 .loading-screen {
   position: fixed;
   top: 0;
@@ -98,7 +103,36 @@ a.inline:hover {
   left: 0;
   right: 0;
   background-color: var(--background);
+  background-image: url('/topo.png');
   z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-pod {
+  width: 200px;
+  height: 140px;
+  padding: 15px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--transparent);
+  border: 1px solid var(--header-background);
+  border-radius: 10px;
+  display: none;
+}
+
+.loading-pod.active {
+  display: flex;
+}
+
+.loader-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
 }
 
 .header {

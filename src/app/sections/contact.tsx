@@ -16,7 +16,7 @@ const socials: SocialIcons[] = [
   { icon: 'soundcloud', link: 'https://soundcloud.com/archn' },
 ];
 
-const greetings = ['Say Hello!', '¡Saluda!', 'Esan Kaixo!', 'Saluta!', 'Dites bonjour!'];
+const greetings = ['Say Hello!', '¡Saludame!', 'Esan Kaixo!', 'Salutami!', 'Dites bonjour!'];
 
 function useGreeting() {
   const [greeting, setActive] = useState(0);

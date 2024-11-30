@@ -12,6 +12,8 @@ interface ThemeMenuProps {
   open: boolean;
   setOpen: any;
   refresh: any;
+  theme?: Themes;
+  setTheme?: any;
 }
 
 interface ThemeSelectorProps {
@@ -60,9 +62,7 @@ function ThemeSelector({ type, open, theme, setTheme, items }: ThemeSelectorProp
   )
 }
 
-function ThemesTool({ open, setOpen, refresh }: ThemeMenuProps) {
-  const { theme, setTheme } = useTheme();
-
+function ThemesTool({ open, setOpen, refresh, theme, setTheme }: ThemeMenuProps) {
   const themes: Selections[] = Object.keys(Themes).map((item) => {
     const key = Themes[item as keyof typeof Themes];
     return { key, item };
@@ -115,7 +115,7 @@ function BlendsTool({ open, setOpen }: ThemeMenuProps) {
   );
 }
 
-export function Theme({ refresh }: { refresh: any }) {
+export function Theme({ refresh, theme, setTheme }: { refresh: any, theme: any, setTheme: any }) {
   const [open, setOpen] = useState<number | undefined>();
   const { mobile } = useMedia();
 
@@ -136,6 +136,8 @@ export function Theme({ refresh }: { refresh: any }) {
     <div id="Themes">
       <SchemesTool />
       <ThemesTool
+        theme={theme}
+        setTheme={setTheme}
         open={open === SiteThemes.Themes}
         setOpen={() => toggleOpen(SiteThemes.Themes)}
         refresh={refresh} />

@@ -1,0 +1,97 @@
+.loader.layers {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  transform: rotateX(65deg) rotate(45deg);
+  transform: perspective(200px) rotateX(65deg) rotate(45deg);
+  color: #fff;
+  animation: layer 1s linear infinite alternate;
+}
+
+.loader.layers:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  animation: layerT 1s linear infinite alternate;
+}
+
+@keyframes layer {
+  0% {
+    box-shadow: 0px 0px 0 0px
+  }
+
+  90%,
+  100% {
+    box-shadow: 20px 20px 0 -4px
+  }
+}
+
+@keyframes layerT {
+  0% {
+    transform: translate(0, 0) scale(1)
+  }
+
+  100% {
+    transform: translate(-25px, -25px) scale(1)
+  }
+}
+
+.loader.contents {
+  width: 45px;
+  height: 40px;
+  background:
+    linear-gradient(#0000 calc(1*100%/6), #fff 0 calc(3*100%/6), #0000 0),
+    linear-gradient(#0000 calc(2*100%/6), var(--accent) 0 calc(4*100%/6), #0000 0),
+    linear-gradient(#0000 calc(3*100%/6), #fff 0 calc(5*100%/6), #0000 0);
+  background-size: 10px 400%;
+  background-repeat: no-repeat;
+  animation: matrix 1s infinite linear;
+}
+
+@keyframes matrix {
+  0% {
+    background-position: 0% 100%, 50% 100%, 100% 100%
+  }
+
+  100% {
+    background-position: 0% 0%, 50% 0%, 100% 0%
+  }
+}
+
+
+.loader.finish {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  background-image:
+    linear-gradient(#FFF 16px, transparent 0),
+    linear-gradient(var(--accent) 16px, transparent 0),
+    linear-gradient(var(--accent) 16px, transparent 0),
+    linear-gradient(#FFF 16px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: left top, left bottom, right top, right bottom;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    width: 64px;
+    height: 64px;
+    transform: rotate(0deg)
+  }
+
+  50% {
+    width: 30px;
+    height: 30px;
+    transform: rotate(180deg)
+  }
+
+  100% {
+    width: 64px;
+    height: 64px;
+    transform: rotate(360deg)
+  }
+}
