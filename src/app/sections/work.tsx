@@ -23,8 +23,8 @@ interface WorkProps {
 
 interface ProjectProps {
   project: Project;
-  open: Project | undefined;
-  setOpen: any;
+  open?: Project | undefined;
+  setOpen?: any;
 };
 
 function Experience(props: WorkProps) {
@@ -42,10 +42,26 @@ function Experience(props: WorkProps) {
   }
 }
 
+function TileCTA(props: ProjectProps) {
+  const { link, link2 } = props.project;
+  const [href, text] = link?.split('#') || [];
+  const [href2, text2] = link2?.split('#') || [];
+  const style = 'cta inverse small';
+  if (!link) return (
+    <button className={style}>Take a look</button>
+  );
+  return (
+    <div className="project-buttons">
+      <a href={href} target="_blank"><button className="cta inverse small">{text}</button></a>
+      {link2 ? <a href={href2} target="_blank"><button className="cta inverse small">{text2}</button></a> : ''}
+    </div>
+  )
+}
+
 function Tile(props: ProjectProps) {
   const { project, open, setOpen } = props;
   const { mobile, tablet } = useMedia();
-  const { image, title, description, link, link2 } = project;
+  const { image, title, description } = project;
   const isOpen = open === project;
 
   let size = 200;
@@ -71,8 +87,7 @@ function Tile(props: ProjectProps) {
         <div className="project-details">
           <h2>{title}</h2>
           <p>{description}</p>
-          {link ? <button className="cta inverse small">Open</button> : <button className="cta inverse small">Take a closer look</button>}
-          {link2 ? <button className="cta inverse small">Example</button> : ''}
+          <TileCTA project={project} />
         </div>
       )}
       {!open && title}
@@ -155,7 +170,7 @@ export function Work({ setActive }: PageProps) {
         <div className="content rows work-examples">
           <div className="company">
             {getWork(work, company)}
-            <button className="cta" onClick={() => setActive(PageSections.Skills)}>Next is skills!</button>
+            <button className="cta" onClick={() => setActive(PageSections.Skills)}>See my Skills</button>
           </div>
           <CompanySelector company={company} setCompany={setCompany} />
         </div>

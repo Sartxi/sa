@@ -1,13 +1,13 @@
 'use client'
 import styles from "./page.module.css";
-import { Landing, About, Skills, Work, Contact } from "./sections";
-import { Header, PageSections } from "./elements/header";
 import { useState } from "react";
+import { Header, PageSections } from "./elements/header";
 import { Roamer, Trail } from "./elements";
+import { Landing, About, Skills, Work, Contact } from "./sections";
 import { Theme } from "./elements/theme";
 import { useScrolling } from "./hooks/scrolling";
-import { Loading } from "./elements/loading";
 import { useTheme } from "./hooks/scheme";
+import { Loading } from "./elements/loading";
 
 export interface PageProps {
   active: PageSections;
@@ -15,27 +15,27 @@ export interface PageProps {
 }
 
 export default function Page() {
-  const [pageInit, setPageInit] = useState(false);
+  const [init, setInit] = useState(false);
   const [active, setActive] = useState(PageSections.Landing);
   const { refresh } = useScrolling(active, setActive);
-  const themeProps = useTheme();
-  const page: PageProps = { active, setActive };
+  const theme = useTheme();
+  const props: PageProps = { active, setActive };
 
   return (
-    <div className={`${styles.page} ${!pageInit ? 'is-loading' : ''}`}>
-      {!pageInit && (
+    <div className={`${styles.page} ${!init ? 'is-loading' : ''}`}>
+      {!init && (
         <Loading
-          {...themeProps}
-          complete={setPageInit}
+          {...theme}
+          complete={setInit}
           refresh={() => refresh(active)} />
       )}
+      <Theme {...theme} refresh={() => refresh(active)} />
       <Roamer />
-      <Theme {...themeProps} refresh={() => refresh(active)} />
-      <Trail {...page} />
-      <Header {...page} />
-      <Landing {...page} />
-      <About {...page} />
-      <Work {...page} />
+      <Trail {...props} />
+      <Header {...props} />
+      <Landing {...props} />
+      <About {...props} />
+      <Work {...props} />
       <Skills />
       <Contact />
     </div>

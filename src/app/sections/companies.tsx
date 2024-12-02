@@ -3,12 +3,12 @@ export function ThinkingBox() {
     <div className="company">
       <h2>Senior Software Engineer <a href="https://thinkingbox.com/" target="_blank">@ ThinkingBox</a></h2>
       <h4>Feb 2022 - Present</h4>
-      <p>I am currently consulting at Adobe, engineering the next generation web component library implementing the Consonant design system. For the last 3 years I have been embedded within multiple Adobe teams to deliver high-quality solutions utilizing modern technologies and AI tools.</p>
+      <p>Software Engineering consultant at Adobe, developing the next generation component library that implements the Consonant design system. For the last 3 years I have been embedded within multiple Adobe teams to deliver high-quality solutions utilizing modern technologies and AI tools.</p>
       <ul>
-        <li>Engineered localization <span>(40+ languages)</span> and bulk publishing software <span>(up to 12k pages per job process)</span> for managing content on adobe.com</li>
-        <li>Delivered a robust functional component library with dilligent unit testing and detailed documentation</li>
+        <li>Built UI for localization <span>(40+ languages)</span> and bulk publishing software <span>(up to 12k pages per job process)</span> for managing content on adobe.com</li>
+        <li>Delivered a functional component library for building pages on Adobe.com with dilligent unit testing and detailed documentation</li>
         <li>Collaborated with cross-functional teams to address individual product needs and provided ongoing support</li>
-        <li>Optimized consonant component library to meet performance standards resulting in a <span><strong>20%</strong></span> improvement in Lighthouse scores</li>
+        <li>Optimized consonant component library to meet performance standards that resulted in a <span><strong>20%</strong></span> improvement in Lighthouse scores</li>
       </ul>
     </div>
   )
@@ -19,12 +19,12 @@ export function JointSoftware() {
     <div className="company">
       <h2>Senior Software Architect <a href="https://www.jsoftllc.com/" target="_blank">@ Joint Software LLC</a></h2>
       <h4>Nov 2017 - Feb 2022</h4>
-      <p>Managed and executed design and development of multiple web and mobile applications. Collaborated with a team of engineers to enhance application performance and implement security measures. Saw <strong>10-20% growth</strong> year over year.</p>
+      <p>Managed and executed design and development of multiple web and mobile applications. Collaborating with a team of engineers to enhance application performance and implement security measures. Saw <strong>10-20% growth</strong> year over year.</p>
       <ul>
-        <li>Designed and developed multiple bespoke web and mobile applications using modern JavaScript frameworks</li>
-        <li>Engineered and managed databases, GraphQL and REST services, AWS queue, and completed UI integration</li>
-        <li>Provided ongoing support on core software suite and produced micro websites for marketing initiatives</li>
-        <li>Produced ongoing updates based on analytics and client feedback increasing customer retention by <span><strong>up to 65%</strong></span></li>
+        <li>Designed and developed multiple bespoke web and mobile applications using modern development techniques and JavaScript frameworks</li>
+        <li>Engineered and managed databases, GraphQL and REST services, AWS queue, and continuous UI integration</li>
+        <li>Provided ongoing support on core software suite and produced micro websites for smaller initiatives</li>
+        <li>Produced ongoing updates based on web analytics and client feedback, increasing customer retention by <span><strong>up to 65%</strong></span></li>
       </ul>
     </div>
   )

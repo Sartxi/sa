@@ -493,7 +493,7 @@ a {
 .examples {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  height: 257px;
 }
 
 .example-tiles.open {
@@ -509,13 +509,12 @@ a {
 }
 
 .project-details h2 {
-  margin: 0 0 8px;
   font-size: 19px;
 }
 
 .project-details p {
   line-height: 23px;
-  margin-bottom: 9px;
+  margin-bottom: 0;
   font-size: 14px;
   width: 100%;
 }
@@ -539,6 +538,10 @@ a {
   text-align: left;
   padding: 23px;
   margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .example-tiles {

@@ -13,7 +13,7 @@ enum Abouts {
 function Professional({ setActive }: PageProps) {
   return (
     <>
-      <p className="space">Hi, my name is <strong>Sean Archibeque</strong>. My tenure as a Software Engineer focuses on developing robust software solutions that enhance user experience, particularly through the lens of UI/UX design using advanced front-end technologies. My most recent efforts have been instrumental in fortifying Adobe online presence, where I play a pivotal role in deploying their design system, and amplifying their localization and publishing functionalities for adobe.com.</p>
+      <p className="space">My tenure as a Software Engineer focuses on developing robust software solutions that enhance user experience, particularly through the lens of UI/UX design using advanced front-end technologies. My most recent efforts have been instrumental in fortifying Adobe online presence, where I play a pivotal role in deploying their design system, and amplifying their localization and publishing functionalities for adobe.com.</p>
       <p>My professional journey spans <strong>17 years</strong>, during which I have specialized in creating digital experiences that resonate with users and elevate engagement. Collaborating closely with both teams and clients, we have successfully navigated complex project landscapes, achieving streamlined processes and bespoke solutions that align with the latest industry trends and client specifications.</p>
       <button className="cta" onClick={() => setActive(PageSections.Work)}>See my work!</button>
     </>
