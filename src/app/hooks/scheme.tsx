@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PageSections } from "../elements/header";
 
 export enum Themes {
   bear = 'bear',
@@ -46,4 +47,19 @@ export function useBlendScheme() {
   }, [blend]);
 
   return { blend, setBlend };
+}
+
+export function useSectionIcon(section: PageSections) {
+  switch (section) {
+    case PageSections.About:
+      return '/about.svg';
+    case PageSections.Work:
+      return '/work.svg';
+    case PageSections.Skills:
+      return '/skills.svg';
+    case PageSections.Contact:
+      return '/contact.svg';
+    default:
+      return '/element.svg';
+  }
 }

@@ -279,6 +279,11 @@ a.inline:hover {
   font-size: clamp(40px, 8vw, 80px);
 }
 
+html[data-theme="bear"] .intro h2,
+html[data-theme="timp"] .intro h2 {
+  font-size: clamp(40px, 8vw, 70px);
+}
+
 .intro h2 {
   color: var(--light-text);
   padding-right: 10px;
@@ -984,11 +989,12 @@ a {
 
 #SkillsAccent {
   position: absolute;
-  right: 75px;
-  width: 236px;
-  transform: rotate(90deg);
+  height: 40vh;
+  width: 200px;
   padding: 15px 20px;
   text-align: center;
+  left: 95vw;
+  top: 155px;
 }
 
 #Roamer {

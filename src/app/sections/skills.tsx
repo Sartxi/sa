@@ -55,16 +55,14 @@ export function Skills() {
   return (
     <div id={PageSections.Skills} className="section rows">
       <div className="skills-wrapper">
-        <Title text="My Skills" />
+        <Title section={PageSections.Skills} text="My Skills" />
         <div className="skills">
           <div id="skillCards" className="skill-cards">
             {Object.keys(skills).map((skill: string) => {
               return <Card key={skill} skill={skill} />
             })}
           </div>
-          <div id="SkillsAccent">
-            <h4>Skills Map</h4>
-          </div>
+          <div id="SkillsAccent" />
         </div>
       </div>
     </div>

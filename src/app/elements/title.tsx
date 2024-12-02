@@ -1,7 +1,10 @@
 import Image from "next/image";
+import { useSectionIcon } from "../hooks/scheme";
+import { PageSections } from "./header";
 
 interface SectionTitle {
   id?: string;
+  section: PageSections;
   text: string;
   activeSelect?: any;
   selects?: any;
@@ -29,6 +32,7 @@ function getSelects(props: SectionTitle) {
 }
 
 export function Title(props: SectionTitle) {
+  const icon = useSectionIcon(props.section);
   return (
     <div className="title-wrapper">
       {getSelects(props)}
@@ -36,8 +40,8 @@ export function Title(props: SectionTitle) {
         {!props.hideIcon && (
           <span className="icon">
             <Image
-              src="/element.svg"
-              alt="icon"
+              src={icon}
+              alt={`${props.section} icon`}
               width={45}
               height={45}
               priority

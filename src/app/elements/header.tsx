@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { PageProps } from "../page";
+import { useSectionIcon } from "../hooks/scheme";
 
 export enum PageSections {
   Landing = 'Landing',
@@ -10,6 +11,23 @@ export enum PageSections {
 };
 
 const sections: string[] = Object.keys(PageSections).filter((key) => key !== PageSections.Landing);
+
+function NavItem({ section }: { section: string }) {
+  const icon = useSectionIcon(PageSections[section as keyof typeof PageSections]);
+  return (
+    <>
+      <span>
+        <Image
+          src={icon}
+          alt={section}
+          width={15}
+          height={15}
+          priority
+        />
+      </span> {section}
+    </>
+  )
+}
 
 export function Header({ active, setActive }: PageProps) {
   return (
@@ -33,15 +51,7 @@ export function Header({ active, setActive }: PageProps) {
                 key={section}
                 className={section === active ? 'active' : ''}
                 onClick={() => setActive(section)}>
-                <span>
-                  <Image
-                    src="/element.svg"
-                    alt="icon"
-                    width={15}
-                    height={15}
-                    priority
-                  />
-                </span> {key}
+                <NavItem section={key} />
               </li>
             )
           })}

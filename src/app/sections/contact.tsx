@@ -34,7 +34,7 @@ export function Contact() {
   const greeting = useGreeting();
   return (
     <div id={PageSections.Contact} className="section">
-      <Title id="ContactTitle" text={greeting} hideIcon={true} />
+      <Title section={PageSections.Contact} id="ContactTitle" text={greeting} hideIcon={true} />
       <div id="Socials" className="socials">
         {socials.map(({ icon, link }: SocialIcons) => (
           <a key={icon} href={link} target="_blank">

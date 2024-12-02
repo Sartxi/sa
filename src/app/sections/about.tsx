@@ -50,7 +50,7 @@ export function About(props: PageProps) {
   return (
     <div id={PageSections.About} className="section rows">
       <div className="about">
-        <Title text="About Me" activeSelect={about} selects={Abouts} setSelect={setAbout} />
+        <Title text="About Me" section={PageSections.About} activeSelect={about} selects={Abouts} setSelect={setAbout} />
         {getAbout(about, props)}
       </div>
       {!mobile && (

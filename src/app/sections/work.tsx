@@ -128,8 +128,7 @@ function Projects({ projects }: { projects: Project[] }) {
 function WorkType({ work, company }: WorkTypeProps) {
   switch (work) {
     case Works.Projects:
-      const examples: Project[] = projects.filter((p: Project) => (p.company === company));
-      return <Projects projects={examples} />
+      return <Projects projects={projects.filter((p: Project) => (p.company === company))} />
     default:
       return <Experience company={company} />
   }
@@ -174,7 +173,7 @@ export function Work() {
   return (
     <div id={PageSections.Work} className="section">
       <div className="work">
-        <Title id="WorkBlock" text="My Work" activeSelect={work} selects={Works} setSelect={setWork} />
+        <Title id="WorkBlock" section={PageSections.Work} text="My Work" activeSelect={work} selects={Works} setSelect={setWork} />
         <div className="content rows work-examples">
           <div className="company">
             <WorkType work={work} company={company} />
