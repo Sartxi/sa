@@ -19,6 +19,7 @@
   --background: #ededed;
   --detail-background: #999;
   --transparent: rgba(0, 0, 0, 0.1);
+  --text-shadow: rgba(240, 242, 245, 0.2);
   --body-color: #000;
   --light-text: #555;
   --header-background: white;
@@ -48,6 +49,7 @@
     --detail-background: #333;
     --foreground: #ededed;
     --transparent: rgba(240, 242, 245, 0.2);
+    --text-shadow: rgba(0, 0, 0, 0.82);
     --light-text: #999;
     --body-color: #fff;
     --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -76,6 +78,7 @@ html[data-scheme="dark"] {
   --foreground: #ededed;
   --background: #0a0a0a;
   --transparent: rgba(240, 242, 245, 0.2);
+  --text-shadow: rgba(0, 0, 0, 0.82);
   --light-text: #999;
   --body-color: #fff;
   --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
@@ -102,7 +105,8 @@ html[data-scheme="light"] {
   --logo-filter: none;
   --foreground: #0a0a0a;
   --background: #ededed;
-  --transparent: rgba(0, 0, 0, 0.1);
+  --transparent: rgba(0, 0, 0, 0.2);
+  --text-shadow: rgba(240, 242, 245, 0.2);
   --light-text: #555;
   --body-color: #000;
   --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
@@ -111,27 +115,27 @@ html[data-scheme="light"] {
   --icon-fill: var(--bear-theme-fill);
 }
 
-html[data-theme="Northface"] {
+html[data-theme="northface"] {
   --accent: var(--northface-theme);
   --icon-fill: var(--northface-theme-fill);
 }
 
-html[data-theme="Grand"] {
+html[data-theme="grand"] {
   --accent: var(--grand-theme);
   --icon-fill: var(--grand-theme-fill);
 }
 
-html[data-theme="Zion"] {
+html[data-theme="zion"] {
   --accent: var(--zion-theme);
   --icon-fill: var(--zion-theme-fill);
 }
 
-html[data-theme="Millcreek"] {
+html[data-theme="millcreek"] {
   --accent: var(--millcreek-theme);
   --icon-fill: var(--millcreek-theme-fill);
 }
 
-html[data-theme="Timp"] {
+html[data-theme="timp"] {
   --accent: var(--timp-theme);
   --icon-fill: var(--timp-theme-fill);
 }

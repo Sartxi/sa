@@ -7,27 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html[data-theme="Bear"] body {
+html[data-theme="bear"] body {
   font-family: var(--font-geist-mono);
 }
 
-html[data-theme="Northface"] body {
+html[data-theme="northface"] body {
   font-family: var(--font-geist-sans);
 }
 
-html[data-theme="Grand"] body {
+html[data-theme="grand"] body {
   font-family: var(--font-poppins);
 }
 
-html[data-theme="Zion"] body {
+html[data-theme="zion"] body {
   font-family: var(--font-roboto);
 }
 
-html[data-theme="Millcreek"] body {
+html[data-theme="millcreek"] body {
   font-family: var(--font-inter);
 }
 
-html[data-theme="Timp"] body {
+html[data-theme="timp"] body {
   font-family: var(--font-roboto-mono);
 }
 
@@ -92,9 +92,9 @@ a.inline:hover {
   width: 60px;
 }
 
-/* .is-loading {
-  position: fixed !important;
-} */
+.is-loading {
+  overflow: hidden;
+}
 
 .loading-screen {
   position: fixed;
@@ -133,6 +133,68 @@ a.inline:hover {
   align-items: center;
   justify-content: center;
   justify-items: center;
+}
+
+#Modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--transparent);
+  z-index: 9;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+#Modal.show {
+  display: flex;
+}
+
+#Modal .title {
+  display: block;
+  height: 50px;
+  padding: 10px;
+  border-bottom: 2px solid var(--accent);
+  background-color: var(--transparent);
+  display: flex;
+  align-items: center;
+}
+
+#Modal .content {
+  max-width: 74vw;
+  max-height: 95vh;
+  background-color: var(--background);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.63);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.63);
+  transition: all 1.5s;
+}
+
+#Modal .close {
+  position: absolute;
+  right: 13px;
+  top: 14px;
+  cursor: pointer;
+  background-color: var(--transparent);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 75%;
+  width: 20px;
+  height: 20px;
+  line-height: 9px;
+  padding-top: 4.5px;
+}
+
+#Modal .close:hover {
+  color: var(--accent);
 }
 
 .header {
@@ -352,12 +414,13 @@ button.cta {
   border-radius: var(--border-radius);
   padding: 1.25rem 1.75rem;
   font-size: 1em;
+  font-weight: bold;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: var(--transition);
   margin-top: 50px;
   margin-right: 10px;
+  text-shadow: 0px 1px 2px var(--text-shadow);
 }
 
 button.cta.small {
@@ -515,7 +578,7 @@ a {
 .project-details p {
   line-height: 23px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 13px;
   width: 100%;
 }
 
@@ -945,7 +1008,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 20px;
 }
 
 #ThemeSelector,
@@ -959,34 +1022,40 @@ a {
   gap: 5px;
 }
 
-.themes {
+.theme-selector {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 5px;
   transition: all 1.5s;
+  color: var(--foreground);
 }
 
-#ThemeSelector span.label,
-#BlendSelector span.label {
+.theme-selector.theme {
+  color: var(--background);
+}
+
+#ThemeSelector .label,
+#BlendSelector .label {
   transform: rotate(90deg);
   transition: all .5s;
   cursor: pointer;
   width: 60px;
+  white-space: nowrap;
 }
 
-#ThemeSelector span.label:hover,
-#BlendSelector span.label:hover,
-#ThemeSelector span.label.open,
-#BlendSelector span.label.open {
+#ThemeSelector .label:hover,
+#BlendSelector .label:hover,
+#ThemeSelector .label.open,
+#BlendSelector .label.open {
   color: var(--accent);
 }
 
-#ThemeSelector span.label.open,
-#BlendSelector span.label.open {
+#ThemeSelector .label.open,
+#BlendSelector .label.open {
   transform: rotate(0deg);
   transition: all .5s;
-  width: 92px;
+  width: 100px;
 }
 
 .theme-item {
@@ -994,24 +1063,47 @@ a {
   height: 30px;
   border-radius: 50%;
   background-color: var(--background);
-  color: var(--foreground);
   position: relative;
   border: 2px solid var(--foreground);
   cursor: pointer;
 }
 
-.theme-item .check {
-  position: absolute;
-  text-align: center;
-  width: 26px;
-  height: 22px;
+.theme-item .indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  position: absolute;
+  width: 100%;
+  font-size: 3em;
+  line-height: 23px;
+  visibility: hidden;
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.68);
 }
 
-.theme-select {
+.theme-item.selected .indicator {
+  visibility: visible;
+}
+
+html[data-theme="zion"] .theme-item .indicator {
+  line-height: 29px;
+}
+
+html[data-theme="millcreek"] .theme-item .indicator {
+  line-height: 22px;
+  font-size: 2.1em;
+}
+
+html[data-theme="grand"] .theme-item .indicator {
+  line-height: 26px;
+  font-size: 2.7em;
+}
+
+html[data-theme="timp"] .theme-item .indicator {
+  line-height: 25px;
+  font-size: 2.8em;
+}
+
+.theme-item .color {
   display: inline-block;
   width: 26px;
   height: 26px;
@@ -1021,53 +1113,53 @@ a {
   transition: all 1.5s;
 }
 
-.theme-Bear {
+.theme-item .theme-bear {
   background-color: var(--bear-theme);
 }
 
-.theme-Northface {
+.theme-item .theme-northface {
   background-color: var(--northface-theme);
 }
 
-.theme-Grand {
+.theme-item .theme-grand {
   background-color: var(--grand-theme);
 }
 
-.theme-Zion {
+.theme-item .theme-zion {
   background-color: var(--zion-theme);
 }
 
-.theme-Millcreek {
+.theme-item .theme-millcreek {
   background-color: var(--millcreek-theme);
 }
 
-.theme-Timp {
+.theme-item .theme-timp {
   background-color: var(--timp-theme);
 }
 
-.blend-difference {
+.theme-item .blend-difference {
   background-color: var(--accent);
   mix-blend-mode: difference;
 }
 
-.blend-color {
+.theme-item .blend-color {
   background-color: var(--accent);
   mix-blend-mode: color;
 }
 
-.blend-dodge {
+.theme-item .blend-dodge {
   mix-blend-mode: color-dodge;
 }
 
-.blend-soft {
+.theme-item .blend-soft {
   mix-blend-mode: soft-light;
 }
 
-.blend-hard {
+.theme-item .blend-hard {
   mix-blend-mode: hard-light;
 }
 
-.blend-multiply {
+.theme-item .blend-multiply {
   mix-blend-mode: multiply;
 }
 

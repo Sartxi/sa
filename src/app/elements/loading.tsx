@@ -21,7 +21,7 @@ function useRandomTheme(setTheme: any) {
 export function Loading({ complete, refresh, setTheme }: { complete: any; refresh: any, setTheme: any }) {
   const [phases] = useState([
     { loader: 'contents', progress: 'content', text: 'Loading Content' },
-    { loader: 'layers', progress: 'theme', text: 'Setting Theme' },
+    { loader: 'layers', progress: 'theme', text: 'Randomizing Theme' },
   ]);
   const [active, setActive] = useState('content');
   const setRandomTheme = useRandomTheme(setTheme);

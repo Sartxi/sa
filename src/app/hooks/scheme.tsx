@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 export enum Themes {
-  Bear = 'Bear',
-  Northface = 'Northface',
-  Grand = 'Grand',
-  Zion = 'Zion',
-  Millcreek = 'Millcreek',
-  Timp = 'Timp'
+  bear = 'bear',
+  northface = 'northface',
+  grand = 'grand',
+  zion = 'zion',
+  millcreek = 'millcreek',
+  timp = 'timp'
 }
 
 export enum Blends {
@@ -29,7 +29,7 @@ export function useColorScheme() {
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Themes>(Themes.Bear);
+  const [theme, setTheme] = useState<Themes>(Themes.bear);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

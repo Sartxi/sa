@@ -21,14 +21,14 @@ const skills: SkillsMap = {
 };
 
 const descriptions: { [x: string]: string } = {
-  Development: 'Development is a dynamic and creative field that blends art and science, requiring strong problem-solving skills to build functional and visually appealing websites, I am constantly adapting to new technologies and trends to stay relevant.',
+  Development: 'Development is a dynamic and creative field that blends art and science, requiring strong problem-solving skills to build functional and visually appealing websites.',
   Frontend: 'I think front-end development is a crucial aspect of web development, focused on creating the user-facing elements of a website or application, making it highly important for user experience and visual appeal. When picking technology for front end applications it is important to consider the goals of the product you are working to produce. Conversion and retention are on the line so I work hard to make it pixel perfect.',
-  Backend: 'Work behind the scenes can actualize dreams. Without a solid backend any app can fall flat on its face. Optimizing performance and picking the right stack is a skill I have worked hard to master.',
-  Frameworks: 'Knowing the ins and outs of frameworks can make your development time a snap. Utilizing tools in these toolboxes have saved me a lot of time and pushed my projects to production.',
-  DevOps: 'Learning about command line tools, task runners, code execution, containerization, and integration has maximized my productivity over the years. I am excited to learn more!',
-  Testing: 'Testing is crucial because it helps identify and fix potential issues early in the development process, ensuring software functions properly, security checks are completed, and can lead to more reliablility when done properly.',
-  Business: 'Working with business professionals over the years has taught me that communication is the biggest challenge to shipping a quality product. So I have worked hard to sharpen my communication skills and bring them to the team.',
-  Industries: 'I have worked in several industries over my career and navigated the nuances of each. Understanding the product and the customer is important to providing quality solutions.',
+  Backend: 'Work behind the scenes can actualize dreams. Without a solid backend any app can fall flat on its face.',
+  Frameworks: 'Knowing the ins and outs of frameworks can make your development time a snap. Its important to learn to traverse documentation effectively.',
+  DevOps: 'Learning about command line tools, task runners, code execution, containerization, and integration has maximized productivity over the years. I am excited to learn more!',
+  Testing: 'Good testing is crucial in identifying potential issues early in the development process, ensuring software functions properly, and security checks are completed.',
+  Business: 'Working with business professionals over the years has taught me that communication is the biggest challenge to shipping a quality product.',
+  Industries: 'I have worked in several different industries over my career. Understanding the product and the customer to provide quality solutions.',
 };
 
 function Card({ skill }: CardProps) {

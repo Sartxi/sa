@@ -39,7 +39,7 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SA Consulting",
+  title: "Sean Archibeque Resume",
   description: "Sean Archibeque's Digital Resume & Portfolio",
 };
 

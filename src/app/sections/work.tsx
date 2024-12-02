@@ -5,7 +5,7 @@ import { PageSections } from "../elements/header";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
 import { useMedia } from "../hooks/viewport";
 import { Companies, Project, projects } from "./projects";
-import { PageProps } from "../page";
+import { useModal } from "../elements/modal";
 
 enum Works {
   Experience = 'Experience',
@@ -42,13 +42,16 @@ function Experience(props: WorkProps) {
   }
 }
 
-function TileCTA(props: ProjectProps) {
-  const { link, link2 } = props.project;
+function Buttons(props: ProjectProps) {
+  const { setModal } = useModal();
+  const { link, link2, image, title } = props.project;
   const [href, text] = link?.split('#') || [];
   const [href2, text2] = link2?.split('#') || [];
   const style = 'cta inverse small';
   if (!link) return (
-    <button className={style}>Take a look</button>
+    <button className={style} onClick={() => setModal({ image, title })}>
+      Closer look
+    </button>
   );
   return (
     <div className="project-buttons">
@@ -87,7 +90,7 @@ function Tile(props: ProjectProps) {
         <div className="project-details">
           <h2>{title}</h2>
           <p>{description}</p>
-          <TileCTA project={project} />
+          <Buttons project={project} />
         </div>
       )}
       {!open && title}
@@ -160,7 +163,7 @@ function CompanySelector({ company, setCompany }: CompanySelector) {
   )
 }
 
-export function Work({ setActive }: PageProps) {
+export function Work() {
   const [company, setCompany] = useState(Companies.ThinkingBox);
   const [work, setWork] = useState(Works.Experience);
   return (
@@ -170,7 +173,6 @@ export function Work({ setActive }: PageProps) {
         <div className="content rows work-examples">
           <div className="company">
             {getWork(work, company)}
-            <button className="cta" onClick={() => setActive(PageSections.Skills)}>See my Skills</button>
           </div>
           <CompanySelector company={company} setCompany={setCompany} />
         </div>

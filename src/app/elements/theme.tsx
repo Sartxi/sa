@@ -46,15 +46,16 @@ function SchemesTool() {
 
 function ThemeSelector({ type, open, theme, setTheme, items }: ThemeSelectorProps) {
   return (
-    <div className="themes">
+    <div className={`theme-selector ${type}`}>
       {open && items.map(({ key, item }: Selections) => {
+        const selected = key === theme;
         return (
           <span
             key={key}
-            className='theme-item'
+            className={`theme-item ${selected ? 'selected' : ''}`}
             onClick={() => setTheme(key)}>
-            <span className="check">{key === theme ? '•' : ''}</span>
-            <span className={`theme-select ${type}-${item}`} />
+            <span className="indicator">•</span>
+            <span className={`color ${type}-${item}`} />
           </span>
         )
       })}
@@ -84,7 +85,7 @@ function ThemesTool({ open, setOpen, refresh, theme, setTheme }: ThemeMenuProps)
       <span
         onClick={() => setOpen()}
         className={`label ${open ? 'open' : ''}`}>
-        {'<Themes/>'}
+        {'<Themes />'}
       </span>
     </span>
   )
@@ -109,7 +110,7 @@ function BlendsTool({ open, setOpen }: ThemeMenuProps) {
       <span
         onClick={() => setOpen()}
         className={`label ${open ? 'open' : ''}`}>
-        {'<Blends/>'}
+        {'<Blends />'}
       </span>
     </span>
   );

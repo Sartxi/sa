@@ -8,6 +8,7 @@ import { Theme } from "./elements/theme";
 import { useScrolling } from "./hooks/scrolling";
 import { useTheme } from "./hooks/scheme";
 import { Loading } from "./elements/loading";
+import { Modal } from "./elements/modal";
 
 export interface PageProps {
   active: PageSections;
@@ -35,9 +36,10 @@ export default function Page() {
       <Header {...props} />
       <Landing {...props} />
       <About {...props} />
-      <Work {...props} />
+      <Work />
       <Skills />
       <Contact />
+      <Modal />
     </div>
   );
 }

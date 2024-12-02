@@ -3,12 +3,12 @@ export function ThinkingBox() {
     <div className="company">
       <h2>Senior Software Engineer <a href="https://thinkingbox.com/" target="_blank">@ ThinkingBox</a></h2>
       <h4>Feb 2022 - Present</h4>
-      <p>Software Engineering consultant at Adobe, developing the next generation component library that implements the Consonant design system. For the last 3 years I have been embedded within multiple Adobe teams to deliver high-quality solutions utilizing modern technologies and AI tools.</p>
+      <p>Software Engineering consultant. For the last 3 years I have been embedded within multiple Adobe teams to deliver high-quality solutions utilizing modern technologies and AI tools.</p>
       <ul>
         <li>Built UI for localization <span>(40+ languages)</span> and bulk publishing software <span>(up to 12k pages per job process)</span> for managing content on adobe.com</li>
         <li>Delivered a functional component library for building pages on Adobe.com with dilligent unit testing and detailed documentation</li>
-        <li>Collaborated with cross-functional teams to address individual product needs and provided ongoing support</li>
         <li>Optimized consonant component library to meet performance standards that resulted in a <span><strong>20%</strong></span> improvement in Lighthouse scores</li>
+        <li>Collaborated with cross-functional teams across ThinkingBox clients to address individual product needs and provided ongoing support</li>
       </ul>
     </div>
   )
@@ -51,7 +51,7 @@ export function SimpleTire() {
     <div className="company">
       <h2>Senior Web Developer <a href="https://simpletire.com/" target="_blank">@ SimpleTire</a></h2>
       <h4>Jan 2014 - Feb 2015</h4>
-      <p>Led website design and frontend development of the e-commerce website and provided ongoing updates to optimize user experience. Coordinating with SEO and back-end engineers to optimize search rankings and drive performance. Consistently saw growth month over month.</p>
+      <p>Led website design and frontend development of the e-commerce website and provided ongoing optimizations. Coordinating with SEO and developers to boost search rankings and drive performance. Consistently saw growth month over month.</p>
       <ul>
         <li>Responsible for initial design and development of website and design of promotional materials</li>
         <li>Collaborated with eCommerce and digital marketing managers to optimize user interface and user experience</li>
