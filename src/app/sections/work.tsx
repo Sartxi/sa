@@ -21,6 +21,11 @@ interface WorkProps {
   company: Companies;
 }
 
+interface WorkTypeProps {
+  work: Works;
+  company: Companies;
+}
+
 interface ProjectProps {
   project: Project;
   open?: Project | undefined;
@@ -120,7 +125,7 @@ function Projects({ projects }: { projects: Project[] }) {
   )
 }
 
-function getWork(work: Works, company: Companies) {
+function WorkType({ work, company }: WorkTypeProps) {
   switch (work) {
     case Works.Projects:
       const examples: Project[] = projects.filter((p: Project) => (p.company === company));
@@ -172,7 +177,7 @@ export function Work() {
         <Title id="WorkBlock" text="My Work" activeSelect={work} selects={Works} setSelect={setWork} />
         <div className="content rows work-examples">
           <div className="company">
-            {getWork(work, company)}
+            <WorkType work={work} company={company} />
           </div>
           <CompanySelector company={company} setCompany={setCompany} />
         </div>
