@@ -3,8 +3,14 @@
   --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
   --northface-theme: #7cca7c;
   --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
-  --grand-theme: #7cca7c;
-  --grand-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --grand-theme: #902923;
+  --grand-theme-fill: invert(13%) sepia(63%) saturate(3355%) hue-rotate(350deg) brightness(106%) contrast(83%);
+  --zion-theme: #40476D;
+  --zion-theme-fill: invert(25%) sepia(40%) saturate(568%) hue-rotate(192deg) brightness(95%) contrast(87%);
+  --millcreek-theme: #750D37;
+  --millcreek-theme-fill: invert(7%) sepia(82%) saturate(4382%) hue-rotate(325deg) brightness(97%) contrast(95%);
+  --timp-theme: #2C4251;
+  --timp-theme-fill: invert(20%) sepia(31%) saturate(718%) hue-rotate(161deg) brightness(91%) contrast(83%);
 
   --color-scheme: light;
   --logo-filter: none;
@@ -27,8 +33,14 @@
     --bear-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
     --northface-theme: #c53d2b;
     --northface-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
-    --grand-theme: #c53d2b;
-    --grand-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+    --grand-theme: #B8D5B8;
+    --grand-theme-fill: invert(97%) sepia(5%) saturate(1354%) hue-rotate(56deg) brightness(88%) contrast(89%);
+    --zion-theme: #8EDCE6;
+    --zion-theme-fill: invert(82%) sepia(8%) saturate(2128%) hue-rotate(159deg) brightness(107%) contrast(80%);
+    --millcreek-theme: #DCEDB9;
+    --millcreek-theme-fill: invert(96%) sepia(74%) saturate(313%) hue-rotate(21deg) brightness(101%) contrast(86%);
+    --timp-theme: #A29F15;
+    --timp-theme-fill: invert(62%) sepia(57%) saturate(3396%) hue-rotate(28deg) brightness(99%) contrast(83%);
 
     --color-scheme: dark;
     --logo-filter: invert();
@@ -50,8 +62,14 @@ html[data-scheme="dark"] {
   --bear-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
   --northface-theme: #c53d2b;
   --northface-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
-  --grand-theme: #c53d2b;
-  --grand-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+  --grand-theme: #B8D5B8;
+  --grand-theme-fill: invert(97%) sepia(5%) saturate(1354%) hue-rotate(56deg) brightness(88%) contrast(89%);
+  --zion-theme: #8EDCE6;
+  --zion-theme-fill: invert(82%) sepia(8%) saturate(2128%) hue-rotate(159deg) brightness(107%) contrast(80%);
+  --millcreek-theme: #DCEDB9;
+  --millcreek-theme-fill: invert(96%) sepia(74%) saturate(313%) hue-rotate(21deg) brightness(101%) contrast(86%);
+  --timp-theme: #A29F15;
+  --timp-theme-fill: invert(62%) sepia(57%) saturate(3396%) hue-rotate(28deg) brightness(99%) contrast(83%);
 
   --color-scheme: dark;
   --logo-filter: invert();
@@ -71,8 +89,14 @@ html[data-scheme="light"] {
   --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
   --northface-theme: #7cca7c;
   --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
-  --grand-theme: #7cca7c;
-  --grand-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --grand-theme: #902923;
+  --grand-theme-fill: invert(13%) sepia(63%) saturate(3355%) hue-rotate(350deg) brightness(106%) contrast(83%);
+  --zion-theme: #40476D;
+  --zion-theme-fill: invert(25%) sepia(40%) saturate(568%) hue-rotate(192deg) brightness(95%) contrast(87%);
+  --millcreek-theme: #750D37;
+  --millcreek-theme-fill: invert(7%) sepia(82%) saturate(4382%) hue-rotate(325deg) brightness(97%) contrast(95%);
+  --timp-theme: #2C4251;
+  --timp-theme-fill: invert(20%) sepia(31%) saturate(718%) hue-rotate(161deg) brightness(91%) contrast(83%);
 
   --color-scheme: light;
   --logo-filter: none;
@@ -95,6 +119,21 @@ html[data-theme="Northface"] {
 html[data-theme="Grand"] {
   --accent: var(--grand-theme);
   --icon-fill: var(--grand-theme-fill);
+}
+
+html[data-theme="Zion"] {
+  --accent: var(--zion-theme);
+  --icon-fill: var(--zion-theme-fill);
+}
+
+html[data-theme="Millcreek"] {
+  --accent: var(--millcreek-theme);
+  --icon-fill: var(--millcreek-theme-fill);
+}
+
+html[data-theme="Timp"] {
+  --accent: var(--timp-theme);
+  --icon-fill: var(--timp-theme-fill);
 }
 
 html[data-blend="diff"] {

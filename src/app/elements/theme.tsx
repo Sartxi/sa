@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Blends, Themes, useBlendScheme, useColorScheme, useTheme } from "../hooks/scheme";
+import { Blends, Themes, useBlendScheme, useColorScheme } from "../hooks/scheme";
 import { useMedia } from "../hooks/viewport";
 import Image from "next/image";
 

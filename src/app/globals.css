@@ -1030,6 +1030,18 @@ a {
   background-color: var(--grand-theme);
 }
 
+.theme-Zion {
+  background-color: var(--zion-theme);
+}
+
+.theme-Millcreek {
+  background-color: var(--millcreek-theme);
+}
+
+.theme-Timp {
+  background-color: var(--timp-theme);
+}
+
 .blend-difference {
   background-color: var(--accent);
   mix-blend-mode: difference;

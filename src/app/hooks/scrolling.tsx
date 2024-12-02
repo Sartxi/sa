@@ -78,7 +78,7 @@ function shouldScroll(active: PageSections) {
   const scrollPrev = inScreen(prevSection) ?? 0;
   const scrollNext = inScreen(nextSection) ?? 0;
   const [ajacent, section] = scrollPrev === 0 ? [scrollNext, next] : [scrollPrev, prev];
-  if (ajacent >= 30) return section;
+  if (ajacent >= 35) return section;
   return null;
 }
 
@@ -106,11 +106,11 @@ function setAxis(styles: any | null, roamer: HTMLElement | null) {
 
 function getInitSection() {
   const checks: { visible: number[], sections: PageSections[] } = { visible: [], sections: [] };
-  const { visible, sections } = Object.keys(PageSections).reduce((result, section) => {
-    const key = PageSections[section as keyof typeof PageSections];
-    result['visible'].push(inScreen(document.getElementById(key)) ?? 0);
-    result['sections'].push(key);
-    return result;
+  const { visible, sections } = Object.keys(PageSections).reduce((r, s) => {
+    const el = PageSections[s as keyof typeof PageSections];
+    r['visible'].push(inScreen(document.getElementById(el)) ?? 0);
+    r['sections'].push(el);
+    return r;
   }, checks);
   const isVisible = visible.indexOf(Math.max(...visible));
   return sections[isVisible] ?? PageSections.Landing;
@@ -164,7 +164,7 @@ export function useScrolling(active: PageSections, setActive: any) {
       window.removeEventListener('scroll', scrollEvent);
       window.removeEventListener('resize', () => refresh(active));
     }
-  }, [active, isScrolling]);
+  }, [isScrolling]);
 
   useEffect(() => {
     setIsScrolling(true);
