@@ -204,7 +204,7 @@ a.inline:hover {
   position: fixed;
   top: 0;
   background-color: var(--header-background);
-  padding: 10px 10px 10px 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -226,13 +226,17 @@ a.inline:hover {
   margin-right: 21px;
   display: flex;
   align-items: center;
-  gap: 45px;
 }
 
 .header ul li {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   cursor: pointer;
   font-weight: bold;
+  height: 40px;
+  width: 115px;
 }
 
 .header ul li img {
@@ -244,8 +248,17 @@ a.inline:hover {
   top: 3px;
 }
 
-.header ul li:hover,
-.header ul li.active,
+.header ul li.active {
+  color: var(--accent);
+  border-radius: 5px;
+  background-color: var(--transparent);
+  transition: all 1.5s;
+}
+
+.header ul li:hover {
+  color: var(--accent);
+}
+
 .header ul li span {
   color: var(--accent);
 }

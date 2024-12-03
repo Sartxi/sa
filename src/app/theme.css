@@ -105,7 +105,7 @@ html[data-scheme="light"] {
   --logo-filter: none;
   --foreground: #0a0a0a;
   --background: #ededed;
-  --transparent: rgba(0, 0, 0, 0.2);
+  --transparent: rgba(0, 0, 0, 0.1);
   --text-shadow: rgba(240, 242, 245, 0.2);
   --light-text: #555;
   --body-color: #000;
