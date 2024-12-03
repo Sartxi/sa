@@ -39,8 +39,8 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sean Archibeque Resume",
-  description: "Sean Archibeque's Digital Resume & Portfolio",
+  title: "Sean Archibeque 🤙🏼",
+  description: "Software, website, UI/UX, mobile developer based in Salt Lake City, Utah.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
