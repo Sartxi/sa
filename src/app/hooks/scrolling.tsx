@@ -134,13 +134,11 @@ function useRoam(mobile: boolean) {
   };
 
   const scroll = (active: PageSections) => {
-    if (roam) {
-      const section: HTMLElement | null = document.getElementById(active);
-      section?.scrollIntoView({ behavior: 'smooth' });
-      if (!mobile) {
-        const nextFrame = roam.frames.find((frame: any) => frame.section === active);
-        setAxis(nextFrame, document.getElementById(roam.element));
-      }
+    const section: HTMLElement | null = document.getElementById(active);
+    section?.scrollIntoView({ behavior: 'smooth' });
+    if (roam && !mobile) {
+      const nextFrame = roam.frames.find((frame: any) => frame.section === active);
+      setAxis(nextFrame, document.getElementById(roam.element));
     }
   };
 

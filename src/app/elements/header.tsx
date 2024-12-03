@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { PageProps } from "../page";
 import { useSectionIcon } from "../hooks/scheme";
+import { useMedia } from "../hooks/viewport";
 
 export enum PageSections {
   Landing = 'Landing',
@@ -29,7 +30,23 @@ function NavItem({ section }: { section: string }) {
   )
 }
 
+function MobileNavItem({ section }: { section: string }) {
+  const icon = useSectionIcon(PageSections[section as keyof typeof PageSections]);
+  return (
+    <span className="mobile-nav-item">
+      <Image
+        src={icon}
+        alt={section}
+        width={25}
+        height={25}
+        priority
+      />
+    </span>
+  )
+}
+
 export function Header({ active, setActive }: PageProps) {
+  const { mobile } = useMedia();
   return (
     <div className="header">
       <div className="content">
@@ -51,7 +68,7 @@ export function Header({ active, setActive }: PageProps) {
                 key={section}
                 className={section === active ? 'active' : ''}
                 onClick={() => setActive(section)}>
-                <NavItem section={key} />
+                {!mobile ? <NavItem section={key} /> : <MobileNavItem section={key} />}
               </li>
             )
           })}
