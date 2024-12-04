@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Title } from "../elements";
 import { PageSections } from "../elements/header";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
-import { useMedia } from "../hooks/viewport";
+import { useClickOutside, useMedia } from "../hooks/viewport";
 import { Companies, Project, projects } from "./projects";
 import { useModal } from "../elements/modal";
 
@@ -69,12 +69,13 @@ function Buttons(props: ProjectProps) {
 function Tile(props: ProjectProps) {
   const { project, open, setOpen } = props;
   const { mobile, tablet } = useMedia();
+
   const { image, title, description } = project;
   const isOpen = open === project;
 
   let size = 200;
   if (tablet) size = 100;
-  else if (mobile) size = 130;
+  else if (mobile) size = isOpen ? 50 : 130;
   else if (open !== undefined && !isOpen) size = 50;
 
   return (
@@ -136,7 +137,9 @@ function WorkType({ work, company }: WorkTypeProps) {
 
 function CompanySelector({ company, setCompany }: CompanySelector) {
   const { mobile } = useMedia();
-  const [open, setOpen] = useState<boolean | undefined>(undefined);
+  const [open, setOpen] = useState<boolean | undefined>(true);
+  
+  useClickOutside('CompanyList', mobile, () => setOpen(false));
 
   useEffect(() => {
     if (!mobile && open === undefined) setOpen(true);

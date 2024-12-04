@@ -128,7 +128,7 @@ function useRoam(mobile: boolean) {
     };
     if (start.frames.some((frame) => (frame?.top)) && !mobile) {
       setRoam(start);
-      const frame = start.frames.find((frame: any) => frame.section === active);
+      const frame = start.frames.find((frame: any) => frame?.section === active);
       setAxis(frame, document.getElementById(start.element));
     } else setRoam(null);
   };

@@ -21,3 +21,14 @@ export function useMedia() {
 
   return { mobile, tablet };
 }
+
+export function useClickOutside(el: string, enabled: any, callback: () => void) {
+  return useEffect(() => {
+    const handleCloseOnClick = (e: any) => {
+      const closeEl = document.getElementById(el);
+      if (enabled && !closeEl?.contains(e.target)) callback();
+    }
+    document.addEventListener('click', handleCloseOnClick);
+    return () => document.removeEventListener('click', handleCloseOnClick);
+  }, [enabled]);
+}

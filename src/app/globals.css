@@ -232,11 +232,11 @@ a.inline:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
   cursor: pointer;
   font-weight: bold;
   height: 40px;
-  width: 115px;
+  padding: 0 18px 0 15px;
 }
 
 .header ul li img {
@@ -549,7 +549,6 @@ a {
   border-right: 4px solid var(--accent);
   opacity: 1;
   background-color: var(--transparent);
-  mix-blend-mode: var(--roam-blend);
 }
 
 .mobile-select {
@@ -584,11 +583,15 @@ a {
 .examples {
   display: flex;
   flex-direction: column;
-  height: 257px;
+  min-height: 257px;
 }
 
 .example-tiles.open {
   gap: 25px;
+}
+
+.examples .example-tile {
+  flex-grow: 0;
 }
 
 .examples .example-tile.open {
@@ -853,167 +856,6 @@ a {
   display: block;
 }
 
-@media (min-width: 700px) and (max-width: 900px) {
-  .skill-cards {
-    height: 64vh;
-  }
-}
-
-@media (min-width: 600px) and (max-width: 1199px) {
-  .rows {
-    gap: 25px;
-  }
-
-  #About.rows {
-    flex-direction: column-reverse;
-  }
-
-  .intro h2 {
-    font-size: 3em;
-  }
-
-  .profile {
-    margin-right: 57vw;
-    margin-bottom: 25px;
-  }
-
-  .companies ul {
-    margin: 0;
-    width: 156px;
-  }
-
-  .company {
-    width: 55vw;
-  }
-
-  .company ul {
-    width: 100%;
-  }
-
-  .skills-wrapper {
-    width: 78vw;
-  }
-
-  .company h2 a {
-    display: block;
-  }
-
-  .example-tiles {
-    flex-wrap: wrap;
-    gap: 34px;
-  }
-}
-
-@media (max-width: 599px) {
-  .section {
-    height: auto;
-  }
-
-  .header ul {
-    margin-right: 5px;
-    gap: 0;
-  }
-
-  .header ul li {
-    width: 55px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  h2.title {
-    margin-top: 15px;
-  }
-
-  .intro {
-    margin-left: 25px;
-  }
-
-  .intro h5 {
-    margin-top: 40px;
-  }
-
-  .intro p {
-    margin-right: 35px;
-    font-size: 14px;
-  }
-
-  .rows,
-  .skills {
-    flex-direction: column;
-  }
-
-  #About.rows,
-  #Work .work .rows {
-    flex-direction: column-reverse;
-  }
-
-  .about,
-  .work,
-  .skills-wrapper {
-    width: 100%;
-    padding: 0 25px;
-    font-size: 14px;
-  }
-
-  .skill-cards {
-    flex-direction: row;
-    height: auto;
-  }
-
-  .work-examples {
-    height: auto;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  .about p,
-  .company p {
-    line-height: 21px;
-  }
-
-  .company {
-    width: 100%;
-  }
-
-  .company ul {
-    width: 100%;
-  }
-
-  .companies ul {
-    margin-left: 0;
-    position: absolute;
-    top: 17px;
-    left: 5px;
-    z-index: 9;
-    background-color: var(--header-background);
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
-    border-bottom: 1px solid var(--light-text);
-    border-left: 1px solid var(--light-text);
-  }
-
-  .companies ul li {
-    border-radius: 0;
-    font-size: 16px;
-    padding: 20px 5px;
-    text-align: center;
-  }
-
-  .company h2 a {
-    display: block;
-  }
-
-  .example-tiles {
-    flex-wrap: wrap;
-    gap: 34px;
-    justify-content: space-between;
-    margin-right: 10px;
-  }
-}
-
 #SkillsAccent {
   position: absolute;
   height: 40vh;
@@ -1275,4 +1117,197 @@ html[data-theme="timp"] .theme-item .indicator {
 
 .aid-station.active span {
   mix-blend-mode: var(--roam-blend);
+}
+
+
+@media (min-width: 700px) and (max-width: 900px) {
+  .skill-cards {
+    height: 64vh;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1199px) {
+  .rows {
+    gap: 25px;
+  }
+
+  #About.rows {
+    flex-direction: column-reverse;
+  }
+
+  .intro h2 {
+    font-size: 3em;
+  }
+
+  .profile {
+    margin-right: 57vw;
+    margin-bottom: 25px;
+  }
+
+  .companies ul {
+    margin: 0;
+    width: 156px;
+  }
+
+  .company {
+    width: 55vw;
+  }
+
+  .company ul {
+    width: 100%;
+  }
+
+  .skills-wrapper {
+    width: 78vw;
+  }
+
+  .company h2 a {
+    display: block;
+  }
+
+  .example-tiles {
+    flex-wrap: wrap;
+    gap: 34px;
+  }
+}
+
+@media (max-width: 599px) {
+  .section {
+    height: auto;
+  }
+
+  .header {
+    padding: 0 8px 0 20px;
+  }
+
+  .header ul {
+    margin-right: 5px;
+    gap: 0;
+  }
+
+  .header ul li {
+    width: 55px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .header ul li.active {
+    background-color: transparent;
+  }
+
+  .header ul li.active .mobile-nav-item img {
+    filter: var(--icon-foreground);
+  }
+
+  h2.title {
+    margin-top: 15px;
+  }
+
+  .intro {
+    margin-left: 25px;
+  }
+
+  .intro h5 {
+    margin-top: 40px;
+  }
+
+  .intro p {
+    margin-right: 35px;
+    font-size: 14px;
+  }
+
+  .rows,
+  .skills {
+    flex-direction: column;
+  }
+
+  #About.rows,
+  #Work .work .rows {
+    flex-direction: column-reverse;
+  }
+
+  .about,
+  .work,
+  .skills-wrapper {
+    width: 100%;
+    padding: 0 25px;
+    font-size: 14px;
+  }
+
+  .skill-cards {
+    flex-direction: row;
+    height: auto;
+  }
+
+  .work-examples {
+    height: auto;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .about p,
+  .company p {
+    line-height: 21px;
+  }
+
+  .company {
+    width: 100%;
+  }
+
+  .company ul {
+    width: 100%;
+  }
+
+  .companies ul {
+    margin-left: 0;
+    position: absolute;
+    top: 17px;
+    left: 5px;
+    z-index: 9;
+    background-color: var(--header-background);
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--light-text);
+    border-left: 1px solid var(--light-text);
+  }
+
+  .companies ul li {
+    border-radius: 0;
+    font-size: 16px;
+    padding: 20px 5px;
+    text-align: center;
+  }
+
+  .company h2 a {
+    display: block;
+  }
+
+  .example-tiles {
+    flex-wrap: wrap;
+    gap: 34px;
+    justify-content: space-between;
+    margin-right: 10px;
+  }
+
+  .examples .example-tile.open .fancy-img::after {
+    height: 246px;
+  }
+
+  .project-details {
+    padding: 15px 6px;
+    height: 250px;
+  }
+
+  .examples .example-tile {
+    order: 2;
+  }
+
+  .examples .example-tile.open {
+    order: 1;
+    flex-basis: content;
+  }
 }
