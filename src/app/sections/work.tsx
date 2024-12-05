@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Title } from "../elements";
+import { Buttons, Title } from "../elements";
 import { PageSections } from "../elements/header";
 import { ThinkingBox, JointSoftware, SnapFinance, SimpleTire, TCSTire } from "./companies";
 import { useClickOutside, useMedia } from "../hooks/viewport";
@@ -47,21 +47,23 @@ function Experience(props: WorkProps) {
   }
 }
 
-function Buttons(props: ProjectProps) {
+function ProjectButtons(props: ProjectProps) {
   const { setModal } = useModal();
   const { link, link2, image, title } = props.project;
   const [href, text] = link?.split('#') || [];
   const [href2, text2] = link2?.split('#') || [];
-  const style = 'cta inverse small';
+  const style = 'inverse small';
+
   if (!link) return (
-    <button className={style} onClick={() => setModal({ image, title })}>
-      Closer look
-    </button>
+    <Buttons buttons={[{ text: 'Closer look', style, callback: () => setModal({ image, title }) }]} />
   );
+
+  const projectBtns = [{ text, style, link: href }];
+  if (link2) projectBtns.push({ text: text2, link: href2, style });
+
   return (
     <div className="project-buttons">
-      <a href={href} target="_blank"><button className="cta inverse small">{text}</button></a>
-      {link2 ? <a href={href2} target="_blank"><button className="cta inverse small">{text2}</button></a> : ''}
+      <Buttons buttons={projectBtns} />
     </div>
   )
 }
@@ -96,7 +98,7 @@ function Tile(props: ProjectProps) {
         <div className="project-details">
           <h2>{title}</h2>
           <p>{description}</p>
-          <Buttons project={project} />
+          <ProjectButtons project={project} />
         </div>
       )}
       {!open && title}
@@ -138,7 +140,7 @@ function WorkType({ work, company }: WorkTypeProps) {
 function CompanySelector({ company, setCompany }: CompanySelector) {
   const { mobile } = useMedia();
   const [open, setOpen] = useState<boolean | undefined>(undefined);
-  
+
   useClickOutside('CompanyList', mobile, () => setOpen(false));
 
   useEffect(() => {

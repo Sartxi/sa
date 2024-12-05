@@ -434,13 +434,17 @@ h2.title .icon img {
   max-width: 800px;
 }
 
-button.cta {
+.sa-buttons {
+  display: flex;
+}
+
+button.sa-cta {
   color: var(--accent);
   background-color: transparent;
   border: 1px solid var(--accent);
-  border-radius: var(--border-radius);
+  border-radius: 5px;
   padding: 1.25rem 1.75rem;
-  font-size: 1em;
+  font-size: 0.95em;
   font-weight: bold;
   line-height: 1;
   text-decoration: none;
@@ -448,28 +452,39 @@ button.cta {
   margin-top: 50px;
   margin-right: 10px;
   text-shadow: 0px 1px 2px var(--text-shadow);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-button.cta.small {
+button.sa-cta.small {
   margin-top: 5px;
   font-size: 0.9em;
   padding: 7px 14px;
   border-radius: 5px;
 }
 
-button.cta:hover {
+button.sa-cta:hover {
   color: white;
   background-color: var(--accent);
 }
 
-button.cta.inverse {
+button.sa-cta.inverse {
   border-color: var(--icon-foreground);
   color: var(--icon-foreground);
 }
 
-button.cta.inverse:hover {
+button.sa-cta.inverse:hover {
   background-color: var(--foreground);
   color: var(--background);
+}
+
+.button-icon {
+  filter: var(--icon-fill);
+}
+
+button.sa-cta:hover .button-icon {
+  filter: var(--icon-background);
 }
 
 a {

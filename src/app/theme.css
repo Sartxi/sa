@@ -24,6 +24,7 @@
   --light-text: #555;
   --header-background: white;
   --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --icon-background: invert(98%) sepia(8%) saturate(414%) hue-rotate(278deg) brightness(116%) contrast(86%);
   --accent: var(--bear-theme);
   --icon-fill: var(--bear-theme-fill);
 }
@@ -53,6 +54,7 @@
     --light-text: #999;
     --body-color: #fff;
     --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+    --icon-background: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
     --header-background: black;
     --accent: var(--bear-theme);
     --icon-fill: var(--bear-theme-fill);
@@ -82,6 +84,7 @@ html[data-scheme="dark"] {
   --light-text: #999;
   --body-color: #fff;
   --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
+  --icon-background: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
   --header-background: black;
   --accent: var(--bear-theme);
   --icon-fill: var(--bear-theme-fill);
@@ -110,6 +113,7 @@ html[data-scheme="light"] {
   --light-text: #555;
   --body-color: #000;
   --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --icon-background: invert(98%) sepia(8%) saturate(414%) hue-rotate(278deg) brightness(116%) contrast(86%);
   --header-background: white;
   --accent: var(--bear-theme);
   --icon-fill: var(--bear-theme-fill);
