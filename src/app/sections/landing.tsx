@@ -1,16 +1,21 @@
+import { defaultData } from "../content/landing";
 import { PageSections } from "../elements/header";
+import { RenderText, useContent } from "../hooks/content";
 import { PageProps } from "../page";
 
 export function Landing(props: PageProps) {
+  const { data } = useContent(PageSections.Landing);
+  const { intro, title, subtitle, subtitle2, detail } = data ?? defaultData;
+
   return (
     <div id={PageSections.Landing} className="section">
       <div id="Intro" className="intro">
         <span id="iam">
-          <h5>Hello, my name is</h5>
-          <h1>Sean.</h1>
-          <h2><span id="ilike">and I like</span> to build stuff</h2>
+          <h5>{intro}</h5>
+          <h1>{title}</h1>
+          <h2><span id="ilike">{subtitle}</span> {subtitle2}</h2>
         </span>
-        <p>I am a web and software engineer, focused on user experiences, and a lifelong learner with a can-do additude. I thrive on solving complex problems and collaborating with innovative professionals. Currently located in Salt Lake City, Utah focused on building accessible, human-centered products at <a href="https://thinkingbox.com/" className="inline" target="_blank">ThinkingBox</a>.</p>
+        <p><RenderText text={detail} /></p>
         <button className="cta" onClick={() => props.setActive(PageSections.About)}>Learn more about me!</button>
       </div>
     </div>

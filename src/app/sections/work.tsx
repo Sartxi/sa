@@ -66,17 +66,20 @@ function Buttons(props: ProjectProps) {
   )
 }
 
-function Tile(props: ProjectProps) {
-  const { project, open, setOpen } = props;
+function useProjectImage(isOpen: boolean) {
   const { mobile, tablet } = useMedia();
-
-  const { image, title, description } = project;
-  const isOpen = open === project;
-
   let size = 200;
   if (tablet) size = 100;
   else if (mobile) size = isOpen ? 50 : 130;
   else if (open !== undefined && !isOpen) size = 50;
+  return { size };
+}
+
+function Tile(props: ProjectProps) {
+  const { project, open, setOpen } = props;
+  const { image, title, description } = project;
+  const isOpen = open === project;
+  const { size } = useProjectImage(isOpen);
 
   return (
     <div className={`example-tile${isOpen ? ' open' : ''}`}>
@@ -138,7 +141,7 @@ function WorkType({ work, company }: WorkTypeProps) {
 function CompanySelector({ company, setCompany }: CompanySelector) {
   const { mobile } = useMedia();
   const [open, setOpen] = useState<boolean | undefined>(true);
-  
+
   useClickOutside('CompanyList', mobile, () => setOpen(false));
 
   useEffect(() => {

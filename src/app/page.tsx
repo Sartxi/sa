@@ -9,6 +9,7 @@ import { useScrolling } from "./hooks/scrolling";
 import { useTheme } from "./hooks/scheme";
 import { Loading } from "./elements/loading";
 import { Modal } from "./elements/modal";
+import { ContentProvider } from "./content/data";
 
 export interface PageProps {
   active: PageSections;
@@ -32,14 +33,16 @@ export default function Page() {
       )}
       <Theme {...theme} refresh={() => refresh(active)} />
       <Roamer />
-      <Trail {...props} />
-      <Header {...props} />
-      <Landing {...props} />
-      <About {...props} />
-      <Work />
-      <Skills />
-      <Contact />
-      <Modal />
+      <ContentProvider>
+        <Trail {...props} />
+        <Header {...props} />
+        <Landing {...props} />
+        <About {...props} />
+        <Work />
+        <Skills />
+        <Contact />
+        <Modal />
+      </ContentProvider>
     </div>
   );
 }
