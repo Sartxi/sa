@@ -137,7 +137,7 @@ function WorkType({ work, company }: WorkTypeProps) {
 
 function CompanySelector({ company, setCompany }: CompanySelector) {
   const { mobile } = useMedia();
-  const [open, setOpen] = useState<boolean | undefined>(true);
+  const [open, setOpen] = useState<boolean | undefined>(undefined);
   
   useClickOutside('CompanyList', mobile, () => setOpen(false));
 
