@@ -672,7 +672,8 @@ a {
 
 .skill-cards {
   width: 100%;
-  height: 55vh;
+  height: 62vh;
+  min-height: 787px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -859,6 +860,14 @@ a {
 
 .tooltip:hover::after {
   display: block;
+}
+
+#Skills.section {
+  align-items: flex-start;
+}
+
+#Skills.section h2.title {
+  margin-top: 20px;
 }
 
 #SkillsAccent {
@@ -1128,6 +1137,10 @@ html[data-theme="timp"] .theme-item .indicator {
 @media (min-width: 700px) and (max-width: 900px) {
   .skill-cards {
     height: 64vh;
+  }
+
+  #Skills.section {
+    align-items: center;
   }
 }
 
