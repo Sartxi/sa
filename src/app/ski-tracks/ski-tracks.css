@@ -27,27 +27,28 @@
   left: 0;
   right: 0;
   z-index: 9;
-  color: #333;
+  color: var(--foreground);
 }
 
 .close-game {
   position: fixed;
   right: 20px;
   top: 20px;
-  border-radius: 10px;
+  border-radius: 3px;
   font-size: 1em;
-  opacity: 0.6;
   padding: 10px;
   border: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99;
+  z-index: 9999;
+  background-color: var(--transparent);
 }
 
 .close-game:hover {
-  opacity: 0.9;
+  background-color: var(--accent);
+  color: var(--background);
 }
 
 .ski-menu {
@@ -62,8 +63,12 @@
   z-index: 999;
 }
 
+.rider {
+  filter: var(--icon-foreground);
+}
+
 .ski-menu .menu {
-  background-color: white;
+  background-color: var(--background);
   padding: 10px;
   border-radius: 10px;
   cursor: default;
@@ -89,7 +94,7 @@
 #SkiMap {
   position: relative;
   cursor: grab;
-  background-color: white;
+  background-color: var(--background);
   background-image: url('/topo.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -99,10 +104,18 @@
 
 .route .point {
   position: absolute;
-  cursor: pointer;
+  cursor: default;
   z-index: 9;
-  background: white;
-  border-radius: 20px;
+  filter: var(--icon-foreground);
+}
+
+.route .point.link {
+  cursor: pointer;
+  filter: var(--icon-fill);
+}
+
+.route .point.link:hover {
+  filter: var(--icon-foreground);
 }
 
 .trail {
@@ -115,7 +128,7 @@
   pointer-events: none;
 }
 
-#Skinning {
+#Skinner {
   visibility: hidden;
   z-index: 99;
 }

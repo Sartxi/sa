@@ -1,20 +1,20 @@
 import { useState } from "react";
 import SkiMenu, { MenuType } from "./menu";
 import SkiRoutes, { Route } from "./routes";
-import SkiMap from "./map";
+import SkiMap, { MapIcon } from "./map";
 
 export interface SkiTracksGame {
-  rider: any;
+  rider: MapIcon | boolean;
   closeGame?: () => void;
 }
 
 export interface GameProps {
-  rider: string;
-  menu: MenuProps | null;
-  setMenu: (m: MenuProps | null) => void;
-  progress: GameProgress | undefined;
-  play: (decision: RouteProgress) => void;
   children?: any;
+  rider: MapIcon | any;
+  menu: MenuProps | null;
+  progress: GameProgress | undefined;
+  setMenu: (menu: MenuProps | null) => void;
+  play: (event: RouteProgress) => void;
 }
 
 interface MenuProps {
@@ -26,15 +26,12 @@ export interface RouteProgress {
   id: string;
   active: boolean;
   points: number[];
+  summit: boolean;
   finished: boolean;
 }
 
 export interface GameProgress {
   routes: RouteProgress[];
-}
-
-export interface PlayGame {
-  makeDecision: (update: RouteProgress) => void;
 }
 
 export default function Game({ rider, closeGame }: SkiTracksGame) {
@@ -46,9 +43,9 @@ export default function Game({ rider, closeGame }: SkiTracksGame) {
     menu,
     setMenu,
     progress,
-    play: (decision) => {
-      const routes = progress?.routes.filter((r) => r.id !== decision.id) ?? [];
-      setProgress({ routes: [...routes, decision] });
+    play: (choice) => {
+      const routes = progress?.routes.filter((r) => r.id !== choice.id) ?? [];
+      setProgress({ routes: [...routes, choice] });
     }
   };
 

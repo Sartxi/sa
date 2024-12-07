@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { GameProps } from "./game";
+import { routes } from "./routes";
 
-export enum MenuType { start, route, gameover };
+export enum MenuType { start, finish, route, gameover };
 
 function StartMenu({ rider, setMenu }: GameProps) {
   return (
     <div id="StartMenu" className="menu">
       <h2>Ski Tracks</h2>
-      <Image height={100} width={100} src={rider} alt="rider" />
+      <Image className="rider" height={100} width={100} src={rider} alt="rider" />
       <p>Find ski spots on the map, click trail signs to start routes.</p>
       <button className="menu-cta" onClick={() => setMenu(null)}>
         Play Game
@@ -17,6 +18,28 @@ function StartMenu({ rider, setMenu }: GameProps) {
 }
 
 function RouteMenu({ setMenu, progress, play }: GameProps) {
+  const active = progress?.routes.find((route) => route.active);
+  const data = routes.find((route) => route.id === active?.id);
+  const navigate = () => {
+    if (active) {
+      active.points.push(1);
+      if (data?.points.length === active.points.length) active.summit = true;
+      play(active);
+      setMenu(null);
+    }
+  };
+
+  return (
+    <div id="StartMenu" className="menu">
+      <h2>Make a Decision</h2>
+      <button className="menu-cta" onClick={navigate}>
+        Next
+      </button>
+    </div>
+  )
+}
+
+function FinishMenu({ setMenu, progress, play }: GameProps) {
   const active = progress?.routes.find((route) => route.active);
   const navigate = () => {
     if (active) {
@@ -28,7 +51,7 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
 
   return (
     <div id="StartMenu" className="menu">
-      <h2>Navigate</h2>
+      <h2>You made it to the top!</h2>
       <button className="menu-cta" onClick={navigate}>
         Next
       </button>
@@ -59,6 +82,11 @@ function useMenu(game: GameProps): { style: string, menu: any } {
       return {
         style: 'route',
         menu: () => <RouteMenu {...game} />
+      }
+    case MenuType.finish:
+      return {
+        style: 'finish',
+        menu: () => <FinishMenu {...game} />
       }
     default:
       return {
