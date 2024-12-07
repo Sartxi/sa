@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 export function useMedia() {
   const [width, setWidth] = useState(0);
+  const [isDevice, setIsDevice] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -9,6 +14,8 @@ export function useMedia() {
     }
 
     if (typeof window !== 'undefined') {
+      setIsDevice(isMobileDevice());
+
       window.addEventListener('resize', handleResize);
       handleResize();
 
@@ -16,8 +23,8 @@ export function useMedia() {
     }
   }, []);
 
-  const mobile = width <= 599;
-  const tablet = width >= 600 && width <= 1199;
+  const mobile = isDevice && width <= 599;
+  const tablet = isDevice && width >= 600 && width <= 1199;
 
   return { mobile, tablet };
 }

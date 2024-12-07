@@ -27,6 +27,7 @@
   --icon-background: invert(98%) sepia(8%) saturate(414%) hue-rotate(278deg) brightness(116%) contrast(86%);
   --accent: var(--bear-theme);
   --icon-fill: var(--bear-theme-fill);
+  --skitracks-bg: white;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,6 +59,7 @@
     --header-background: black;
     --accent: var(--bear-theme);
     --icon-fill: var(--bear-theme-fill);
+    --skitracks-bg: white;
   }
 }
 

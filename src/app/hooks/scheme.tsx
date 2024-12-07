@@ -20,7 +20,13 @@ export enum Blends {
 }
 
 export function useColorScheme() {
-  const [isDark, setIsDark] = useState<any>(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const [isDark, setIsDark] = useState<any>();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-scheme', isDark ? 'dark' : 'light');

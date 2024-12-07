@@ -9,6 +9,7 @@ import { useScrolling } from "./hooks/scrolling";
 import { useTheme } from "./hooks/scheme";
 import { Loading } from "./elements/loading";
 import { Modal } from "./elements/modal";
+import SkiTracks from "./ski-tracks/ski-tracks";
 
 export interface PageProps {
   active: PageSections;
@@ -40,6 +41,7 @@ export default function Page() {
       <Skills />
       <Contact />
       <Modal />
+      <SkiTracks />
     </div>
   );
 }

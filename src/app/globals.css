@@ -1,5 +1,6 @@
 @import url(./theme.css);
 @import url(./loading.css);
+@import url(./ski-tracks/ski-tracks.css);
 
 body {
   font-family: var(--font-geist-mono);
