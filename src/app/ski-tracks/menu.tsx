@@ -23,17 +23,32 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
   const navigate = () => {
     if (active) {
       active.points.push(1);
-      if (data?.points.length === active.points.length) active.summit = true;
+      const isSummit = data?.points.length === active.points.length;
+      active.summit = isSummit;
+      play(active);
+      if (isSummit) {
+        setTimeout(() => {
+          setMenu({ type: MenuType.finish });
+        }, 2000);
+      }
+    }
+  };
+  const cancel = () => {
+    if (active) {
+      active.active = false;
+      active.points = [];
       play(active);
       setMenu(null);
     }
   };
-
   return (
     <div id="StartMenu" className="menu">
       <h2>Make a Decision</h2>
       <button className="menu-cta" onClick={navigate}>
         Next
+      </button>
+      <button className="menu-cta" onClick={cancel}>
+        Quit
       </button>
     </div>
   )
@@ -41,19 +56,18 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
 
 function FinishMenu({ setMenu, progress, play }: GameProps) {
   const active = progress?.routes.find((route) => route.active);
-  const navigate = () => {
+  const skiDown = () => {
     if (active) {
-      active.points.push(1);
+      active.finished = true;
       play(active);
       setMenu(null);
     }
   };
-
   return (
     <div id="StartMenu" className="menu">
       <h2>You made it to the top!</h2>
-      <button className="menu-cta" onClick={navigate}>
-        Next
+      <button className="menu-cta" onClick={skiDown}>
+        Ski Down
       </button>
     </div>
   )

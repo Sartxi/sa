@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMap, plan, skin } from "./map-util";
-import { GameProgress, GameProps } from "./game";
+import { GameProgress, GameProps, RouteProgress } from "./game";
 
 export enum MapIcon {
   trailhead = './trailsign.svg',
@@ -20,24 +20,28 @@ export function useMapIconSize(icon: MapIcon) {
     case MapIcon.skier:
     case MapIcon.snowboarder:
       return 35;
+    case MapIcon.apres:
+      return 45;
     default:
       return 30;
   }
 }
 
-function useSkiMap(progress: GameProgress | undefined, play: any) {
+function useSkiMap(progress: GameProgress | undefined, play: (event: RouteProgress) => void) {
   const map = document.getElementById('SkiMap');
-  const [updated, setUpdated] = useState<number>(0);
-  const navigate = useMap(map, progress);
+  const [log, setLog] = useState<number>(0);
+  const { lockMap, unlockMap } = useMap(map, progress);
 
   useEffect(() => plan(map, progress), [map]);
   useEffect(() => {
     const active = progress?.routes.find(r => r.active);
-    const updates = active?.points.length;
-    if (updates) {
+    if (active && !active.finished) lockMap(active);
+    else unlockMap();
+    const points = active?.points.length;
+    if (points) {
       plan(map, progress);
-      if (updates !== updated) {
-        setUpdated(updates);
+      if (points !== log) {
+        setLog(points);
         const index = active.points.findIndex(i => i === 1);
         const start = index === 0 ? `${active.id}Start` : `${active.id}${index}`;
         skin(start, `${active.id}${index + 1}`, () => {
@@ -49,7 +53,7 @@ function useSkiMap(progress: GameProgress | undefined, play: any) {
   }, [map, progress]);
 }
 
-export default function SkiMap({ progress, play, children }: GameProps) {
+export default function SkiMap({ children, progress, play }: GameProps) {
   useSkiMap(progress, play);
   return <div id="SkiMap">{children}</div>;
 }

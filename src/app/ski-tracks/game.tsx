@@ -45,7 +45,7 @@ export default function Game({ rider, closeGame }: SkiTracksGame) {
     progress,
     play: (choice) => {
       const routes = progress?.routes.filter((r) => r.id !== choice.id) ?? [];
-      setProgress({ routes: [...routes, choice] });
+      setProgress({ routes: [...routes.map(r => ({ ...r, active: false })), choice] });
     }
   };
 

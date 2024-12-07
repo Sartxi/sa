@@ -8,10 +8,11 @@ export interface Route {
   start: [number, number];
   points: [number, number][];
   finish: [number, number][];
-  answers: Navigate[];
+  answers: Nav[];
+  center: [number, number][];
 }
 
-export enum Navigate {
+export enum Nav {
   south,
   southeast,
   southwest,
@@ -21,11 +22,13 @@ export enum Navigate {
 }
 
 export const routes: Route[] = [{
-  id: 'Boss',
+  id: 'StormMountain',
   start: [410, 1200],
   points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-  answers: [Navigate.southeast, Navigate.south, Navigate.southwest, Navigate.southeast, Navigate.northeast],
-  finish: [[410, 1200]],
+  answers: [Nav.southeast, Nav.south, Nav.southwest, Nav.southeast, Nav.northeast],
+  // finish: [[455, 1675], [475, 1665], [495, 1875], [452, 1575]],
+  finish: [[450, 1665], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
+  center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]]
 }];
 
 interface SkiRoute extends GameProps {
@@ -57,32 +60,31 @@ function SkiRoute({ rider, route, progress, setMenu, play }: SkiRoute) {
   const active = routes.find((p) => p.id === route.id);
   const points = route.points.filter((p, i) => active?.points[i]);
 
-  const navigate = () => {
-    if (active) active.active = true;
-    play(active ?? { id: route.id, active: true, points: [], summit: false, finished: false });
-    setMenu({ type: active?.summit ? MenuType.finish : MenuType.route });
-  };
+  const startRoute = () => {
+    if (points.length) return;
+    play({ id: route.id, active: true, points: [], summit: false, finished: false });
+    setMenu({ type: MenuType.route });
+  }
 
   return (
     <div id={route.id} className="route">
-      <Point id={getPointId('Start')} icon={MapIcon.trailhead} desc={`${route.id} trail head`} click={!points.length && navigate} />
+      <Point id={getPointId('Start')} icon={MapIcon.trailhead} desc={`${route.id} trail head`} click={startRoute} />
       <Point id="Skinner" icon={MapIcon.skinner} desc="Skinner skinning" />
       {points.map((p, i) => {
         const index = `${i + 1}`;
         const next = active?.points[i];
-        const isSkinner = points.length === (i + 1) && next === 2;
-        const icon = points.length === (i + 1) ? next === 1 ? MapIcon.pin : MapIcon.skinner : MapIcon.point;
+        let icon = points.length === (i + 1) ? next === 1 ? MapIcon.pin : MapIcon.skinner : MapIcon.point;
+        if (active?.finished && points.length === (i + 1)) icon = MapIcon.apres;
         return (
           <Point
             key={`point${index}`}
             trail
             id={getPointId(index)}
             icon={icon}
-            desc={`Point ${index}`}
-            click={isSkinner && navigate} />
+            desc={`Point ${index}`} />
         )
       })}
-      {active?.finished && <Point id={getPointId('Finish')} icon={rider} desc="Rallying down" click={navigate} />}
+      {active?.finished && <Point id={getPointId('Finish')} icon={rider} desc="Rallying down" />}
     </div>
   )
 }
