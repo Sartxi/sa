@@ -5,6 +5,10 @@ import { MapIcon, useMapIconSize } from "./map";
 
 export interface Route {
   id: string;
+  title: string;
+  description: string;
+  elevation: number;
+  distance: number;
   start: [number, number];
   points: [number, number][];
   finish: [number, number][];
@@ -13,20 +17,25 @@ export interface Route {
 }
 
 export enum Nav {
-  south,
-  southeast,
-  southwest,
-  north,
-  northeast,
-  northwest
+  northwest = 'NW',
+  north = 'N',
+  northeast = 'NE',
+  west = 'W',
+  east = 'E',
+  southwest = 'SW',
+  south = 'S',
+  southeast = 'SE',
 }
 
 export const routes: Route[] = [{
   id: 'StormMountain',
+  title: 'Storm Mountain',
+  description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terraign!',
+  elevation: 2300,
+  distance: 2.3,
   start: [410, 1200],
   points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-  answers: [Nav.southeast, Nav.south, Nav.southwest, Nav.southeast, Nav.northeast],
-  // finish: [[455, 1675], [475, 1665], [495, 1875], [452, 1575]],
+  answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
   finish: [[450, 1665], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
   center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]]
 }];

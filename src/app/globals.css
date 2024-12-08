@@ -455,6 +455,7 @@ button.sa-cta {
   text-shadow: 0px 1px 2px var(--text-shadow);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
 }
 

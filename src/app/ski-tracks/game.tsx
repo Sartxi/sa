@@ -1,7 +1,8 @@
 import { useState } from "react";
-import SkiMenu, { MenuType } from "./menu";
+import SkiMenu, { MenuType, ToolMenu } from "./menu";
 import SkiRoutes, { Route } from "./routes";
 import SkiMap, { MapIcon } from "./map";
+import Image from "next/image";
 
 export interface SkiTracksGame {
   rider: MapIcon | boolean;
@@ -52,13 +53,15 @@ export default function Game({ rider, closeGame }: SkiTracksGame) {
   if (typeof rider === 'boolean') return <span />;
   return (
     <div id="SkiTracks">
-      <button className="close-game" onClick={() => closeGame?.()}>End Game</button>
+      {menu?.type !== MenuType.start && <Image className="trax-logo" height={100} width={100} src='./skitrax.svg' alt="Ski Tracks" />}
+      <ToolMenu game={game} close={() => closeGame?.()} />
       <SkiMenu {...game} />
       <div id="GameArea">
         <SkiMap {...game}>
           <SkiRoutes {...game} />
         </SkiMap>
       </div>
+      <Image className="compass" height={70} width={70} src='./compass.svg' alt="Ski Compass" />
     </div>
   )
 }

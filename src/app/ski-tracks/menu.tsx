@@ -1,38 +1,133 @@
 import Image from "next/image";
 import { GameProps } from "./game";
-import { routes } from "./routes";
+import { Nav, Route, routes } from "./routes";
+import { MapIcon } from "./map";
+import { useState } from "react";
 
 export enum MenuType { start, finish, route, gameover };
 
 function StartMenu({ rider, setMenu }: GameProps) {
   return (
-    <div id="StartMenu" className="menu">
-      <h2>Ski Tracks</h2>
-      <Image className="rider" height={100} width={100} src={rider} alt="rider" />
-      <p>Find ski spots on the map, click trail signs to start routes.</p>
-      <button className="menu-cta" onClick={() => setMenu(null)}>
-        Play Game
+    <div className="menu">
+      <div className="menu-header">
+        <Image height={140} width={140} src='./skitrax.svg' alt="Ski Tracks" />
+        <span>
+          <h4>Welcome to</h4>
+          <h1>Skin Tracks</h1>
+          <p>A backcountry skiing game by Sean Archibeque</p>
+        </span>
+      </div>
+      <div className="menu-body">
+        <div>
+          <p><strong>Objective:</strong></p><br />
+          <p>Find routes, bag peaks, then rally down and crack a cold one. But watch out for trouble and stay out of avalanches!</p>
+        </div>
+        <div className="player">
+          <p>Playing As:</p>
+          <Image className="rider" height={100} width={100} src={rider} alt="rider" />
+        </div>
+      </div>
+      <button className="sa-cta" onClick={() => setMenu(null)}>
+        Start Game
       </button>
     </div>
   )
 }
 
+function RouteDetails({ route }: { route: Route | undefined }) {
+  if (!route) return;
+  const { title, description, elevation, distance } = route;
+  return (
+    <div className="route-details">
+      <h1>
+        <span className="icon">
+          <Image
+            src={MapIcon.trailhead}
+            alt="Route Details"
+            width={35}
+            height={35}
+            priority
+          />
+        </span>
+        {title}
+      </h1>
+      <p>{description}</p>
+      <div className="route-stats">
+        <div className="stat">
+          <Image width={15} height={15} src="./distance.svg" alt="distance" />
+          {distance} miles
+        </div>
+        <div className="stat">
+          <Image width={15} height={15} src="./peak.svg" alt="distance" />
+          {elevation} feet
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AvalancheReport() {
+  return (
+    <div className="avy-report">
+      <Image src="./rose.png" width={150} height={200} alt="avy rose" />
+      <div className="avy-details">
+        <h3>Avalanche Report</h3>
+        <p style={{ fontSize: '13px' }}>The persistent weak layer (PWL) making up most of the snowpack on the north east side of the compass continues to weaken. This structure is not going to be able to support much in the way of new snow or wind loading.</p>
+        <div className="avy-type">
+          <Image src="./avy-type.png" width={50} height={50} alt="avy rose" />
+          <div>
+            <h4>PWL</h4>
+            <p>Persistent weak layer (PWL)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Navigation({ navigate, slopeAngles }: { navigate: (dir: Nav) => void; slopeAngles: string[]; }) {
+  const directions: any = Object.keys(Nav).map((s, i) => {
+    const key = Nav[s as keyof typeof Nav];
+    return { key, angle: slopeAngles[i] };
+  });
+  directions.splice(4, 0, { key: 'compass' });
+  return (
+    <div className="nav-choices">
+      {directions.map(({ key, angle }: any) => {
+        if (key === 'compass') return <Image key="compassicon" src="./compassicon.svg" width={75} height={75} alt="compass" />;
+        return (
+          <button key={key} className="sa-cta" onClick={() => navigate(key)}>
+            <strong>{key}</strong> {angle}%
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 function RouteMenu({ setMenu, progress, play }: GameProps) {
+  const [showChoices, setShowChoices] = useState(true);
   const active = progress?.routes.find((route) => route.active);
-  const data = routes.find((route) => route.id === active?.id);
-  const navigate = () => {
+  const data: Route | undefined = routes.find((route) => route.id === active?.id);
+  const correctAnswer = active && data?.answers[active.points.length];
+
+  const navigate = (direction: Nav) => {
+    // TODO either game over or move forward
+    console.log(direction === correctAnswer);
+
     if (active) {
+      setShowChoices(false);
       active.points.push(1);
       const isSummit = data?.points.length === active.points.length;
       active.summit = isSummit;
       play(active);
-      if (isSummit) {
-        setTimeout(() => {
-          setMenu({ type: MenuType.finish });
-        }, 2000);
-      }
+      setTimeout(() => {
+        if (isSummit) setMenu({ type: MenuType.finish });
+        setShowChoices(true);
+      }, 2000);
     }
   };
+
   const cancel = () => {
     if (active) {
       active.active = false;
@@ -41,21 +136,44 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
       setMenu(null);
     }
   };
+
+  function getRandomNumber(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const slopeAngles = Object.keys(Nav).map((s) => {
+    const key = Nav[s as keyof typeof Nav];
+    const safe = [20, 29];
+    const danger = [30, 41];
+    const [min, max] = key === correctAnswer ? safe : danger;
+    return getRandomNumber(min, max).toString();
+  });
+
   return (
-    <div id="StartMenu" className="menu">
-      <h2>Make a Decision</h2>
-      <button className="menu-cta" onClick={navigate}>
-        Next
-      </button>
-      <button className="menu-cta" onClick={cancel}>
-        Quit
-      </button>
+    <div className="menu">
+      <div className="route-info">
+        <RouteDetails route={data} />
+        <AvalancheReport />
+        <div className="route-decision">
+          <h2>Make a Decision</h2>
+          <p>Using the avalanche report and judging by the slope angle move forward by choosing which direction to go.</p>
+          {showChoices ? (
+            <Navigation slopeAngles={slopeAngles} navigate={(dir) => navigate(dir)} />
+          ) : <p>Navigating...</p>}
+        </div>
+      </div>
+      <div className="actions">
+        <button className="sa-cta small" onClick={cancel}>
+          Quit Route
+        </button>
+      </div>
     </div>
   )
 }
 
 function FinishMenu({ setMenu, progress, play }: GameProps) {
   const active = progress?.routes.find((route) => route.active);
+  const data: Route | undefined = routes.find((route) => route.id === active?.id);
   const skiDown = () => {
     if (active) {
       active.finished = true;
@@ -64,18 +182,25 @@ function FinishMenu({ setMenu, progress, play }: GameProps) {
     }
   };
   return (
-    <div id="StartMenu" className="menu">
-      <h2>You made it to the top!</h2>
-      <button className="menu-cta" onClick={skiDown}>
-        Ski Down
-      </button>
+    <div className="menu">
+      <div className="route-info">
+        <RouteDetails route={data} />
+        <AvalancheReport />
+        <div className="route-decision">
+          <h2>Make a Decision</h2>
+          <p>Using the avalanche report and judging by the slope angle move forward by choosing which direction to go.</p>
+          <button className="sa-cta" onClick={skiDown}>
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
 
 function GameOver({ setMenu }: GameProps) {
   return (
-    <div id="StartMenu" className="menu">
+    <div className="menu">
       <h2>Game Over</h2>
       <p>You died in an avalanche</p>
       <button className="menu-cta" onClick={() => setMenu({ type: MenuType.start })}>
@@ -119,7 +244,23 @@ function Menu(game: GameProps) {
   )
 }
 
+function HelpMenu() {
+  return (
+    <div className="help-menu">
+      <p>Drag on the map to discover routes <Image className="ex-icon color" src={MapIcon.trailhead} width={20} height={20} alt={`Trailhead icon example`} /> and click the desired route to start. Once you have completed all the routes on the map you win! Cheers! <Image className="ex-icon" src={MapIcon.apres} width={20} height={20} alt={`Cheers the beers`} /></p>
+    </div>
+  )
+}
+
+export function ToolMenu({ close, game }: { game: GameProps; close: () => void }) {
+  return (
+    <div className="tool-menu">
+      <button className="close-game" onClick={() => close()}>Leave</button>
+    </div>
+  )
+}
+
 export default function SkiMenu(game: GameProps) {
-  if (game.menu === null) return <span />;
+  if (game.menu === null) return <HelpMenu />;
   return <Menu {...game} />;
 }
