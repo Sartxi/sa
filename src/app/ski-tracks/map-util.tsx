@@ -40,7 +40,7 @@ function getBgAxis(map: HTMLElement) {
   return window.getComputedStyle(map).getPropertyValue('background-position').split(' ');
 }
 
-export function plan(map: HTMLElement | null, progress: GameProgress | undefined) {
+export function plan(map: HTMLElement | null, progress: GameProgress | undefined, deaths: number[][]) {
   if (!map) return;
   const [x, y] = getBgAxis(map);
   const mapBg = [parseInt(x), parseInt(y)];
@@ -59,6 +59,9 @@ export function plan(map: HTMLElement | null, progress: GameProgress | undefined
       }
     });
   });
+  if (deaths.length) {
+    deaths.forEach((death, index) => location(`Death${index}`, mapBg, death));
+  }
 }
 
 export function skin(a: string, b: string, callback: any) {
@@ -184,13 +187,13 @@ function useDrag(map: HTMLElement | null, setMap: () => void) {
   };
 }
 
-export function useMap(map: HTMLElement | null, progress: GameProgress | undefined) {
-  const center = useDrag(map, () => plan(map, progress));
+export function useMap(map: HTMLElement | null, progress: GameProgress | undefined, deaths: number[][]) {
+  const center = useDrag(map, () => plan(map, progress, deaths));
   return {
-    lockMap: (active: RouteProgress) => {
+    unlock: () => center(),
+    lock: (active: RouteProgress) => {
       const route = routes.find(r => r.id === active.id);
       if (route) center(route.center);
     },
-    unlockMap: () => center()
   };
 }

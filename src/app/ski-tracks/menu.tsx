@@ -55,11 +55,11 @@ function RouteDetails({ route }: { route: Route | undefined }) {
       <div className="route-stats">
         <div className="stat">
           <Image width={15} height={15} src="./distance.svg" alt="distance" />
-          {distance} miles
+          {distance} mi
         </div>
         <div className="stat">
           <Image width={15} height={15} src="./peak.svg" alt="distance" />
-          {elevation} feet
+          {elevation} ft
         </div>
       </div>
     </div>
@@ -105,16 +105,21 @@ function Navigation({ navigate, slopeAngles }: { navigate: (dir: Nav) => void; s
   )
 }
 
-function RouteMenu({ setMenu, progress, play }: GameProps) {
+function RouteMenu({ setMenu, progress, play, setDeaths, deaths }: GameProps) {
   const [showChoices, setShowChoices] = useState(true);
   const active = progress?.routes.find((route) => route.active);
   const data: Route | undefined = routes.find((route) => route.id === active?.id);
   const correctAnswer = active && data?.answers[active.points.length];
 
   const navigate = (direction: Nav) => {
-    // TODO either game over or move forward
-    console.log(direction === correctAnswer);
-
+    if (direction !== correctAnswer && active) {
+      let newDeath = data?.points[active.points.length];
+      if (newDeath) {
+        setDeaths([...deaths, [newDeath[0] + getRandom(22, 32), newDeath[1] - getRandom(42, 62)]]);
+      }
+      setMenu({ type: MenuType.gameover });
+      return;
+    }
     if (active) {
       setShowChoices(false);
       active.points.push(1);
@@ -137,7 +142,7 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
     }
   };
 
-  function getRandomNumber(min: number, max: number) {
+  function getRandom(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -146,7 +151,7 @@ function RouteMenu({ setMenu, progress, play }: GameProps) {
     const safe = [20, 29];
     const danger = [30, 41];
     const [min, max] = key === correctAnswer ? safe : danger;
-    return getRandomNumber(min, max).toString();
+    return getRandom(min, max).toString();
   });
 
   return (
@@ -198,14 +203,43 @@ function FinishMenu({ setMenu, progress, play }: GameProps) {
   )
 }
 
-function GameOver({ setMenu }: GameProps) {
+function GameOver({ play, setMenu, progress, setDeaths }: GameProps) {
+  const active = progress?.routes.find((route) => route.active);
+  const decide = (startOver: boolean) => {
+    if (active) {
+      active.active = false;
+      if (startOver) {
+        active.points = [];
+        setDeaths([]);
+      }
+      play(active);
+      setMenu(startOver ? { type: MenuType.start } : null);
+    }
+  }
+
   return (
     <div className="menu">
-      <h2>Game Over</h2>
-      <p>You died in an avalanche</p>
-      <button className="menu-cta" onClick={() => setMenu({ type: MenuType.start })}>
-        Start Over
-      </button>
+      <h1>
+        <span className="icon">
+          <Image
+            src={MapIcon.death}
+            alt="Game Over"
+            width={35}
+            height={35}
+            priority
+          />
+        </span>
+        Game Over
+      </h1>
+      <p>Dangit, you died in an avalanche. Checking the avalanche forcast and avoiding avalanche terraign is the best choice if you want to stay on top!</p>
+      <div className="gameover-ctas">
+        <button className="sa-cta" onClick={() => decide(false)}>
+          Pretend I did not die
+        </button>
+        <button className="sa-cta" onClick={() => decide(true)}>
+          Start Game Over
+        </button>
+      </div>
     </div>
   )
 }

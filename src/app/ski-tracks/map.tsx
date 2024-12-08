@@ -9,7 +9,8 @@ export enum MapIcon {
   skinner = './skiup.svg',
   skier = './skidown.svg',
   snowboarder = './boardown.svg',
-  apres = './beer.svg'
+  apres = './beer.svg',
+  death = './death.svg',
 }
 
 export function useMapIconSize(icon: MapIcon) {
@@ -27,19 +28,19 @@ export function useMapIconSize(icon: MapIcon) {
   }
 }
 
-function useSkiMap(progress: GameProgress | undefined, play: (event: RouteProgress) => void) {
+function useSkiMap(progress: GameProgress | undefined, deaths: number[][], play: (event: RouteProgress) => void) {
   const map = document.getElementById('SkiMap');
   const [log, setLog] = useState<number>(0);
-  const { lockMap, unlockMap } = useMap(map, progress);
+  const { lock, unlock } = useMap(map, progress, deaths);
 
-  useEffect(() => plan(map, progress), [map]);
+  useEffect(() => plan(map, progress, deaths), [map, deaths]);
   useEffect(() => {
     const active = progress?.routes.find(r => r.active);
-    if (active && !active.finished) lockMap(active);
-    else unlockMap();
+    if (active && !active.finished) lock(active);
+    else unlock();
     const points = active?.points.length;
     if (points) {
-      plan(map, progress);
+      plan(map, progress, deaths);
       if (points !== log) {
         setLog(points);
         const index = active.points.findIndex(i => i === 1);
@@ -53,7 +54,7 @@ function useSkiMap(progress: GameProgress | undefined, play: (event: RouteProgre
   }, [map, progress]);
 }
 
-export default function SkiMap({ children, progress, play }: GameProps) {
-  useSkiMap(progress, play);
+export default function SkiMap({ children, progress, deaths, play }: GameProps) {
+  useSkiMap(progress, deaths, play);
   return <div id="SkiMap">{children}</div>;
 }

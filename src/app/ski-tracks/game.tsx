@@ -13,9 +13,11 @@ export interface GameProps {
   children?: any;
   rider: MapIcon | any;
   menu: MenuProps | null;
+  deaths: number[][];
   progress: GameProgress | undefined;
   setMenu: (menu: MenuProps | null) => void;
   play: (event: RouteProgress) => void;
+  setDeaths: (event: number[][]) => void;
 }
 
 interface MenuProps {
@@ -38,12 +40,15 @@ export interface GameProgress {
 export default function Game({ rider, closeGame }: SkiTracksGame) {
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
   const [progress, setProgress] = useState<GameProgress>({ routes: [] });
+  const [deaths, setDeaths] = useState<number[][]>([]);
 
   const game: GameProps = {
     rider,
     menu,
     setMenu,
     progress,
+    deaths,
+    setDeaths,
     play: (choice) => {
       const routes = progress?.routes.filter((r) => r.id !== choice.id) ?? [];
       setProgress({ routes: [...routes.map(r => ({ ...r, active: false })), choice] });

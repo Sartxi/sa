@@ -63,7 +63,7 @@ function Point({ id, icon, desc, click, trail }: RoutePoint) {
   )
 }
 
-function SkiRoute({ rider, route, progress, setMenu, play }: SkiRoute) {
+function SkiRoute({ rider, route, progress, deaths, setMenu, play }: SkiRoute) {
   const getPointId = (point: string) => (`${route.id}${point}`);
   const routes = progress?.routes ?? [];
   const active = routes.find((p) => p.id === route.id);
@@ -94,6 +94,7 @@ function SkiRoute({ rider, route, progress, setMenu, play }: SkiRoute) {
         )
       })}
       {active?.finished && <Point id={getPointId('Finish')} icon={rider} desc="Rallying down" />}
+      {deaths.map((d, index) => <Point key={`Death${index}`} id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
     </div>
   )
 }
