@@ -216,7 +216,6 @@ function GameOver({ play, setMenu, progress, setDeaths }: GameProps) {
       setMenu(startOver ? { type: MenuType.start } : null);
     }
   }
-
   return (
     <div className="menu">
       <h1>
@@ -287,8 +286,10 @@ function HelpMenu() {
 }
 
 export function ToolMenu({ close, game }: { game: GameProps; close: () => void }) {
+  const finished = game.progress?.routes.filter(r => r.finished);
   return (
     <div className="tool-menu">
+      {finished?.map(r => <Image key={`fin${r.id}`} src={MapIcon.apres} width={25} height={25} alt="finish" />)}
       <button className="close-game" onClick={() => close()}>Leave</button>
     </div>
   )
