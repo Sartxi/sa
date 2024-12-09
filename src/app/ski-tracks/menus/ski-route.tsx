@@ -4,7 +4,7 @@ import { Nav, Route, routes } from "../routes";
 import { MapIcon } from "../map";
 import { useState } from "react";
 import { getRandom } from "../map-util";
-import { RouteDetails } from "../menus/index";
+import { RouteDetails } from "./index";
 import { MenuType } from "../menu";
 import NavButtons, { Snow } from "../compass";
 
