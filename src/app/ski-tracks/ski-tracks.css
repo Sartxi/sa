@@ -203,6 +203,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
 }
 
 .ski-menu.route .menu .close {
@@ -326,6 +327,7 @@
   filter: var(--icon-foreground);
 }
 
+.death,
 .route .point.death {
   filter: invert(17%) sepia(80%) saturate(7146%) hue-rotate(1deg) brightness(89%) contrast(89%);
 }
@@ -356,4 +358,19 @@
   border-radius: 10px;
   padding: 2rem;
   margin-top: 20px;
+}
+
+.consequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.consequence-icon:not(.death) {
+  filter: var(--icon-fill);
+}
+
+.options {
+  display: flex;
 }

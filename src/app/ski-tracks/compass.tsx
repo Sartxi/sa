@@ -81,6 +81,8 @@ export default function Compass({ metrix, navigate }: CompassProps) {
     { show: showReport, toggle: () => setShowReport(!showReport), icon: MapIcon.report, alt: 'See avalanche report' },
   ];
 
+  const qualityIconSize = !showAngles ? 35 : 25;
+
   return (
     <div className="compass-tool">
       <div className="tools">
@@ -105,8 +107,8 @@ export default function Compass({ metrix, navigate }: CompassProps) {
                     <span className="metrix">
                       {showQuality && <Image
                         className={`snow-icon ${quality.toLowerCase()}`}
-                        src={MapIcon.flake} width={25} height={25} alt="quality" />}
-                      {showAngles ? angle : ''}
+                        src={MapIcon.flake} width={qualityIconSize} height={qualityIconSize} alt="quality" />}
+                      <span className={`angle${!showQuality ? ' big' : ''}`}>{showAngles ? angle : ''}</span>
                     </span>
                     : ''}
                   <strong className={showQuality || showAngles ? 'small' : ''}>
