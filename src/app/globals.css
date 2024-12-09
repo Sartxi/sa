@@ -2,6 +2,10 @@
 @import url(./loading.css);
 @import url(./ski-tracks/ski-tracks.css);
 
+html[data-scrolling="false"] {
+  overflow: hidden;
+}
+
 body {
   font-family: var(--font-geist-mono);
   -webkit-font-smoothing: antialiased;

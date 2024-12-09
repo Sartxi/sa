@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Game from "./game";
 import { MapIcon } from "./map";
@@ -6,6 +6,10 @@ import { MapIcon } from "./map";
 
 export default function SkiTracks() {
   const [play, setPlay] = useState<MapIcon | boolean>(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-scrolling', play ? 'false' : 'true');
+  }, [play]);
 
   if (!play) return (
     <>
