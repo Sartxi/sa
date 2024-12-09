@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Route } from "../routes";
+import { Route } from "../ski-routes";
 import { MapIcon } from "../map";
 
 export default function RouteDetails({ route, cancel }: { route: Route | undefined; cancel?: any }) {

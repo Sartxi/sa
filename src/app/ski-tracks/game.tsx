@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SkiMenu, { MenuType } from "./menu";
-import SkiRoutes, { Route } from "./routes";
+import SkiRoutes, { Route } from "./ski-routes";
 import SkiMap, { MapIcon } from "./map";
 import Image from "next/image";
 import { ToolMenu } from "./menus";

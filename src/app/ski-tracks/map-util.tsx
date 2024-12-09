@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GameProgress, RouteProgress } from "./game";
-import { routes } from "./routes";
+import { routes } from "./ski-routes";
 import { useMedia } from "../hooks/viewport";
 
 const duration = 2000;

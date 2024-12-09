@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Nav } from "./routes";
+import { Nav } from "./ski-routes";
 import { MapIcon } from "./map";
 import { useState } from "react";
 
@@ -9,8 +9,6 @@ interface Metrix {
 }
 
 interface CompassProps {
-  loading: boolean;
-  angles: boolean;
   metrix: Metrix[];
   navigate: (nav: Nav) => void;
 }
@@ -78,9 +76,9 @@ export default function Compass({ metrix, navigate }: CompassProps) {
   };
 
   const toolbtns = [
-    { show: showAngles, click: () => setShowAngles(!showAngles), icon: MapIcon.angle, alt: 'See slope angles' },
-    { show: showQuality, click: () => setShowQuality(!showQuality), icon: MapIcon.flake, alt: 'See snow quality' },
-    { show: showReport, click: () => setShowReport(!showReport), icon: MapIcon.report, alt: 'See avalanche report' },
+    { show: showAngles, toggle: () => setShowAngles(!showAngles), icon: MapIcon.angle, alt: 'See slope angles' },
+    { show: showQuality, toggle: () => setShowQuality(!showQuality), icon: MapIcon.flake, alt: 'See snow quality' },
+    { show: showReport, toggle: () => setShowReport(!showReport), icon: MapIcon.report, alt: 'See avalanche report' },
   ];
 
   return (
@@ -122,7 +120,7 @@ export default function Compass({ metrix, navigate }: CompassProps) {
         <div className="tool-buttons">
           {toolbtns.map((b, i) => {
             return (
-              <div key={`toolbtn${i}`} className={`btn${b.show ? ' active' : ''}`} onClick={b.click}>
+              <div key={`toolbtn${i}`} className={`btn${b.show ? ' active' : ''}`} onClick={b.toggle}>
                 <Image src={b.icon} width={30} height={30} alt={b.alt} />
               </div>
             )

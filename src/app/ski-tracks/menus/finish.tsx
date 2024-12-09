@@ -1,5 +1,5 @@
 import { GameProps } from "../game";
-import { Route, routes } from "../routes";
+import { Route, routes } from "../ski-routes";
 import { RouteDetails } from "./";
 
 export default function FinishMenu({ setMenu, progress, play }: GameProps) {

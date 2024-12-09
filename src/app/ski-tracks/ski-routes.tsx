@@ -50,11 +50,12 @@ interface RoutePoint {
   desc: string;
   click?: any;
   trail?: boolean;
+  death?: boolean;
 }
 
-function Point({ id, icon, desc, click, trail }: RoutePoint) {
+function Point({ id, icon, desc, click, trail, death = false }: RoutePoint) {
   const size = useMapIconSize(icon);
-  const style = `point ${click ? 'link' : ''}`;
+  const style = `point${click ? ' link' : ''}${death ? ' death' : ''}`;
   return (
     <>
       {trail && <svg id={`Trail${id}`} className="trail" />}
@@ -86,15 +87,15 @@ function SkiRoute({ rider, route, progress, deaths, setMenu, play }: SkiRoute) {
         if (active?.finished && points.length === (i + 1)) icon = MapIcon.apres;
         return (
           <Point
-            key={`point${index}`}
             trail
+            key={`point${index}`}
             id={getPointId(index)}
             icon={icon}
             desc={`Point ${index}`} />
         )
       })}
       {active?.finished && <Point id={getPointId('Finish')} icon={rider} desc="Rallying down" />}
-      {deaths.map((d, index) => <Point key={`Death${index}`} id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
+      {deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
     </div>
   )
 }
