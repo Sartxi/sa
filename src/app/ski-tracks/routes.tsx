@@ -30,7 +30,7 @@ export enum Nav {
 export const routes: Route[] = [{
   id: 'StormMountain',
   title: 'Storm Mountain',
-  description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terraign!',
+  description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terrain!',
   elevation: 2300,
   distance: 2.3,
   start: [410, 1200],

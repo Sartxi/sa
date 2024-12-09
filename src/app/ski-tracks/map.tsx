@@ -11,6 +11,10 @@ export enum MapIcon {
   snowboarder = './boardown.svg',
   apres = './beer.svg',
   death = './death.svg',
+  compass = './compassicon.svg',
+  flake = './snowflake.svg',
+  angle = './angle.svg',
+  report = './report.svg'
 }
 
 export function useMapIconSize(icon: MapIcon) {

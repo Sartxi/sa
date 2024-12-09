@@ -18,7 +18,9 @@
   --foreground: #0a0a0a;
   --background: #ededed;
   --detail-background: #999;
+  --more-transparent: rgba(0, 0, 0, 0.03);
   --transparent: rgba(0, 0, 0, 0.1);
+  --less-transparent: rgba(0, 0, 0, 0.2);
   --text-shadow: rgba(240, 242, 245, 0.2);
   --body-color: #000;
   --light-text: #555;
@@ -50,7 +52,9 @@
     --background: #0a0a0a;
     --detail-background: #333;
     --foreground: #ededed;
+    --more-transparent: rgba(240, 242, 245, 0.05);
     --transparent: rgba(240, 242, 245, 0.2);
+    --less-transparent: rgba(240, 242, 245, 0.3);
     --text-shadow: rgba(0, 0, 0, 0.82);
     --light-text: #999;
     --body-color: #fff;
@@ -81,7 +85,9 @@ html[data-scheme="dark"] {
   --logo-filter: invert();
   --foreground: #ededed;
   --background: #0a0a0a;
+  --more-transparent: rgba(240, 242, 245, 0.05);
   --transparent: rgba(240, 242, 245, 0.2);
+  --less-transparent: rgba(240, 242, 245, 0.3);
   --text-shadow: rgba(0, 0, 0, 0.82);
   --light-text: #999;
   --body-color: #fff;
@@ -110,7 +116,9 @@ html[data-scheme="light"] {
   --logo-filter: none;
   --foreground: #0a0a0a;
   --background: #ededed;
+  --more-transparent: rgba(0, 0, 0, 0.03);
   --transparent: rgba(0, 0, 0, 0.1);
+  --less-transparent: rgba(0, 0, 0, 0.2);
   --text-shadow: rgba(240, 242, 245, 0.2);
   --light-text: #555;
   --body-color: #000;

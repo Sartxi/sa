@@ -6,6 +6,10 @@ import { useMedia } from "../hooks/viewport";
 const duration = 2000;
 const animate = { duration, easing: 'ease-in-out' };
 
+export function getRandom(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function track(a: string, b: string) {
   const p1 = document.getElementById(a);
   const p2 = document.getElementById(b);

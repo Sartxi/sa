@@ -1,3 +1,5 @@
+@import url(./compass.css);
+
 .egg {
   position: absolute;
   filter: var(--icon-foreground);
@@ -203,10 +205,10 @@
   justify-content: space-between;
 }
 
-.ski-menu.route .menu .actions {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+.ski-menu.route .menu .close {
+  position: absolute;
+  right: 8px;
+  top: 16px;
 }
 
 .ski-menu .route-details {
@@ -214,6 +216,7 @@
   flex-direction: column;
   gap: 15px;
   padding-bottom: 20px;
+  border-bottom: 3px solid var(--transparent);
 }
 
 .ski-menu.gameover h1,
@@ -223,9 +226,21 @@
   gap: 10px;
 }
 
+.ski-menu.gameover h1 .icon,
+.ski-menu .route-details h1 .icon {
+  height: 35px;
+}
+
 .ski-menu.gameover h1 img,
 .ski-menu .route-details h1 img {
   filter: var(--icon-fill);
+}
+
+.ski-menu .route-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .route-details .route-stats {
@@ -250,68 +265,22 @@
   filter: var(--icon-foreground);
 }
 
-.avy-report {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.avy-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 10px;
-  color: #333;
-}
-
-.avy-type {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-
 .route-decision {
+  height: 100%;
   padding-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.nav-choices {
+.route-decision h2 {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
-  width: 70%;
+  gap: 5px;
 }
 
-.nav-choices .sa-cta {
-  font-weight: 200;
-  display: inline;
-}
-
-.nav-choices .sa-cta strong {
-  font-size: 1.5em;
-  display: block;
-}
-
-.nav-choices button,
-.nav-choices img {
-  flex: 0 0 31.4333%;
-}
-
-.nav-choices img {
-  filter: var(--icon-fill);
-}
-
-.nav-choices .sa-cta {
-  margin: 0;
+.route-decision h2 img {
+  filter: var(--icon-foreground);
 }
 
 #GameArea {
@@ -370,4 +339,17 @@
 #Skinner {
   visibility: hidden;
   z-index: 99;
+}
+
+.action-area {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--more-transparent);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-top: 20px;
 }
