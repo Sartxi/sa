@@ -368,6 +368,7 @@
   gap: 30px;
   justify-content: space-evenly;
 }
+
 .consequence .sa-cta {
   margin-top: 0;
 }
@@ -388,9 +389,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 20px;
   width: 100%;
   height: 100%;
-  gap: 20px;
+  max-width: 400px;
 }
 
 #Pzl .area {
@@ -403,7 +405,7 @@
   display: flex;
   flex-direction: row;
   background-color: var(--transparent);
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 #Pzl .selector {
@@ -417,6 +419,7 @@
 #Pzl .select {
   background-color: var(--more-transparent);
   border-radius: 12px;
+  cursor: pointer;
 }
 
 #Pzl .select:hover {
@@ -459,14 +462,12 @@
   background-color: var(--accent);
 }
 
-#Pzl .combo.done::after {
-  content: url(/_next/static/media/check.15114bf9.svg);
-  position: absolute;
+#Pzl .combo.done .check {
   z-index: 9;
-  width: 27px;
-  filter: var(--icon-foreground);
-  left: 4px;
-  top: 4px;
+  width: 27px !important;
+  margin: 0 auto;
+  filter: var(--icon-background);
+  opacity: 0.5;
 }
 
 #Pzl .combo .on {
@@ -702,17 +703,41 @@ html[data-scheme="dark"] .nav-icon.loading {
   transition: all 200ms linear;
 }
 
-.nav-dir strong.small { font-size: 1.5em; }
+.nav-dir strong.small {
+  font-size: 1.5em;
+}
 
-.n .nav-dir strong { top: 20px; }
-.s .nav-dir strong { bottom: 20px; }
-.w .nav-dir strong { left: 15px; }
-.e .nav-dir strong { right: 20px; }
+.n .nav-dir strong {
+  top: 20px;
+}
 
-.n .nav-dir strong.small { top: 5px; }
-.s .nav-dir strong.small { bottom: 5px; }
-.w .nav-dir strong.small { left: 5px; }
-.e .nav-dir strong.small { right: 5px; }
+.s .nav-dir strong {
+  bottom: 20px;
+}
+
+.w .nav-dir strong {
+  left: 15px;
+}
+
+.e .nav-dir strong {
+  right: 20px;
+}
+
+.n .nav-dir strong.small {
+  top: 5px;
+}
+
+.s .nav-dir strong.small {
+  bottom: 5px;
+}
+
+.w .nav-dir strong.small {
+  left: 5px;
+}
+
+.e .nav-dir strong.small {
+  right: 5px;
+}
 
 .nav-button.nw,
 .nav-button.w,
@@ -817,4 +842,37 @@ html[data-scheme="dark"] .nav-icon.loading {
   flex-direction: row;
   align-items: center;
   gap: 10px;
+}
+
+.ctrl-overlay {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+  background-color: var(--less-transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+#GameTimer.countdown {
+  font-style: italic;
+}
+
+@media (min-width: 600px) and (max-width: 1199px) {
+  .ski-menu.route,
+  .ski-menu.finish {
+    width: 65vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .ski-menu.route,
+  .ski-menu.finish {
+    width: 90vw;
+  }
 }

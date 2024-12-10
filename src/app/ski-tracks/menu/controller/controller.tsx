@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GameProps, RouteProgress } from "../../game";
 import { MapIcon } from "../../map/data";
-import { Nav, Route } from "../../ski-routes";
+import { Difficulty, Nav, Route } from "../../ski-routes";
 import { getRandom } from "../../map/util";
 import { ResultProps } from "./result";
 
@@ -24,6 +24,7 @@ interface GameCtrlProps {
 
 export interface CtrlProps {
   id: CtrlType;
+  difficulty: Difficulty;
   callback: (r: any) => void;
   correct: Nav | null;
 }
@@ -36,8 +37,8 @@ interface CtrlDeets {
 }
 
 const details: CtrlDeets[] = [
-  { id: CtrlType.transition, icon: MapIcon.report, title: 'Transition', description: 'Being prepared means always having the proper safety gear! Type all the combos before the timer runs out to complete your safety checks and be prepared.' },
-  { id: CtrlType.navigation, icon: MapIcon.compass, title: 'Navigation', description: 'Use your compass to decide which direction to proceed. Be sure to consider the slope angle, snow quality, and avalanche report before making your decisions.' }
+  { id: CtrlType.transition, icon: MapIcon.report, title: 'Transitioning', description: 'Being prepared means always having the proper safety gear! Type all the combos before the timer runs out to complete your safety checks.' },
+  { id: CtrlType.navigation, icon: MapIcon.compass, title: 'Navigating', description: 'Use your compass to decide which direction to proceed. Consider slope angle, snow quality, and avalanche report before making your decisions.' }
 ];
 
 function CtrlDeets({ id }: { id: CtrlType }) {
@@ -88,6 +89,7 @@ function useController({ current, route, game, quit }: GameCtrlProps) {
 
   const controls: CtrlProps[] = [{
     id: CtrlType.transition,
+    difficulty: route.difficulty,
     correct,
     callback: () => {
       setController(CtrlType.navigation)
@@ -99,6 +101,7 @@ function useController({ current, route, game, quit }: GameCtrlProps) {
   }, {
     id: CtrlType.navigation,
     correct,
+    difficulty: route.difficulty,
     callback: (direction) => {
       const wrong = direction !== correct;
       if (wrong) youDied();

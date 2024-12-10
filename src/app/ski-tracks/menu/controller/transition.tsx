@@ -1,29 +1,104 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CtrlProps } from "./controller";
+import Image from "next/image";
+import { Difficulty } from "../../ski-routes";
+
+const hasMatch = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
+const twoDigits = (num: number) => String(num).padStart(2, '0');
+interface TimerProps {
+  show: boolean;
+  startText: string;
+  count: number;
+  callback: () => void;
+}
+enum TimerStatus { started, stopped, ended };
+
+function useTimer(callback: any, delay: any) {
+  const ref = useRef<() => void | undefined>();
+  useEffect(() => ref.current = callback, [callback]);
+  useEffect(() => {
+    function tick() {
+      if (ref.current) ref.current();
+    }
+    if (delay !== null) {
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
+
+function GameTimer(props: TimerProps) {
+  const [remaining, setRemaining] = useState(props.count);
+  const [status, setStatus] = useState(TimerStatus.stopped);
+
+  useEffect(() => {
+    if (status === TimerStatus.started) props.callback();
+  }, [status]);
+
+  useTimer(() => {
+    if (remaining > 0) {
+      setRemaining(remaining - 1);
+    } else {
+      setRemaining(props.count);
+      setStatus(TimerStatus.ended);
+    }
+  }, status === TimerStatus.started ? 1000 : null);
+
+  if (!props.show) return '';
+
+  const seconds = remaining % 60;
+  const minutes = ((remaining - seconds) / 60) % 60;
+
+  const timer = status === TimerStatus.ended ? 'Timer Ended' : `${twoDigits(minutes)}:${twoDigits(seconds)}`
+
+  return (
+    <div id="GameTimer" className="countdown">
+      {status !== TimerStatus.started && (
+        <div className="ctrl-overlay">
+          <button className="sa-cta" onClick={() => setStatus(TimerStatus.started)}>
+            {props.startText}
+          </button>
+        </div>
+      )}
+      {timer}
+    </div>
+  );
+}
+
+function useDifficulty(difficulty: Difficulty) {
+  let length = 9;
+  if (difficulty === Difficulty.blue) length = 6;
+  if (difficulty === Difficulty.green) length = 3;
+  const random = () => (Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)));
+  return {
+    puzzles: [...Array(length).keys().map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))],
+    answers: Array.from({ length }, () => []),
+    timer: 81
+  }
+}
 
 export default function Transition(props: CtrlProps) {
-  console.log(props);
-  
   const [puzzles, setPuzzles] = useState<number[][]>([]);
   const [answers, setAnswers] = useState<number[][]>([]);
   const [active, setActive] = useState(0);
+  const [won, setWon] = useState(false);
 
+  const diff = useDifficulty(props.difficulty);
   const btns = [...Array(9).keys()];
-  const random = () => (Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)));
 
   useEffect(() => {
-    const dice = btns.map(() => random().filter((b, t, n) => b && n.indexOf(b) === t));
-    setPuzzles(dice);
-    setAnswers(Array.from({ length: 9 }, () => []));
+    setPuzzles(diff.puzzles);
+    setAnswers(diff.answers);
   }, []);
 
   useEffect(() => {
-    const hasMatch = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
     if (answers.length && hasMatch(puzzles[active], answers[active])) {
-      setActive(active + 1);
-    }
-    if (answers.length && active === puzzles.length) {
-      console.log('beat it');
+      const next = active + 1;
+      setActive(next);
+      if (next === puzzles.length) {
+        setWon(true);
+        setTimeout(() => props.callback('won'), 2000);
+      }
     }
   }, [answers]);
 
@@ -54,20 +129,24 @@ export default function Transition(props: CtrlProps) {
 
   return (
     <div id="Pzl" className="transition">
+      {won && <div className="ctrl-overlay">You did it!</div>}
       <div className="area preps">
         <div className="prep">
-          Safety
+          Safety Check
         </div>
         <div className="prep">
-          Beacon
-        </div>
-        <div className="prep">
-          Gear
+          <GameTimer {...{
+            show: active !== puzzles.length,
+            startText: 'Start',
+            count: diff.timer,
+            callback: () => setAnswers(diff.answers)
+          }} />
         </div>
       </div>
       <div className="area combos">
         {puzzles.map((p, i) => (
           <div key={`p-${i}`} className={`combo${puzzle(i)}`}>
+            {i < active ? <Image fill src="./check.svg" className="check" alt="puzzle done" /> : ''}
             {btns.map(b => <span key={b} className={highlight(p, i, b)} />)}
           </div>
         ))}

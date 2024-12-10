@@ -3,6 +3,11 @@ import { GameProps } from "./game";
 import { Map, MapIcon, useMapIconSize } from "./map/data";
 import { MenuType } from "./menu/menu";
 
+export enum Difficulty {
+  green = 'Green Circle',
+  blue = 'Blue Square',
+  black = 'Black Diamond'
+}
 export interface Route {
   id: string;
   title: string;
@@ -14,6 +19,7 @@ export interface Route {
   finish: [number, number][];
   answers: Nav[];
   center: [number, number][];
+  difficulty: Difficulty;
 }
 
 export enum Nav {
@@ -34,14 +40,15 @@ export const maps: GameMap[] = [{
   routes: [{
     id: 'StormMountain',
     title: 'Storm Mountain',
-    description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terrain!',
+    description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain.',
     elevation: 2300,
     distance: 2.3,
     start: [410, 1200],
     points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
     answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
     finish: [[455, 1675], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
-    center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]]
+    center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]],
+    difficulty: Difficulty.blue
   }]
 }];
 
