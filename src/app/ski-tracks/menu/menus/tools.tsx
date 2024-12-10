@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { GameProps } from "../game/data";
-import { MapIcon } from "../map/data";
+import { GameProps } from "../../game/data";
+import { MapIcon } from "../../map/data";
 
 export default function ToolMenu({ close, game }: { game: GameProps; close: () => void }) {
   const completes = game.progress?.current.filter(r => r.finished);

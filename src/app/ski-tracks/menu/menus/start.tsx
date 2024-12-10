@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { GameProps } from "../game/data";
+import { GameProps } from "../../game/data";
 
 export default function StartMenu({ rider, setMenu }: GameProps) {
   return (

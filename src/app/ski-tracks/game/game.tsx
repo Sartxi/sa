@@ -3,7 +3,7 @@ import SkiMenu from "../menu/menu";
 import SkiCourses from "./courses";
 import SkiMap from "../map/map";
 import Image from "next/image";
-import { ToolMenu } from "../menu";
+import { ToolMenu } from "../menu/menus";
 import { MenuType, MenuProps } from "../menu/data";
 import { SkiTracksGame } from "../ski-tracks";
 import { GameProps, GameProgress } from "../game/data";

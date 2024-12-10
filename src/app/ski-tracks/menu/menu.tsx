@@ -1,5 +1,5 @@
 import { GameProps } from "../game/data";
-import { StartMenu, CourseMenu, FinishMenu, HelpMenu } from "./";
+import { StartMenu, CourseMenu, FinishMenu, HelpMenu } from "./menus";
 import { MenuType } from "./data";
 
 function useMenu(game: GameProps): { style: string, menu: any } {

@@ -1,5 +1,5 @@
-import { GameProps, Course } from "../game/data";
-import { CourseDetails } from ".";
+import { GameProps, Course } from "../../game/data";
+import { CourseDetails } from "./";
 
 export default function FinishMenu({ courses, setMenu, progress, play }: GameProps) {
   const active = progress?.current.find((route) => route.active);

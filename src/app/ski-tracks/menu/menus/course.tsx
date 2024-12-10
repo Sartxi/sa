@@ -1,8 +1,8 @@
-import { GameProps, Course } from "../game/data";
-import { CourseProgress } from "../game/game";
+import { GameProps, Course } from "../../game/data";
+import { CourseProgress } from "../../game/game";
 import { CourseDetails } from ".";
-import { MenuType } from "./data";
-import GameController from "./controller/controller";
+import { MenuType } from "../data";
+import GameController from "../controller/controller";
 
 
 function useCourseMenu({ courses, progress, setMenu, play }: GameProps) {

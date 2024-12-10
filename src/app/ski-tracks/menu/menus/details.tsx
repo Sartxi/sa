@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { MapIcon } from "../map/data";
-import { Difficulty, Course } from "../game/data";
+import { MapIcon } from "../../map/data";
+import { Difficulty, Course } from "../../game/data";
 
 function useDifficulty(diff: Difficulty | undefined) {
   let icon = 'circle';
