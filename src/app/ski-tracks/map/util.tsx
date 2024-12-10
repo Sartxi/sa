@@ -1,4 +1,4 @@
-import { GameProps } from "../game";
+import { GameProps } from "../game/data";
 
 function getRandom(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -54,9 +54,9 @@ function setPins(map: HTMLElement | null, game: GameProps) {
   if (!map) return;
   const [x, y] = getBgAxis(map);
   const mapBg = [parseInt(x), parseInt(y)];
-  game.routes.forEach(({ id, start, points }) => {
+  game.courses.forEach(({ id, start, points }) => {
     placePin(`${id}Start`, mapBg, start);
-    const reached = game.progress?.current.find((route) => route.id === id);
+    const reached = game.progress?.current.find((course) => course.id === id);
     points.forEach((point, i) => {
       if (reached?.points[i]) {
         placePin(`${id}${i + 1}`, mapBg, point);

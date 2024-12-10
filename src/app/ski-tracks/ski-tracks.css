@@ -1,20 +1,20 @@
-.egg {
+.ski-egg {
   position: absolute;
   filter: var(--icon-foreground);
   opacity: 0.2;
   cursor: pointer;
 }
 
-.egg:hover {
+.ski-egg:hover {
   opacity: 0.9;
 }
 
-.egg.skier {
+.ski-egg.skier {
   top: 50vh;
   left: 85vw;
 }
 
-.egg.boarder {
+.ski-egg.boarder {
   top: 80vh;
   left: 10vw;
   transform: rotateY(180deg);
@@ -187,7 +187,7 @@
   margin-top: 15px;
 }
 
-.ski-menu.route,
+.ski-menu.course,
 .ski-menu.finish {
   width: 40vw;
   right: 20px;
@@ -195,7 +195,7 @@
   transition: width 2s;
 }
 
-.ski-menu.route .menu,
+.ski-menu.course .menu,
 .ski-menu.finish .menu {
   height: 91vh;
   display: flex;
@@ -204,13 +204,13 @@
   overflow-y: auto;
 }
 
-.ski-menu.route .menu .close {
+.ski-menu.course .menu .close {
   position: absolute;
   right: 8px;
   top: 16px;
 }
 
-.ski-menu .route-details {
+.ski-menu .course-details {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -219,35 +219,35 @@
 }
 
 .ski-menu.gameover h1,
-.ski-menu .route-details h1 {
+.ski-menu .course-details h1 {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .ski-menu.gameover h1 .icon,
-.ski-menu .route-details h1 .icon {
+.ski-menu .course-details h1 .icon {
   height: 35px;
 }
 
 .ski-menu.gameover h1 img,
-.ski-menu .route-details h1 img {
+.ski-menu .course-details h1 img {
   filter: var(--icon-fill);
 }
 
-.ski-menu .route-info {
+.ski-menu .course-info {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.route-details .route-stats {
+.course-details .course-stats {
   display: flex;
   gap: 15px;
 }
 
-.route-details .route-stats .stat {
+.course-details .course-stats .stat {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -264,7 +264,7 @@
   filter: var(--icon-foreground);
 }
 
-.route-decision {
+.course-decision {
   height: 100%;
   padding-top: 20px;
   display: flex;
@@ -272,14 +272,14 @@
   gap: 10px;
 }
 
-.route-decision h2 {
+.course-decision h2 {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 10px;
 }
 
-.route-decision h2 img {
+.course-decision h2 img {
   filter: var(--icon-foreground);
 }
 
@@ -304,11 +304,11 @@
   cursor: default !important;
 }
 
-#SkiMap.auto-centering .route .point {
+#SkiMap.auto-centering .course .point {
   opacity: 0;
 }
 
-.route .point {
+.course .point {
   position: absolute;
   cursor: default;
   z-index: 9;
@@ -317,17 +317,17 @@
   transition: opacity .2s;
 }
 
-.route .point.link {
+.course .point.link {
   cursor: pointer;
   filter: var(--icon-fill);
 }
 
-.route .point.link:hover {
+.course .point.link:hover {
   filter: var(--icon-foreground);
 }
 
 .death,
-.route .point.death {
+.course .point.death {
   filter: invert(17%) sepia(80%) saturate(7146%) hue-rotate(1deg) brightness(89%) contrast(89%);
 }
 
@@ -434,6 +434,7 @@
   display: flex;
   gap: 5px;
   justify-content: space-between;
+  padding: 10px;
 }
 
 #Pzl .combo {
@@ -460,6 +461,39 @@
   width: 100%;
   height: 100%;
   background-color: var(--accent);
+}
+
+.rating-circle {
+  width: 14px;
+  height: 14px;
+  background: #0a6924;
+  border-radius: 50%;
+}
+
+.rating-square {
+  width: 14px;
+  height: 14px;
+  background: #247bb6;
+}
+
+.rating-diamond {
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-bottom-color: #000;
+  position: relative;
+  top: -8px;
+}
+
+.rating-diamond:after {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: #000;
 }
 
 #Pzl .combo.done .check {
@@ -861,17 +895,29 @@ html[data-scheme="dark"] .nav-icon.loading {
 
 #GameTimer.countdown {
   font-style: italic;
+  color: var(--accent);
+}
+
+#GameTimer .time {
+  animation: textSize 0.5s linear;
+}
+
+@keyframes textSize {
+  0% { font-size: 15px; }
+  100% { font-size: 16px; }
 }
 
 @media (min-width: 600px) and (max-width: 1199px) {
-  .ski-menu.route,
+
+  .ski-menu.course,
   .ski-menu.finish {
     width: 65vw;
   }
 }
 
 @media (max-width: 600px) {
-  .ski-menu.route,
+
+  .ski-menu.course,
   .ski-menu.finish {
     width: 90vw;
   }

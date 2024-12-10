@@ -1,14 +1,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { GameProps, RouteProgress } from "../../game";
+import { Difficulty, GameProps, Nav, Course } from "../../game/data";
 import { MapIcon } from "../../map/data";
-import { Difficulty, Nav, Route } from "../../ski-routes";
 import { getRandom } from "../../map/util";
 import { ResultProps } from "./result";
 
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
+import { CourseProgress } from "../../game/game";
 
 enum CtrlType {
   transition = 'Transition',
@@ -17,8 +17,8 @@ enum CtrlType {
 
 interface GameCtrlProps {
   game: GameProps;
-  route: Route;
-  current: RouteProgress;
+  course: Course;
+  current: CourseProgress;
   quit: () => void;
 }
 
@@ -71,28 +71,28 @@ function Controller(props: CtrlProps) {
   }
 }
 
-function useController({ current, route, game, quit }: GameCtrlProps) {
+function useController({ current, course, game, quit }: GameCtrlProps) {
   const [controller, setController] = useState<CtrlType>(CtrlType.transition);
-  const [correct, setCorrect] = useState<Nav>(route.answers[current.points.length]);
+  const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
   const [result, setResult] = useState<ResultProps | null>(null);
 
   useEffect(() => {
-    const answer: Nav = route.answers[current.points.length];
+    const answer: Nav = course.answers[current.points.length];
     setCorrect(answer);
   }, [current, game]);
 
   const youDied = () => {
-    const point = route.points[current.points.length];
+    const point = course.points[current.points.length];
     const death = [point[0] + getRandom(22, 32), point[1] - getRandom(42, 62)];
     current.deaths.push(death);
   };
 
-  const controls: CtrlProps[] = [{
+  const controllers: CtrlProps[] = [{
     id: CtrlType.transition,
-    difficulty: route.difficulty,
+    difficulty: course.difficulty,
     correct,
     callback: () => {
-      setController(CtrlType.navigation)
+      setController(CtrlType.navigation);
       if (current.summit) {
         current.summit = 2;
         game.play(current);
@@ -100,15 +100,15 @@ function useController({ current, route, game, quit }: GameCtrlProps) {
     }
   }, {
     id: CtrlType.navigation,
+    difficulty: course.difficulty,
     correct,
-    difficulty: route.difficulty,
     callback: (direction) => {
       const wrong = direction !== correct;
       if (wrong) youDied();
       else if (current.summit === 2) current.summit = 3;
       else if (current.summit === 3) current.finished = true;
       else {
-        const atSummit = route.points.length === (current.points.length + 1);
+        const atSummit = course.points.length === (current.points.length + 1);
         current.summit = atSummit ? 1 : 0;
         if (atSummit) setController(CtrlType.transition);
         current.points.push(1);
@@ -118,7 +118,7 @@ function useController({ current, route, game, quit }: GameCtrlProps) {
     }
   }];
 
-  return { controller: controls[controls.findIndex(c => c.id === controller)], result };
+  return { controller: controllers[controllers.findIndex(c => c.id === controller)], result };
 }
 
 export default function GameController(props: GameCtrlProps) {

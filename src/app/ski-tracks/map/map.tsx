@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/viewport";
-import { GameProps, RouteProgress } from "../game";
+import { GameProps } from "../game/data";
 import { skin, ski, centerMap } from "./animation";
 import { listeners, getAxis, setPins, placePin } from "./util";
+import { CourseProgress } from "../game/game";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
   const { mobile, tablet } = useMedia();
@@ -69,30 +70,41 @@ function useDrag(map: HTMLElement | null, setMap: () => void) {
   };
 }
 
-export function useLog(game: GameProps) {
+function useLog(game: GameProps) {
   const [log, setLog] = useState<[number, number]>([0, 0]);
   const [skins, deaths] = log;
 
   return {
     log: { skins, deaths },
-    callLog: (route: RouteProgress, updates: [number, number], mapBg: [number, number]) => {
-      const playing = game.routes.find(r => r.id === route.id);
+    update: (course: CourseProgress, updates: [number, number], mapBg: [number, number]) => {
+      const playing = game.courses.find(r => r.id === course.id);
+      if (!playing) return;
+
       const [hike, die] = updates;
-      const rider = `${route.id}Finish`;
-      if (route.summit === 3 && playing) {
-        ski(rider, mapBg, playing.finish, () => {
-          route.summit = 0;
-          game.play(route);
-        });
+      const rider = `${course.id}Finish`;
+
+      if (course.summit > 1) {
+        if (course.summit === 2) {
+          console.log('do something');
+
+        }
+        if (course.summit === 3) {
+          ski(rider, mapBg, playing.finish, () => {
+            course.summit = 0;
+            game.play(course);
+          });
+        }
       }
+
       if (hike !== skins) {
         setLog([hike, deaths]);
-        skin(route, point => {
-          route.points[point] = 2;
-          if (route.summit === 1 && playing) placePin(rider, mapBg, playing.finish[0]);
-          game.play(route);
+        skin(course, point => {
+          course.points[point] = 2;
+          if (course.summit === 1) placePin(rider, mapBg, playing.finish[0]);
+          game.play(course);
         });
       }
+
       if (die !== deaths) {
         setLog([skins, die]);
       }
@@ -100,16 +112,38 @@ export function useLog(game: GameProps) {
   };
 }
 
-export function useMap(game: GameProps) {
+function useMap(game: GameProps) {
   const map = document.getElementById('SkiMap');
   const { mapBg, center } = useDrag(map, () => setPins(map, game));
   return {
     map,
     mapBg,
     unlock: () => center(),
-    lock: (active: RouteProgress) => {
-      const route = game.routes.find(r => r.id === active.id);
-      if (route) center(route.center);
+    lock: (active: CourseProgress) => {
+      const course = game.courses.find(r => r.id === active.id);
+      if (course) center(course.center);
     },
   };
+}
+
+function useSkiMap(game: GameProps) {
+  const { progress } = game;
+  const { map, mapBg, lock, unlock } = useMap(game);
+  const { log, update } = useLog(game);
+  useEffect(() => setPins(map, game), [map]);
+  useEffect(() => {
+    const course = progress?.current.find(r => r.active);
+    if (course && !course.finished) {
+      lock(course);
+      const skins = course.points.length;
+      const deaths = course.deaths.length;
+      if (skins !== log.skins || deaths === log.deaths) setPins(map, game);
+      update(course, [skins, deaths], mapBg);
+    } else unlock();
+  }, [map, progress]);
+}
+
+export default function SkiMap(game: GameProps) {
+  useSkiMap(game);
+  return <div id="SkiMap">{game.children}</div>;
 }

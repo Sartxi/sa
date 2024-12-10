@@ -1,4 +1,4 @@
-import { RouteProgress } from "../game";
+import { CourseProgress } from "../game/game";
 import { Animate } from "./data";
 import { getBgAxis } from "./util";
 
@@ -37,10 +37,10 @@ export function centerMap(
   }
 }
 
-export function skin(route: RouteProgress, callback: (index: number) => void) {
-  const point = route.points.findIndex(i => i === 1);
-  const start = point === 0 ? `${route.id}Start` : `${route.id}${point}`;
-  const finish = `${route.id}${point + 1}`;
+export function skin(course: CourseProgress, callback: (index: number) => void) {
+  const point = course.points.findIndex(i => i === 1);
+  const start = point === 0 ? `${course.id}Start` : `${course.id}${point}`;
+  const finish = `${course.id}${point + 1}`;
   const skinner = document.getElementById('Skinner');
   const st = document.getElementById(start);
   const en = document.getElementById(finish);

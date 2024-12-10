@@ -1,5 +1,5 @@
 enum Map {
-  storm = 'storm'
+  west = 'west'
 }
 
 enum MapIcon {

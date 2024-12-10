@@ -1,33 +1,14 @@
 import { useState } from "react";
-import SkiMenu, { MenuType } from "./menu/menu";
-import SkiRoutes, { Route, GameMap } from "./ski-routes";
-import SkiMap from "./map/ski-map";
-import { MapIcon } from "./map/data";
+import SkiMenu from "../menu/menu";
+import SkiCourses from "./courses";
+import SkiMap from "../map/map";
 import Image from "next/image";
-import { ToolMenu } from "./menu";
+import { ToolMenu } from "../menu";
+import { MenuType, MenuProps } from "../menu/data";
+import { SkiTracksGame } from "../ski-tracks";
+import { GameProps, GameProgress } from "../game/data";
 
-export interface SkiTracksGame {
-  rider: MapIcon | boolean;
-  map: GameMap;
-  closeGame?: () => void;
-}
-
-export interface GameProps {
-  children?: any;
-  routes: Route[];
-  rider: MapIcon | any;
-  menu: MenuProps | null;
-  progress: GameProgress | undefined;
-  setMenu: (menu: MenuProps | null) => void;
-  play: (event: RouteProgress) => void;
-}
-
-interface MenuProps {
-  type: MenuType;
-  route?: Route;
-}
-
-export interface RouteProgress {
+export interface CourseProgress {
   id: string;
   active: boolean;
   points: number[];
@@ -37,17 +18,13 @@ export interface RouteProgress {
   deaths: number[][];
 }
 
-export interface GameProgress {
-  current: RouteProgress[];
-}
-
 export default function Game({ map, rider, closeGame }: SkiTracksGame) {
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
   const [progress, setProgress] = useState<GameProgress>({ current: [] });
 
   const game: GameProps = {
     rider,
-    routes: map?.routes ?? [],
+    courses: map?.courses ?? [],
     menu,
     setMenu,
     progress,
@@ -65,7 +42,7 @@ export default function Game({ map, rider, closeGame }: SkiTracksGame) {
       <SkiMenu {...game} />
       <div id="GameArea">
         <SkiMap {...game}>
-          <SkiRoutes {...game} />
+          <SkiCourses {...game} />
         </SkiMap>
       </div>
       <Image className="compass" height={70} width={70} src='./compass.svg' alt="Ski Compass" />

@@ -1,10 +1,9 @@
-import { GameProps } from "../game";
-import { Route } from "../ski-routes";
-import { RouteDetails } from ".";
+import { GameProps, Course } from "../game/data";
+import { CourseDetails } from ".";
 
-export default function FinishMenu({ routes, setMenu, progress, play }: GameProps) {
+export default function FinishMenu({ courses, setMenu, progress, play }: GameProps) {
   const active = progress?.current.find((route) => route.active);
-  const data: Route | undefined = routes.find((route) => route.id === active?.id);
+  const data: Course | undefined = courses.find((course) => course.id === active?.id);
   const skiDown = () => {
     if (active) {
       active.finished = true;
@@ -15,7 +14,7 @@ export default function FinishMenu({ routes, setMenu, progress, play }: GameProp
   return (
     <div className="menu">
       <div className="route-info">
-        <RouteDetails route={data} />
+        <CourseDetails course={data} />
         <div className="route-decision">
           <h2>Make a Decision</h2>
           <p>Using the avalanche report and judging by the slope angle move forward by choosing which direction to go.</p>

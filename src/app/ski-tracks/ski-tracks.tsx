@@ -1,8 +1,38 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Game from "./game";
 import { MapIcon } from "./map/data";
-import { maps } from "./ski-routes";
+import { GameMap, maps } from "./game/data";
+import Game from "./game/game";
+
+export interface SkiTracksGame {
+  rider: MapIcon | boolean;
+  map: GameMap;
+  closeGame?: () => void;
+}
+
+function SkierEggs({ play }: { play: (player: any) => void }) {
+  const riders = [MapIcon.skier, MapIcon.snowboarder];
+  const getType = (rider: MapIcon) => {
+    let type = 'skier';
+    if (rider === MapIcon.snowboarder) type = 'boarder';
+    return type;
+  };
+  return (
+    riders.map((rider) => {
+      const type = getType(rider);
+      return (
+        <Image
+          key={rider}
+          src={rider}
+          width={20}
+          height={20}
+          className={`${type} ski-egg`}
+          alt="ski tracks player"
+          onClick={() => play(rider)} />
+      )
+    })
+  );
+}
 
 
 export default function SkiTracks() {
@@ -13,23 +43,6 @@ export default function SkiTracks() {
     document.documentElement.setAttribute('data-scrolling', play ? 'false' : 'true');
   }, [play]);
 
-  if (!play) return (
-    <>
-      <Image
-        src={MapIcon.skier}
-        width={20}
-        height={20}
-        className="skier egg"
-        alt="ski codes"
-        onClick={() => setPlay(MapIcon.skier)} />
-      <Image
-        src={MapIcon.snowboarder}
-        width={20}
-        height={20}
-        className="boarder egg"
-        alt="snowboard codes"
-        onClick={() => setPlay(MapIcon.snowboarder)} />
-    </>
-  )
-  return <Game map={map} rider={play} closeGame={() => setPlay(false)} />
+  if (!play) return <SkierEggs play={setPlay} />;
+  return <Game map={map} rider={play} closeGame={() => setPlay(false)} />;
 }

@@ -1,14 +1,14 @@
 import StartMenu from "./start";
-import RouteMenu from "./ski-route";
-import RouteDetails from "./ski-route-details";
+import CourseMenu from "./course";
+import CourseDetails from "./details";
 import FinishMenu from "./finish";
 import HelpMenu from "./help";
 import ToolMenu from "./tools";
 
 export {
   StartMenu,
-  RouteMenu,
-  RouteDetails,
+  CourseMenu,
+  CourseDetails,
   FinishMenu,
   HelpMenu,
   ToolMenu,

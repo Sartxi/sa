@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { CtrlProps } from "./controller";
 import Image from "next/image";
-import { Difficulty } from "../../ski-routes";
+import { Difficulty } from "../../game/data";
 
 const hasMatch = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
 const twoDigits = (num: number) => String(num).padStart(2, '0');
@@ -60,7 +60,7 @@ function GameTimer(props: TimerProps) {
           </button>
         </div>
       )}
-      {timer}
+      <span key={timer} className="time">{timer}</span>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { GameProps } from "../game";
+import { GameProps } from "../game/data";
 
 export default function StartMenu({ rider, setMenu }: GameProps) {
   return (
@@ -15,7 +15,7 @@ export default function StartMenu({ rider, setMenu }: GameProps) {
       <div className="menu-body">
         <div>
           <p><strong>Objective:</strong></p><br />
-          <p>Find routes, bag peaks, then rally down and crack a cold one. But watch out for trouble and stay out of avalanches!</p>
+          <p>Find courses, bag peaks, then rally down and crack a cold one. But watch out for trouble and stay out of avalanches!</p>
         </div>
         <div className="player">
           <p>Playing As:</p>

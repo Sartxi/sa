@@ -1,14 +1,13 @@
-import { GameProps } from "../game";
-import { StartMenu, RouteMenu, FinishMenu, HelpMenu } from "./";
-
-export enum MenuType { start, finish, route };
+import { GameProps } from "../game/data";
+import { StartMenu, CourseMenu, FinishMenu, HelpMenu } from "./";
+import { MenuType } from "./data";
 
 function useMenu(game: GameProps): { style: string, menu: any } {
   switch (game.menu?.type) {
-    case MenuType.route:
+    case MenuType.course:
       return {
-        style: 'route',
-        menu: () => <RouteMenu {...game} />
+        style: 'course',
+        menu: () => <CourseMenu {...game} />
       }
     case MenuType.finish:
       return {
