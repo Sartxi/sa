@@ -54,7 +54,7 @@ function setPins(map: HTMLElement | null, game: GameProps) {
   if (!map) return;
   const [x, y] = getBgAxis(map);
   const mapBg = [parseInt(x), parseInt(y)];
-  game.routes.forEach(({ id, start, points, finish }) => {
+  game.routes.forEach(({ id, start, points }) => {
     placePin(`${id}Start`, mapBg, start);
     const reached = game.progress?.current.find((route) => route.id === id);
     points.forEach((point, i) => {

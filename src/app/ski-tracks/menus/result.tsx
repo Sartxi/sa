@@ -38,12 +38,12 @@ export default function Result(props: ResultProps) {
                   Restart Game
                 </button>
                 <button className="sa-cta" onClick={() => close()}>
-                  Pretend it didn't happen
+                  Pretend it didnt happen
                 </button>
               </div>
             ) : (
               <button className="sa-cta" onClick={() => close()}>
-                Let's Go!
+                Lets Go!
               </button>
             )}
           </span>

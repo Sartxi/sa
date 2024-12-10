@@ -4,11 +4,6 @@ import { MapIcon } from "./map/data";
 import { useState } from "react";
 import { getRandom } from "./map/util";
 
-interface Metrix {
-  angle: string;
-  quality: Snow;
-}
-
 interface CompassProps {
   correct: Nav | null;
   navigate: (nav: Nav) => void;
