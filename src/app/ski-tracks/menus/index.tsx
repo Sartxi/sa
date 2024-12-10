@@ -5,7 +5,7 @@ import FinishMenu from "./finish";
 import GameOver from "./gameover";
 import HelpMenu from "./help";
 import ToolMenu from "./tools";
-import Consequence from "./consequence";
+import Result from "./result";
 
 export {
   StartMenu,
@@ -15,5 +15,5 @@ export {
   GameOver,
   HelpMenu,
   ToolMenu,
-  Consequence
+  Result
 };

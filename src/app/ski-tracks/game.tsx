@@ -1,24 +1,25 @@
 import { useState } from "react";
 import SkiMenu, { MenuType } from "./menu";
-import SkiRoutes, { Route } from "./ski-routes";
-import SkiMap, { MapIcon } from "./map";
+import SkiRoutes, { Route, GameMap } from "./ski-routes";
+import SkiMap from "./map/ski-map";
+import { MapIcon } from "./map/data";
 import Image from "next/image";
 import { ToolMenu } from "./menus";
 
 export interface SkiTracksGame {
   rider: MapIcon | boolean;
+  map: GameMap;
   closeGame?: () => void;
 }
 
 export interface GameProps {
   children?: any;
+  routes: Route[];
   rider: MapIcon | any;
   menu: MenuProps | null;
-  deaths: number[][];
   progress: GameProgress | undefined;
   setMenu: (menu: MenuProps | null) => void;
   play: (event: RouteProgress) => void;
-  setDeaths: (event: number[][]) => void;
 }
 
 interface MenuProps {
@@ -30,29 +31,29 @@ export interface RouteProgress {
   id: string;
   active: boolean;
   points: number[];
-  summit: boolean;
+  summit: number;
+  rally: boolean;
   finished: boolean;
+  deaths: number[][];
 }
 
 export interface GameProgress {
-  routes: RouteProgress[];
+  current: RouteProgress[];
 }
 
-export default function Game({ rider, closeGame }: SkiTracksGame) {
+export default function Game({ map, rider, closeGame }: SkiTracksGame) {
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
-  const [progress, setProgress] = useState<GameProgress>({ routes: [] });
-  const [deaths, setDeaths] = useState<number[][]>([]);
+  const [progress, setProgress] = useState<GameProgress>({ current: [] });
 
   const game: GameProps = {
     rider,
+    routes: map?.routes ?? [],
     menu,
     setMenu,
     progress,
-    deaths,
-    setDeaths,
     play: (choice) => {
-      const routes = progress?.routes.filter((r) => r.id !== choice.id) ?? [];
-      setProgress({ routes: [...routes.map(r => ({ ...r, active: false })), choice] });
+      const routes = progress?.current.filter((r) => r.id !== choice.id) ?? [];
+      setProgress({ current: [...routes.map(r => ({ ...r, active: false })), choice] });
     }
   };
 

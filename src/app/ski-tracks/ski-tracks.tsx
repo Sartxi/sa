@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Game from "./game";
-import { MapIcon } from "./map";
+import { MapIcon } from "./map/data";
+import { maps } from "./ski-routes";
 
 
 export default function SkiTracks() {
   const [play, setPlay] = useState<MapIcon | boolean>(false);
+  const [map] = useState(maps[0]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-scrolling', play ? 'false' : 'true');
@@ -29,5 +31,5 @@ export default function SkiTracks() {
         onClick={() => setPlay(MapIcon.snowboarder)} />
     </>
   )
-  return <Game rider={play} closeGame={() => setPlay(false)} />
+  return <Game map={map} rider={play} closeGame={() => setPlay(false)} />
 }

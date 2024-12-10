@@ -44,7 +44,6 @@ export function Title(props: SectionTitle) {
               alt={`${props.section} icon`}
               width={45}
               height={45}
-              priority
             />
           </span>
         )}

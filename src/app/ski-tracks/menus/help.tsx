@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MapIcon } from "../map";
+import { MapIcon } from "../map/data";
 
 export default function HelpMenu() {
   return (

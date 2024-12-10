@@ -22,7 +22,6 @@ function Button({ callback, text, icon, style = '' }: ButtonProps) {
           alt={`${text} button icon`}
           width="17"
           height="17"
-          priority
         />
       )}
       {text}

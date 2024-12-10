@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Route } from "../ski-routes";
-import { MapIcon } from "../map";
+import { MapIcon } from "../map/data";
 
 export default function RouteDetails({ route, cancel }: { route: Route | undefined; cancel?: any }) {
   if (!route) return;
@@ -15,7 +15,6 @@ export default function RouteDetails({ route, cancel }: { route: Route | undefin
             alt="Route Details"
             width={35}
             height={35}
-            priority
           />
         </span>
         {title}

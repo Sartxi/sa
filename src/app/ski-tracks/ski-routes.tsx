@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { GameProps } from "./game";
 import { MenuType } from "./menu";
-import { MapIcon, useMapIconSize } from "./map";
+import { Map, MapIcon, useMapIconSize } from "./map/data";
 
 export interface Route {
   id: string;
@@ -27,17 +27,22 @@ export enum Nav {
   southeast = 'SE',
 }
 
-export const routes: Route[] = [{
-  id: 'StormMountain',
-  title: 'Storm Mountain',
-  description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terrain!',
-  elevation: 2300,
-  distance: 2.3,
-  start: [410, 1200],
-  points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-  answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
-  finish: [[450, 1665], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
-  center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]]
+export interface GameMap { id: Map, routes: Route[] };
+
+export const maps: GameMap[] = [{
+  id: Map.storm,
+  routes: [{
+    id: 'StormMountain',
+    title: 'Storm Mountain',
+    description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain. Stay out of avalanche terrain!',
+    elevation: 2300,
+    distance: 2.3,
+    start: [410, 1200],
+    points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
+    answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
+    finish: [[455, 1675], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
+    center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]]
+  }]
 }];
 
 interface SkiRoute extends GameProps {
@@ -64,15 +69,16 @@ function Point({ id, icon, desc, click, trail, death = false }: RoutePoint) {
   )
 }
 
-function SkiRoute({ rider, route, progress, deaths, setMenu, play }: SkiRoute) {
+function SkiRoute({ rider, route, progress, setMenu, play }: SkiRoute) {
   const getPointId = (point: string) => (`${route.id}${point}`);
-  const routes = progress?.routes ?? [];
+  const routes = progress?.current ?? [];
   const active = routes.find((p) => p.id === route.id);
   const points = route.points.filter((p, i) => active?.points[i]);
+  const atSummit = active?.summit && active?.summit > 0;
 
   const startRoute = () => {
     if (points.length) return;
-    play({ id: route.id, active: true, points: [], summit: false, finished: false });
+    play({ id: route.id, active: true, points: [], deaths: [], summit: 0, rally: false, finished: false });
     setMenu({ type: MenuType.route });
   }
 
@@ -94,12 +100,12 @@ function SkiRoute({ rider, route, progress, deaths, setMenu, play }: SkiRoute) {
             desc={`Point ${index}`} />
         )
       })}
-      {active?.finished && <Point id={getPointId('Finish')} icon={rider} desc="Rallying down" />}
-      {deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
+      {atSummit ? <Point id={getPointId('Finish')} icon={active.summit === 1 ? MapIcon.skinner : rider} desc="Rallying down" /> : ''}
+      {active?.deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
     </div>
   )
 }
 
 export default function SkiRoutes(game: GameProps) {
-  return <>{routes.map((route: Route) => <SkiRoute key={route.id} route={route} {...game} />)}</>;
+  return <>{game.routes.map((route: Route) => <SkiRoute key={route.id} route={route} {...game} />)}</>;
 }

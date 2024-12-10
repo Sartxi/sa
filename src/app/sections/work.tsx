@@ -91,7 +91,6 @@ function Tile(props: ProjectProps) {
           alt={`${title} image`}
           width={size}
           height={size}
-          priority
         />
       </div>
       {isOpen && (

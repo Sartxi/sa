@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { GameProps } from "../game";
-import { MapIcon } from "../map";
+import { MapIcon } from "../map/data";
 import { MenuType } from "../menu";
 
-export default function GameOver({ play, setMenu, progress, setDeaths }: GameProps) {
-  const active = progress?.routes.find((route) => route.active);
+export default function GameOver({ play, setMenu, progress }: GameProps) {
+  const active = progress?.current.find((route) => route.active);
   const decide = (startOver: boolean) => {
     if (active) {
       active.active = false;
       active.points = [];
-      if (startOver) setDeaths([]);
+      if (startOver) active.deaths = [];
       play(active);
       setMenu(startOver ? { type: MenuType.start } : null);
     }
@@ -23,7 +23,6 @@ export default function GameOver({ play, setMenu, progress, setDeaths }: GamePro
             alt="Game Over"
             width={35}
             height={35}
-            priority
           />
         </span>
         Game Over

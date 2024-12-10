@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { Nav } from "./ski-routes";
-import { MapIcon } from "./map";
+import { MapIcon } from "./map/data";
 import { useState } from "react";
+import { getRandom } from "./map/util";
 
 interface Metrix {
   angle: string;
@@ -9,7 +10,7 @@ interface Metrix {
 }
 
 interface CompassProps {
-  metrix: Metrix[];
+  correct: Nav | null;
   navigate: (nav: Nav) => void;
 }
 
@@ -56,7 +57,20 @@ function SnowQuality({ show }: { show: boolean }) {
   )
 }
 
-export default function Compass({ metrix, navigate }: CompassProps) {
+function useSafetyMetrix(correct: Nav | null) {
+  return Object.keys(Nav).map((s) => {
+    const isRight = Nav[s as keyof typeof Nav] === correct;
+    const [min, max] = isRight ? [20, 29] : [30, 41];
+    const snow = Object.keys(Snow).map((s) => Snow[s as keyof typeof Snow]).filter(i => i !== 'Pow');
+    return {
+      angle: getRandom(min, max).toString(),
+      quality: isRight ? Snow.pow : snow[Math.floor(Math.random() * snow.length)]
+    };
+  });
+}
+
+export default function Compass({ correct, navigate }: CompassProps) {
+  const metrix = useSafetyMetrix(correct);
   const [hovered, setHovered] = useState(null);
   const [showAngles, setShowAngles] = useState(false);
   const [showQuality, setShowQuality] = useState(false);
@@ -81,7 +95,8 @@ export default function Compass({ metrix, navigate }: CompassProps) {
     { show: showReport, toggle: () => setShowReport(!showReport), icon: MapIcon.report, alt: 'See avalanche report' },
   ];
 
-  const qualityIconSize = !showAngles ? 35 : 25;
+  const snowsize = !showAngles ? 35 : 25;
+  const openMetrix = showQuality || showAngles;
 
   return (
     <div className="compass-tool">
@@ -91,10 +106,7 @@ export default function Compass({ metrix, navigate }: CompassProps) {
             <span>GO</span>
             {hovered}
           </span>
-          <Image
-            src={MapIcon.compass}
-            className="nav-icon"
-            layout="fill" objectFit="cover" alt="compass" />
+          <Image fill src={MapIcon.compass} className="nav-icon" alt="compass" />
           {buttons.map(({ key, angle, quality }: any) => {
             return (
               <div
@@ -103,15 +115,22 @@ export default function Compass({ metrix, navigate }: CompassProps) {
                 onMouseEnter={() => setHovered(key)}
                 onClick={() => decide(key)}>
                 <div className="nav-dir">
-                  {showQuality || showAngles ?
+                  {openMetrix ?
                     <span className="metrix">
-                      {showQuality && <Image
-                        className={`snow-icon ${quality.toLowerCase()}`}
-                        src={MapIcon.flake} width={qualityIconSize} height={qualityIconSize} alt="quality" />}
-                      <span className={`angle${!showQuality ? ' big' : ''}`}>{showAngles ? angle : ''}</span>
+                      {showQuality && (
+                        <Image
+                          className={`snow-icon ${quality.toLowerCase()}`}
+                          src={MapIcon.flake}
+                          width={snowsize}
+                          height={snowsize}
+                          alt={`${quality} snow quality`} />
+                      )}
+                      <span className={`angle${!showQuality ? ' big' : ''}`}>
+                        {showAngles ? angle : ''}
+                      </span>
                     </span>
-                    : ''}
-                  <strong className={showQuality || showAngles ? 'small' : ''}>
+                    : <span />}
+                  <strong className={openMetrix ? 'small' : ''}>
                     {['N', 'S', 'E', 'W'].includes(key) && key}
                   </strong>
                 </div>

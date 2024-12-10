@@ -92,6 +92,7 @@
 }
 
 .nav-buttons {
+  position: relative;
   display: grid;
   width: 20rem;
   height: 20rem;

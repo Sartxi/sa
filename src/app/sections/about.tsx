@@ -60,7 +60,6 @@ export function About(props: PageProps) {
               alt="profile photo"
               width={size}
               height={size}
-              priority
             />
           </div>
         </div>

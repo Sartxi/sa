@@ -23,7 +23,6 @@ function NavItem({ section }: { section: string }) {
           alt={section}
           width={15}
           height={15}
-          priority
         />
       </span> {section}
     </>
@@ -39,7 +38,6 @@ function MobileNavItem({ section }: { section: string }) {
         alt={section}
         width={25}
         height={25}
-        priority
       />
     </span>
   )

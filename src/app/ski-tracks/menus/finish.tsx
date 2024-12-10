@@ -1,9 +1,9 @@
 import { GameProps } from "../game";
-import { Route, routes } from "../ski-routes";
+import { Route } from "../ski-routes";
 import { RouteDetails } from "./";
 
-export default function FinishMenu({ setMenu, progress, play }: GameProps) {
-  const active = progress?.routes.find((route) => route.active);
+export default function FinishMenu({ routes, setMenu, progress, play }: GameProps) {
+  const active = progress?.current.find((route) => route.active);
   const data: Route | undefined = routes.find((route) => route.id === active?.id);
   const skiDown = () => {
     if (active) {

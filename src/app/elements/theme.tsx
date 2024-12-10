@@ -38,8 +38,8 @@ function SchemesTool() {
       alt="icon"
       width={45}
       height={22}
-      priority
       onClick={() => setIsDark(!isDark)}
+      priority
     />
   )
 }

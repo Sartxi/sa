@@ -43,7 +43,6 @@ export function Contact() {
               alt={icon}
               width={40}
               height={40}
-              priority
             />
           </a>
         ))}

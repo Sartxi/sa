@@ -365,6 +365,16 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: 100%;
+  gap: 30px;
+  justify-content: space-evenly;
+}
+.consequence .sa-cta {
+  margin-top: 0;
+}
+
+.consequence .choices {
+  height: 60px;
 }
 
 .consequence-icon:not(.death) {
