@@ -1,8 +1,8 @@
 import { Route } from "../ski-routes";
 import { GameProps, RouteProgress } from "../game";
-import { RouteDetails } from "./";
-import { MenuType } from "../menu";
-import GameController from "./controller";
+import { RouteDetails } from ".";
+import { MenuType } from "../menu/menu";
+import GameController from "./controller/controller";
 
 
 function useRouteMenu({ routes, progress, setMenu, play }: GameProps) {

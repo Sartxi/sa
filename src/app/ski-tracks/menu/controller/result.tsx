@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { MapIcon } from "../map/data";
+import { MapIcon } from "../../map/data";
 import { useEffect, useState } from "react";
-import { getDuration } from "../map/animation";
+import { getDuration } from "../../map/animation";
 
 export interface ResultProps {
   wrong: boolean;
@@ -14,7 +14,7 @@ export default function Result(props: ResultProps) {
   const [showCta, setShowCta] = useState(false);
 
   const icon = wrong ? MapIcon.death : MapIcon.apres;
-  const title = wrong ? 'Oops, you made a wrong turn.' : 'Congrats! You stayed on top!';
+  const title = wrong ? 'Oops, you made a wrong turn.' : 'Congrats! You chose wisely!';
 
   useEffect(() => {
     setTimeout(() => {

@@ -1,6 +1,6 @@
 import { GameProps } from "../game";
 import { Route } from "../ski-routes";
-import { RouteDetails } from "./";
+import { RouteDetails } from ".";
 
 export default function FinishMenu({ routes, setMenu, progress, play }: GameProps) {
   const active = progress?.current.find((route) => route.active);

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { GameProps } from "./game";
-import { MenuType } from "./menu";
 import { Map, MapIcon, useMapIconSize } from "./map/data";
+import { MenuType } from "./menu/menu";
 
 export interface Route {
   id: string;

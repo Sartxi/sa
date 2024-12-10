@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { Nav } from "./ski-routes";
-import { MapIcon } from "./map/data";
 import { useState } from "react";
-import { getRandom } from "./map/util";
+import { getRandom } from "../../map/util";
+import { Nav } from "../../ski-routes";
+import { MapIcon } from "../../map/data";
+
 
 interface CompassProps {
   correct: Nav | null;

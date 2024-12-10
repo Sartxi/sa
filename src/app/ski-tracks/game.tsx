@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SkiMenu, { MenuType } from "./menu";
+import SkiMenu, { MenuType } from "./menu/menu";
 import SkiRoutes, { Route, GameMap } from "./ski-routes";
 import SkiMap from "./map/ski-map";
 import { MapIcon } from "./map/data";
 import Image from "next/image";
-import { ToolMenu } from "./menus";
+import { ToolMenu } from "./menu";
 
 export interface SkiTracksGame {
   rider: MapIcon | boolean;

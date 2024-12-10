@@ -79,13 +79,11 @@ export function useLog(game: GameProps) {
       const playing = game.routes.find(r => r.id === route.id);
       const [hike, die] = updates;
       const rider = `${route.id}Finish`;
-      if (route.summit && playing) {
-        if (route.summit === 3) {
-          ski(rider, mapBg, playing.finish, () => {
-            route.summit = 0;
-            game.play(route);
-          });
-        }
+      if (route.summit === 3 && playing) {
+        ski(rider, mapBg, playing.finish, () => {
+          route.summit = 0;
+          game.play(route);
+        });
       }
       if (hike !== skins) {
         setLog([hike, deaths]);
