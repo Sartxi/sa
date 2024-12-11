@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { Nav, Rose, Snow } from "../../game/data";
 import { GameCtrlProps, CtrlProps, CtrlType, details, SafetyMetrix } from "./data";
 import { ResultProps } from "./result";
 import { getRandom, togglePin } from "../../map/util";
+import Image from "next/image";
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
@@ -120,13 +120,15 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
       }
       game.play(current);
       setResult({
-        wrong, close: (action) => {
-          if (action === 'respawn') {
+        wrong,
+        close: () => setResult(null),
+        buttons: [{ text: 'Quit Game', callback: () => quit() }, {
+          text: 'Respawn', callback: () => {
             const last = `${course.id}${current.summit === 2 ? 'Finish' : current.points.length}`;
             togglePin(last, false);
+            setResult(null);
           }
-          setResult(null);
-        }, callback: () => quit()
+        }]
       });
     }
   }];

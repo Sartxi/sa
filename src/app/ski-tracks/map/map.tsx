@@ -76,6 +76,7 @@ function useLog(game: GameProps) {
 
   return {
     log: { skins, deaths },
+    reset: () => setLog([0, 0]),
     update: (course: CourseProgress, updates: [number, number], mapBg: [number, number]) => {
       const playing = game.courses.find(r => r.id === course.id);
       if (!playing) return;
@@ -106,7 +107,7 @@ function useLog(game: GameProps) {
         });
       }
 
-      if (die !== deaths) {
+      if (die !== deaths && course.active) {
         setLog([skins, die]);
         const start = playing.points[course.points.length - 1] ?? playing.start;
         const deathIndex = course.deaths.length - 1;
@@ -138,7 +139,7 @@ function useMap(game: GameProps) {
 function useSkiMap(game: GameProps) {
   const { progress } = game;
   const { map, mapBg, lock, unlock } = useMap(game);
-  const { log, update } = useLog(game);
+  const { log, update, reset } = useLog(game);
   useEffect(() => setPins(map, game), [map]);
   useEffect(() => {
     const course = progress?.current.find(r => r.active);
@@ -146,10 +147,11 @@ function useSkiMap(game: GameProps) {
       lock(course);
       const skins = course.points.length;
       const deaths = course.deaths.length;
-      if (skins !== log.skins || deaths === log.deaths) setPins(map, game);
+      if (skins !== log.skins || course.pastdeaths.length) setPins(map, game);
       update(course, [skins, deaths], mapBg);
     } else {
       unlock();
+      reset();
       setPins(map, game);
     };
   }, [map, progress]);

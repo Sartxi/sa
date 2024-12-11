@@ -51,6 +51,7 @@ export interface CourseProgress {
   rally: boolean;
   finished: boolean;
   deaths: number[][];
+  pastdeaths: number[][];
 }
 
 export interface GameMap {

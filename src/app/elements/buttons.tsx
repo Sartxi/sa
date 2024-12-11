@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface ButtonProps {
+export interface ButtonProps {
   text: string;
   callback?: () => void;
   icon?: string;

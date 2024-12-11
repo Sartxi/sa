@@ -31,17 +31,28 @@ function Deaths({ active }: { active: CourseProgress }) {
   return <>{active.deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}</>;
 }
 
+const newProgress = (id: string) => ({ 
+  id, active: true,
+  points: [],
+  deaths: [],
+  pastdeaths: [],
+  summit: 0,
+  rally: false,
+  finished: false
+});
+
 function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
   const getPointId = (point: string) => (`${course.id}${point}`);
   const courses = progress?.current ?? [];
-  const active: CourseProgress | undefined = courses.find((p) => p.id === course.id); 
+  const active: CourseProgress | undefined = courses.find((p) => p.id === course.id);
   const points = course.points.filter((p, i) => active?.points[i]);
   const atSummit = active?.summit && active.summit >= 2;
   const isFinished = active?.finished;
 
   const startCourse = () => {
     if (points.length) return;
-    play({ id: course.id, active: true, points: [], deaths: [], summit: 0, rally: false, finished: false });
+    if (active) active.active = true;
+    play(active ? active : newProgress(course.id));
     setMenu({ type: MenuType.course });
   }
 

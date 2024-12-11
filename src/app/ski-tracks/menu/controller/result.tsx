@@ -2,16 +2,17 @@ import Image from "next/image";
 import { MapIcon } from "../../map/data";
 import { useEffect, useState } from "react";
 import { getDuration } from "../../map/animation";
+import { ButtonProps, Buttons } from "@/app/elements/buttons";
 
 export interface ResultProps {
   wrong: boolean;
-  close: (type?: string) => void;
-  callback: () => void;
+  close: () => void;
+  buttons?: ButtonProps[];
 }
 
 export default function Result(props: ResultProps) {
-  const { wrong, close, callback } = props;
-  const [showCta, setShowCta] = useState(false);
+  const { wrong, buttons, close } = props;
+  const [show, setShow] = useState(false);
 
   const icon = wrong ? MapIcon.death : MapIcon.apres;
   const title = wrong ? 'Oops, you made a wrong turn.' : 'You chose wisely!';
@@ -19,7 +20,7 @@ export default function Result(props: ResultProps) {
   useEffect(() => {
     setTimeout(() => {
       if (!wrong) close();
-      setShowCta(true);
+      else setShow(true);
     }, getDuration(wrong ? 'die' : 'skin'));
   }, []);
 
@@ -30,24 +31,9 @@ export default function Result(props: ResultProps) {
         <h1>{title}</h1>
       </div>
       <div className="choices">
-        {showCta && (
-          <span>
-            {wrong ? (
-              <div className="options">
-                <button className="sa-cta" onClick={() => callback()}>
-                  Quit Route
-                </button>
-                <button className="sa-cta" onClick={() => close('respawn')}>
-                  Come back alive
-                </button>
-              </div>
-            ) : (
-              <button className="sa-cta" onClick={() => close()}>
-                Lets Go!
-              </button>
-            )}
-          </span>
-        )}
+        {buttons && show ? (
+          <Buttons buttons={buttons} />
+        ) : ''}
       </div>
     </div >
   )

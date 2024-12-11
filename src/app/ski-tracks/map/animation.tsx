@@ -81,10 +81,10 @@ export function died(
   death: number[]
 ) {
   const el = document.getElementById(rider);
-  const [a, c] = bg;
-  const [b, d] = start;
-  const [x, y] = death;
-  if (el) {
+  if (el && death) {
+    const [a, c] = bg;
+    const [b, d] = start;
+    const [x, y] = death;
     el.setAttribute('src', startIcon);
     el.classList.add('wreck');
     el.animate([

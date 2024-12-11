@@ -11,6 +11,8 @@ function useCourseMenu({ courses, progress, setMenu, play }: GameProps) {
     if (!current) return;
     current.active = false;
     current.points = [];
+    current.pastdeaths = current.deaths;
+    current.deaths = [];
     play(current);
     setMenu(menu);
   };
