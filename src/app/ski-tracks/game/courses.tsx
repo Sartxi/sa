@@ -62,7 +62,7 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
       {points.map((p, i) => {
         const index = `${i + 1}`;
         const next = active?.points[i];
-        let icon = points.length === (i + 1) ? next === 1 ? MapIcon.pin : MapIcon.skinner : MapIcon.point;
+        const icon = points.length === (i + 1) ? next === 1 ? MapIcon.pin : MapIcon.skinner : MapIcon.point;
         return (
           <Point
             trail
