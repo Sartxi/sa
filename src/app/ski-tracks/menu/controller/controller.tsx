@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Nav } from "../../game/data";
-import { GameCtrlProps, CtrlProps, CtrlType, details } from "./data";
+import { Nav, Rose, Snow } from "../../game/data";
+import { GameCtrlProps, CtrlProps, CtrlType, details, SafetyMetrix } from "./data";
 import { ResultProps } from "./result";
 import { getRandom, togglePin } from "../../map/util";
 import Compass from "./compass";
@@ -23,15 +23,33 @@ function CtrlDeets({ id }: { id: CtrlType }) {
   );
 }
 
+function useSafetyMetrix(nav: Nav | null): SafetyMetrix {
+  const [points, setPoints] = useState<any[]>([]);
+  useEffect(() => {
+    setPoints(Object.keys(Nav).map((s) => {
+      const correct = Nav[s as keyof typeof Nav] === nav;
+      const [min, max] = correct ? [20, 29] : [30, 41];
+      const snow = Object.keys(Snow).map((s) => Snow[s as keyof typeof Snow]);
+      return {
+        angle: getRandom(min, max).toString(),
+        quality: correct ? Snow.pow : snow[Math.floor(Math.random() * snow.length)]
+      };
+    }));
+  }, [nav]);
+  return { points, rose: Rose.ne };
+}
+
 function Navigation(props: CtrlProps) {
+  const metrix = useSafetyMetrix(props.correct);
+  if (!metrix.points.length) return <span />;
   return (
-    <Compass correct={props.correct} navigate={props.callback} />
+    <Compass metrix={metrix} navigate={props.callback} />
   )
 }
 
 function Controller(props: CtrlProps) {
   switch (props.id) {
-    case CtrlType.trs:
+    case CtrlType.transition:
       return <Transition {...props} />;
     default:
       return <Navigation {...props} />;
@@ -62,7 +80,7 @@ function getDirection(start: number[], direction: Nav) {
 }
 
 function useController({ current, course, game, quit }: GameCtrlProps) {
-  const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.trs);
+  const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.transition);
   const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
   const [result, setResult] = useState<ResultProps | null>(null);
 
@@ -72,18 +90,18 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
   }, [current, game]);
 
   const ctrls: CtrlProps[] = [{
-    id: CtrlType.trs,
+    id: CtrlType.transition,
     difficulty: course.difficulty,
     correct,
     callback: () => {
-      setCtrl(CtrlType.nav);
+      setCtrl(CtrlType.navigation);
       if (current.summit) {
         current.summit = 2;
         game.play(current);
       }
     }
   }, {
-    id: CtrlType.nav,
+    id: CtrlType.navigation,
     difficulty: course.difficulty,
     correct,
     callback: (direction) => {
@@ -97,7 +115,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
       } else {
         const atSummit = course.points.length === (current.points.length + 1);
         current.summit = atSummit ? 1 : 0;
-        if (atSummit) setCtrl(CtrlType.trs);
+        if (atSummit) setCtrl(CtrlType.transition);
         current.points.push(1);
       }
       game.play(current);

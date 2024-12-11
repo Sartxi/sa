@@ -35,10 +35,10 @@ export default function Result(props: ResultProps) {
             {wrong ? (
               <div className="options">
                 <button className="sa-cta" onClick={() => callback()}>
-                  Restart Game
+                  Quit Route
                 </button>
                 <button className="sa-cta" onClick={() => close('respawn')}>
-                  Pretend it didnt happen
+                  Come back alive
                 </button>
               </div>
             ) : (

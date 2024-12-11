@@ -18,6 +18,17 @@ export enum Difficulty {
   black = 'Hard'
 }
 
+export enum Snow {
+  pow = 'Pow',
+  crust = 'Crust',
+  ice = 'Ice',
+  crud = 'Crud'
+}
+
+export enum Rose {
+  ne = 'North East'
+}
+
 export interface GameProps {
   children?: any;
   courses: Course[];

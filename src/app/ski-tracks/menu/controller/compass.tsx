@@ -1,19 +1,12 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getRandom } from "../../map/util";
+import { useState } from "react";
 import { MapIcon } from "../../map/data";
-import { Nav } from "../../game/data";
+import { Nav, Snow } from "../../game/data";
+import { SafetyMetrix } from "./data";
 
 interface CompassProps {
-  correct: Nav | null;
+  metrix: SafetyMetrix;
   navigate: (nav: Nav) => void;
-}
-
-export enum Snow {
-  pow = 'Pow',
-  crust = 'Crust',
-  ice = 'Ice',
-  crud = 'Crud'
 }
 
 function AvalancheReport({ show }: { show: boolean }) {
@@ -52,26 +45,7 @@ function SnowQuality({ show }: { show: boolean }) {
   )
 }
 
-function mapMetrix(correct: Nav | null) {
-  return Object.keys(Nav).map((s) => {
-    const isRight = Nav[s as keyof typeof Nav] === correct;
-    const [min, max] = isRight ? [20, 29] : [30, 41];
-    const snow = Object.keys(Snow).map((s) => Snow[s as keyof typeof Snow]).filter(i => i !== 'Pow');
-    return {
-      angle: getRandom(min, max).toString(),
-      quality: isRight ? Snow.pow : snow[Math.floor(Math.random() * snow.length)]
-    };
-  })
-}
-
-function useSafetyMetrix(correct: Nav | null) {
-  const [metrix, setMetrix] = useState<any[]>(mapMetrix(correct));
-  useEffect(() => setMetrix(mapMetrix(correct)), [correct]);
-  return metrix;
-}
-
-export default function Compass({ correct, navigate }: CompassProps) {
-  const metrix = useSafetyMetrix(correct);
+export default function Compass({ metrix, navigate }: CompassProps) {
   const [hovered, setHovered] = useState(null);
   const [showAngles, setShowAngles] = useState(false);
   const [showQuality, setShowQuality] = useState(false);
@@ -79,7 +53,7 @@ export default function Compass({ correct, navigate }: CompassProps) {
 
   const buttons: any = Object.keys(Nav).map((s, i) => {
     const key = Nav[s as keyof typeof Nav];
-    const { angle, quality } = metrix[i];
+    const { angle, quality } = metrix.points[i];
     return { key, angle: `${angle}%`, quality };
   });
 
