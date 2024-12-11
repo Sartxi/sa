@@ -2,8 +2,9 @@ import Image from "next/image";
 import { GameProps, Course } from "./data";
 import { MapIcon, useMapIconSize } from "../map/data";
 import { MenuType } from "../menu/data";
+import { CourseProgress } from "./game";
 
-interface SkiCourse extends GameProps {
+interface SkiCourseProps extends GameProps {
   course: Course;
 }
 
@@ -27,18 +28,33 @@ function Point({ id, icon, desc, click, trail, death = false }: CoursePoint) {
   )
 }
 
-function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourse) {
+function Deaths({ active }: { active: CourseProgress }) {
+  return <>{active.deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}</>;
+}
+
+function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
   const getPointId = (point: string) => (`${course.id}${point}`);
   const courses = progress?.current ?? [];
-  const active = courses.find((p) => p.id === course.id);
+  const active: CourseProgress | undefined = courses.find((p) => p.id === course.id);
   const points = course.points.filter((p, i) => active?.points[i]);
-  const atSummit = active?.summit && active?.summit > 0;
+  const atSummit = active?.summit && active.summit >= 2;
+  const isFinished = active?.finished;
 
   const startCourse = () => {
     if (points.length) return;
     play({ id: course.id, active: true, points: [], deaths: [], summit: 0, rally: false, finished: false });
     setMenu({ type: MenuType.course });
   }
+
+  if (isFinished) return (
+    <div id={course.id} className="course">
+      <Point
+        id={getPointId('Start')}
+        icon={MapIcon.apres}
+        desc="Finished Route" />
+      {active && <Deaths active={active} />}
+    </div>
+  )
 
   return (
     <div id={course.id} className="course">
@@ -48,7 +64,6 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourse) {
         const index = `${i + 1}`;
         const next = active?.points[i];
         let icon = points.length === (i + 1) ? next === 1 ? MapIcon.pin : MapIcon.skinner : MapIcon.point;
-        if (active?.finished && points.length === (i + 1)) icon = MapIcon.apres;
         return (
           <Point
             trail
@@ -59,7 +74,7 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourse) {
         )
       })}
       {atSummit ? <Point id={getPointId('Finish')} icon={active.summit === 1 ? MapIcon.skinner : rider} desc="Rallying down" /> : ''}
-      {active?.deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}
+      {active && <Deaths active={active} />}
     </div>
   )
 }

@@ -14,7 +14,7 @@ export default function Result(props: ResultProps) {
   const [showCta, setShowCta] = useState(false);
 
   const icon = wrong ? MapIcon.death : MapIcon.apres;
-  const title = wrong ? 'Oops, you made a wrong turn.' : 'Congrats! You chose wisely!';
+  const title = wrong ? 'Oops, you made a wrong turn.' : 'You chose wisely!';
 
   useEffect(() => {
     setTimeout(() => {

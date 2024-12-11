@@ -34,6 +34,13 @@ function placePin(id: string, [a, c]: number[], [b, d]: number[]) {
   }
 }
 
+function togglePin(id: string, hide: boolean) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.style.visibility = hide ? 'hidden' : 'visible';
+  }
+}
+
 function getBgAxis(map: HTMLElement) {
   return window.getComputedStyle(map).getPropertyValue('background-position').split(' ');
 }
@@ -76,5 +83,6 @@ export {
   getAxis,
   getRandom,
   getBgAxis,
-  placePin
+  placePin,
+  togglePin
 }

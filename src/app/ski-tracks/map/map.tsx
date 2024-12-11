@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/viewport";
 import { GameProps } from "../game/data";
 import { skin, ski, centerMap } from "./animation";
-import { listeners, getAxis, setPins, placePin } from "./util";
+import { listeners, getAxis, setPins, placePin, togglePin } from "./util";
 import { CourseProgress } from "../game/game";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
@@ -82,15 +82,17 @@ function useLog(game: GameProps) {
 
       const [hike, die] = updates;
       const rider = `${course.id}Finish`;
+      const lastPin = `${course.id}${playing.points.length}`;
 
       if (course.summit > 1) {
         if (course.summit === 2) {
-          console.log('do something');
-
+          placePin(rider, mapBg, playing.finish[0]);
+          togglePin(lastPin, true);
         }
         if (course.summit === 3) {
           ski(rider, mapBg, playing.finish, () => {
             course.summit = 0;
+            course.finished = true;
             game.play(course);
           });
         }
@@ -100,7 +102,6 @@ function useLog(game: GameProps) {
         setLog([hike, deaths]);
         skin(course, point => {
           course.points[point] = 2;
-          if (course.summit === 1) placePin(rider, mapBg, playing.finish[0]);
           game.play(course);
         });
       }

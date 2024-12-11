@@ -106,7 +106,6 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
       const wrong = direction !== correct;
       if (wrong) youDied();
       else if (current.summit === 2) current.summit = 3;
-      else if (current.summit === 3) current.finished = true;
       else {
         const atSummit = course.points.length === (current.points.length + 1);
         current.summit = atSummit ? 1 : 0;
