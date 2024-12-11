@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { CtrlProps } from "./controller";
+import { CtrlProps } from "./data";
 import Image from "next/image";
 import { Difficulty } from "../../game/data";
 
@@ -66,9 +66,13 @@ function GameTimer(props: TimerProps) {
 }
 
 function useDifficulty(difficulty: Difficulty) {
-  let length = 9;
-  if (difficulty === Difficulty.blue) length = 6;
-  if (difficulty === Difficulty.green) length = 3;
+  const [length, setLength] = useState(9);
+  useEffect(() => {
+    let diff = 9;
+    if (difficulty === Difficulty.blue) diff = 6;
+    if (difficulty === Difficulty.green) diff = 3;
+    setLength(diff);
+  }, []);
   const random = () => (Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)));
   return {
     puzzles: [...Array(length).keys().map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))],
@@ -83,12 +87,12 @@ export default function Transition(props: CtrlProps) {
   const [active, setActive] = useState(0);
   const [won, setWon] = useState(false);
 
-  const diff = useDifficulty(props.difficulty);
+  const init = useDifficulty(props.difficulty);
   const btns = [...Array(9).keys()];
 
   useEffect(() => {
-    setPuzzles(diff.puzzles);
-    setAnswers(diff.answers);
+    setPuzzles(init.puzzles);
+    setAnswers(init.answers);
   }, []);
 
   useEffect(() => {
@@ -138,8 +142,11 @@ export default function Transition(props: CtrlProps) {
           <GameTimer {...{
             show: active !== puzzles.length,
             startText: 'Start',
-            count: diff.timer,
-            callback: () => setAnswers(diff.answers)
+            count: init.timer,
+            callback: () => {
+              setActive(0);
+              setAnswers(init.answers);
+            }
           }} />
         </div>
       </div>

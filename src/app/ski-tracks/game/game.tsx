@@ -8,16 +8,6 @@ import { MenuType, MenuProps } from "../menu/data";
 import { SkiTracksGame } from "../ski-tracks";
 import { GameProps, GameProgress } from "../game/data";
 
-export interface CourseProgress {
-  id: string;
-  active: boolean;
-  points: number[];
-  summit: number;
-  rally: boolean;
-  finished: boolean;
-  deaths: number[][];
-}
-
 export default function Game({ map, rider, closeGame }: SkiTracksGame) {
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
   const [progress, setProgress] = useState<GameProgress>({ current: [] });

@@ -1,5 +1,4 @@
-import { GameProps, Course } from "../../game/data";
-import { CourseProgress } from "../../game/game";
+import { GameProps, Course, CourseProgress } from "../../game/data";
 import { CourseDetails } from ".";
 import { MenuType } from "../data";
 import GameController from "../controller/controller";

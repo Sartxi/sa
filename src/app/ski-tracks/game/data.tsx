@@ -1,4 +1,3 @@
-import { CourseProgress } from "./game";
 import { Map, MapIcon } from "../map/data";
 import { MenuProps } from "../menu/data";
 
@@ -33,6 +32,16 @@ export interface GameProgress {
   current: CourseProgress[];
 }
 
+export interface CourseProgress {
+  id: string;
+  active: boolean;
+  points: number[];
+  summit: number;
+  rally: boolean;
+  finished: boolean;
+  deaths: number[][];
+}
+
 export interface GameMap {
   id: Map,
   courses: Course[];
@@ -46,7 +55,7 @@ export const maps: GameMap[] = [{
     description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain.',
     elevation: 2300,
     distance: 2.3,
-    difficulty: Difficulty.green,
+    difficulty: Difficulty.black,
     start: [410, 1200],
     points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
     finish: [[455, 1675], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],

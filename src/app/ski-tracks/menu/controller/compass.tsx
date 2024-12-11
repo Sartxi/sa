@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getRandom } from "../../map/util";
 import { MapIcon } from "../../map/data";
 import { Nav } from "../../game/data";
@@ -52,7 +52,7 @@ function SnowQuality({ show }: { show: boolean }) {
   )
 }
 
-function useSafetyMetrix(correct: Nav | null) {
+function mapMetrix(correct: Nav | null) {
   return Object.keys(Nav).map((s) => {
     const isRight = Nav[s as keyof typeof Nav] === correct;
     const [min, max] = isRight ? [20, 29] : [30, 41];
@@ -61,7 +61,13 @@ function useSafetyMetrix(correct: Nav | null) {
       angle: getRandom(min, max).toString(),
       quality: isRight ? Snow.pow : snow[Math.floor(Math.random() * snow.length)]
     };
-  });
+  })
+}
+
+function useSafetyMetrix(correct: Nav | null) {
+  const [metrix, setMetrix] = useState<any[]>(mapMetrix(correct));
+  useEffect(() => setMetrix(mapMetrix(correct)), [correct]);
+  return metrix;
 }
 
 export default function Compass({ correct, navigate }: CompassProps) {

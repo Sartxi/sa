@@ -1,45 +1,12 @@
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Difficulty, GameProps, Nav, Course } from "../../game/data";
-import { MapIcon } from "../../map/data";
-import { getRandom } from "../../map/util";
+import Image from "next/image";
+import { Nav } from "../../game/data";
+import { GameCtrlProps, CtrlProps, CtrlType, details } from "./data";
 import { ResultProps } from "./result";
-
+import { getRandom } from "../../map/util";
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
-import { CourseProgress } from "../../game/game";
-
-enum CtrlType {
-  transition = 'Transition',
-  navigation = 'Navigation'
-}
-
-interface GameCtrlProps {
-  game: GameProps;
-  course: Course;
-  current: CourseProgress;
-  quit: () => void;
-}
-
-export interface CtrlProps {
-  id: CtrlType;
-  difficulty: Difficulty;
-  callback: (r: any) => void;
-  correct: Nav | null;
-}
-
-interface CtrlDeets {
-  id: CtrlType;
-  icon: MapIcon;
-  title: string;
-  description: string;
-}
-
-const details: CtrlDeets[] = [
-  { id: CtrlType.transition, icon: MapIcon.report, title: 'Transitioning', description: 'Being prepared means always having the proper safety gear! Type all the combos before the timer runs out to complete your safety checks.' },
-  { id: CtrlType.navigation, icon: MapIcon.compass, title: 'Navigating', description: 'Use your compass to decide which direction to proceed. Consider slope angle, snow quality, and avalanche report before making your decisions.' }
-];
 
 function CtrlDeets({ id }: { id: CtrlType }) {
   const deets = details.find(d => d.id === id);
@@ -64,7 +31,7 @@ function Navigation(props: CtrlProps) {
 
 function Controller(props: CtrlProps) {
   switch (props.id) {
-    case CtrlType.transition:
+    case CtrlType.trs:
       return <Transition {...props} />;
     default:
       return <Navigation {...props} />;
@@ -72,7 +39,7 @@ function Controller(props: CtrlProps) {
 }
 
 function useController({ current, course, game, quit }: GameCtrlProps) {
-  const [controller, setController] = useState<CtrlType>(CtrlType.transition);
+  const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.trs);
   const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
   const [result, setResult] = useState<ResultProps | null>(null);
 
@@ -87,19 +54,19 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     current.deaths.push(death);
   };
 
-  const controllers: CtrlProps[] = [{
-    id: CtrlType.transition,
+  const ctrls: CtrlProps[] = [{
+    id: CtrlType.trs,
     difficulty: course.difficulty,
     correct,
     callback: () => {
-      setController(CtrlType.navigation);
+      setCtrl(CtrlType.nav);
       if (current.summit) {
         current.summit = 2;
         game.play(current);
       }
     }
   }, {
-    id: CtrlType.navigation,
+    id: CtrlType.nav,
     difficulty: course.difficulty,
     correct,
     callback: (direction) => {
@@ -109,7 +76,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
       else {
         const atSummit = course.points.length === (current.points.length + 1);
         current.summit = atSummit ? 1 : 0;
-        if (atSummit) setController(CtrlType.transition);
+        if (atSummit) setCtrl(CtrlType.trs);
         current.points.push(1);
       }
       game.play(current);
@@ -117,7 +84,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     }
   }];
 
-  return { controller: controllers[controllers.findIndex(c => c.id === controller)], result };
+  return { controller: ctrls[ctrls.findIndex(c => c.id === ctrl)], result };
 }
 
 export default function GameController(props: GameCtrlProps) {

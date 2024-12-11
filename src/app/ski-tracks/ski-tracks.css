@@ -388,7 +388,7 @@
 #Pzl {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 20px;
   width: 100%;
   height: 100%;
@@ -409,8 +409,7 @@
 }
 
 #Pzl .selector {
-  aspect-ratio: 2/1;
-  flex-grow: 2;
+  aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(31%, 1fr));
   gap: 10px;
@@ -894,8 +893,7 @@ html[data-scheme="dark"] .nav-icon.loading {
 }
 
 #GameTimer.countdown {
-  font-style: italic;
-  color: var(--accent);
+  font-weight: bold;
 }
 
 #GameTimer .time {

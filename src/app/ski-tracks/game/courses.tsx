@@ -1,8 +1,7 @@
 import Image from "next/image";
-import { GameProps, Course } from "./data";
+import { GameProps, Course, CourseProgress } from "./data";
 import { MapIcon, useMapIconSize } from "../map/data";
 import { MenuType } from "../menu/data";
-import { CourseProgress } from "./game";
 
 interface SkiCourseProps extends GameProps {
   course: Course;

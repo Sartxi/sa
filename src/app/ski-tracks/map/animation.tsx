@@ -1,4 +1,4 @@
-import { CourseProgress } from "../game/game";
+import { CourseProgress } from "../game/data";
 import { Animate } from "./data";
 import { getBgAxis } from "./util";
 

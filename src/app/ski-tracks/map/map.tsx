@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/viewport";
-import { GameProps } from "../game/data";
+import { GameProps, CourseProgress } from "../game/data";
 import { skin, ski, centerMap } from "./animation";
 import { listeners, getAxis, setPins, placePin, togglePin } from "./util";
-import { CourseProgress } from "../game/game";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
   const { mobile, tablet } = useMedia();
