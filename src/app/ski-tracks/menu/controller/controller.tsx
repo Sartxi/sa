@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Nav } from "../../game/data";
 import { GameCtrlProps, CtrlProps, CtrlType, details } from "./data";
 import { ResultProps } from "./result";
-import { getRandom } from "../../map/util";
+import { getRandom, togglePin } from "../../map/util";
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
@@ -38,6 +38,29 @@ function Controller(props: CtrlProps) {
   }
 }
 
+function getDirection(start: number[], direction: Nav) {
+  const axis = [...start];
+  const x = getRandom(62, 92);
+  const y = getRandom(42, 62);
+  switch (direction) {
+    case Nav.north:
+    case Nav.south:
+      axis[1] = direction === Nav.north ? axis[1] - x : axis[1] + x;
+      break;
+    case Nav.east:
+    case Nav.west:
+      axis[0] = direction === Nav.west ? axis[0] - y : axis[0] + y;
+      break;
+    default:
+      const northaxis = [Nav.northwest, Nav.northeast].includes(direction);
+      const westaxis = [Nav.northwest, Nav.southwest].includes(direction);
+      axis[1] = northaxis ? axis[1] - x : axis[1] + x;
+      axis[0] = westaxis ? axis[0] - y : axis[0] + y;
+      break;
+  }
+  return axis;
+}
+
 function useController({ current, course, game, quit }: GameCtrlProps) {
   const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.trs);
   const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
@@ -47,12 +70,6 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     const answer: Nav = course.answers[current.points.length];
     setCorrect(answer);
   }, [current, game]);
-
-  const youDied = () => {
-    const point = course.points[current.points.length];
-    const death = [point[0] + getRandom(22, 32), point[1] - getRandom(42, 62)];
-    current.deaths.push(death);
-  };
 
   const ctrls: CtrlProps[] = [{
     id: CtrlType.trs,
@@ -71,16 +88,28 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     correct,
     callback: (direction) => {
       const wrong = direction !== correct;
-      if (wrong) youDied();
-      else if (current.summit === 2) current.summit = 3;
-      else {
+      if (wrong) {
+        const startPoint = course.points[current.points.length - 1] ?? course.start;
+        const death = getDirection(startPoint, direction);
+        current.deaths.push(death);
+      } else if (current.summit === 2) {
+        current.summit = 3;
+      } else {
         const atSummit = course.points.length === (current.points.length + 1);
         current.summit = atSummit ? 1 : 0;
         if (atSummit) setCtrl(CtrlType.trs);
         current.points.push(1);
       }
       game.play(current);
-      setResult({ wrong, close: () => setResult(null), callback: () => quit() });
+      setResult({
+        wrong, close: (action) => {
+          if (action === 'respawn') {
+            const last = `${course.id}${current.summit === 2 ? 'Finish' : current.points.length}`;
+            togglePin(last, false);
+          }
+          setResult(null);
+        }, callback: () => quit()
+      });
     }
   }];
 

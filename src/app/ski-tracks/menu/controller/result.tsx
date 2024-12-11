@@ -5,7 +5,7 @@ import { getDuration } from "../../map/animation";
 
 export interface ResultProps {
   wrong: boolean;
-  close: () => void;
+  close: (type?: string) => void;
   callback: () => void;
 }
 
@@ -37,7 +37,7 @@ export default function Result(props: ResultProps) {
                 <button className="sa-cta" onClick={() => callback()}>
                   Restart Game
                 </button>
-                <button className="sa-cta" onClick={() => close()}>
+                <button className="sa-cta" onClick={() => close('respawn')}>
                   Pretend it didnt happen
                 </button>
               </div>

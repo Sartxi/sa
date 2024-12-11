@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/viewport";
 import { GameProps, CourseProgress } from "../game/data";
-import { skin, ski, centerMap } from "./animation";
+import { skin, ski, died, centerMap } from "./animation";
 import { listeners, getAxis, setPins, placePin, togglePin } from "./util";
+import { MapIcon } from "./data";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
   const { mobile, tablet } = useMedia();
@@ -107,6 +108,14 @@ function useLog(game: GameProps) {
 
       if (die !== deaths) {
         setLog([skins, die]);
+        const start = playing.points[course.points.length - 1] ?? playing.start;
+        const deathIndex = course.deaths.length - 1;
+        const death = course.deaths[deathIndex];
+        const rider = `Death${deathIndex}`;
+        const startRider = course.summit === 2 ? game.rider : MapIcon.skinner;
+        togglePin(`${course.id}${course.summit === 2 ? 'Finish' : course.points.length}`, true);
+        died(rider, startRider, mapBg, start, death);
+        placePin(rider, mapBg, death);
       }
     }
   };
@@ -139,7 +148,10 @@ function useSkiMap(game: GameProps) {
       const deaths = course.deaths.length;
       if (skins !== log.skins || deaths === log.deaths) setPins(map, game);
       update(course, [skins, deaths], mapBg);
-    } else unlock();
+    } else {
+      unlock();
+      setPins(map, game);
+    };
   }, [map, progress]);
 }
 

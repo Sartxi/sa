@@ -55,7 +55,7 @@ export const maps: GameMap[] = [{
     description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain.',
     elevation: 2300,
     distance: 2.3,
-    difficulty: Difficulty.black,
+    difficulty: Difficulty.green,
     start: [410, 1200],
     points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
     finish: [[455, 1675], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],

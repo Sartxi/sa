@@ -34,7 +34,7 @@ function Deaths({ active }: { active: CourseProgress }) {
 function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
   const getPointId = (point: string) => (`${course.id}${point}`);
   const courses = progress?.current ?? [];
-  const active: CourseProgress | undefined = courses.find((p) => p.id === course.id);
+  const active: CourseProgress | undefined = courses.find((p) => p.id === course.id); 
   const points = course.points.filter((p, i) => active?.points[i]);
   const atSummit = active?.summit && active.summit >= 2;
   const isFinished = active?.finished;

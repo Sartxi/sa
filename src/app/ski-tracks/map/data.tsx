@@ -20,7 +20,7 @@ enum MapIcon {
 enum Animate {
   skin = 2000,
   ski = 5000,
-  die = 6000,
+  die = 3000,
   center = 500
 }
 

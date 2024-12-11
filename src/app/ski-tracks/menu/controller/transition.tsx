@@ -3,14 +3,16 @@ import { CtrlProps } from "./data";
 import Image from "next/image";
 import { Difficulty } from "../../game/data";
 
-const hasMatch = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
-const twoDigits = (num: number) => String(num).padStart(2, '0');
+const matchs = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
+const digits = (num: number) => String(num).padStart(2, '0');
+
 interface TimerProps {
   show: boolean;
   startText: string;
   count: number;
   callback: () => void;
 }
+
 enum TimerStatus { started, stopped, ended };
 
 function useTimer(callback: any, delay: any) {
@@ -49,7 +51,7 @@ function GameTimer(props: TimerProps) {
   const seconds = remaining % 60;
   const minutes = ((remaining - seconds) / 60) % 60;
 
-  const timer = status === TimerStatus.ended ? 'Timer Ended' : `${twoDigits(minutes)}:${twoDigits(seconds)}`
+  const timer = status === TimerStatus.ended ? 'Timer Ended' : `${digits(minutes)}:${digits(seconds)}`
 
   return (
     <div id="GameTimer" className="countdown">
@@ -66,19 +68,13 @@ function GameTimer(props: TimerProps) {
 }
 
 function useDifficulty(difficulty: Difficulty) {
-  const [length, setLength] = useState(9);
-  useEffect(() => {
-    let diff = 9;
-    if (difficulty === Difficulty.blue) diff = 6;
-    if (difficulty === Difficulty.green) diff = 3;
-    setLength(diff);
-  }, []);
+  let length = 9;
+  if (difficulty === Difficulty.blue) length = 6;
+  if (difficulty === Difficulty.green) length = 3;
   const random = () => (Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)));
-  return {
-    puzzles: [...Array(length).keys().map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))],
-    answers: Array.from({ length }, () => []),
-    timer: 81
-  }
+  const puzzles = [...Array(length).keys().map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))];
+  const answers = Array.from({ length }, () => []);
+  return { puzzles, answers, timer: 81 };
 }
 
 export default function Transition(props: CtrlProps) {
@@ -96,7 +92,7 @@ export default function Transition(props: CtrlProps) {
   }, []);
 
   useEffect(() => {
-    if (answers.length && hasMatch(puzzles[active], answers[active])) {
+    if (answers.length && matchs(puzzles[active], answers[active])) {
       const next = active + 1;
       setActive(next);
       if (next === puzzles.length) {

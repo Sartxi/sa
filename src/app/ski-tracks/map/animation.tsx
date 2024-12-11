@@ -1,5 +1,5 @@
 import { CourseProgress } from "../game/data";
-import { Animate } from "./data";
+import { Animate, MapIcon } from "./data";
 import { getBgAxis } from "./util";
 
 const animation: { [x: string]: { duration: number, easing: string } } = {};
@@ -69,6 +69,30 @@ export function ski(
       el.style.left = last.left;
       el.style.top = last.top;
       callback();
+    };
+  }
+}
+
+export function died(
+  rider: string,
+  startIcon: MapIcon,
+  bg: number[],
+  start: number[],
+  death: number[]
+) {
+  const el = document.getElementById(rider);
+  const [a, c] = bg;
+  const [b, d] = start;
+  const [x, y] = death;
+  if (el) {
+    el.setAttribute('src', startIcon);
+    el.classList.add('wreck');
+    el.animate([
+      { left: `${a + b}px`, top: `${c + d}px`, transform: 'rotate(9deg)' },
+      { left: `${a + x}px`, top: `${c + y}px`, transform: 'rotate(90deg)' }
+    ], animation.die).onfinish = () => {
+      el.setAttribute('src', MapIcon.death);
+      el.classList.remove('wreck');
     };
   }
 }
