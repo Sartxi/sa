@@ -1,8 +1,8 @@
 :root {
   --bear-theme: #c53d2b;
   --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
-  --northface-theme: #7cca7c;
-  --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
+  --northface-theme: #3c923c;
+  --northface-theme-fill: invert(15%) sepia(55%) saturate(5097%) hue-rotate(141deg) brightness(96%) contrast(92%);
   --grand-theme: #902923;
   --grand-theme-fill: invert(13%) sepia(63%) saturate(3355%) hue-rotate(350deg) brightness(106%) contrast(83%);
   --zion-theme: #40476D;
@@ -67,6 +67,37 @@
   }
 }
 
+html[data-scheme="light"] {
+  --bear-theme: #c53d2b;
+  --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
+  --northface-theme: #0a6924;
+  --northface-theme-fill: invert(15%) sepia(55%) saturate(5097%) hue-rotate(141deg) brightness(96%) contrast(92%);
+  --grand-theme: #902923;
+  --grand-theme-fill: invert(13%) sepia(63%) saturate(3355%) hue-rotate(350deg) brightness(106%) contrast(83%);
+  --zion-theme: #40476D;
+  --zion-theme-fill: invert(25%) sepia(40%) saturate(568%) hue-rotate(192deg) brightness(95%) contrast(87%);
+  --millcreek-theme: #750D37;
+  --millcreek-theme-fill: invert(7%) sepia(82%) saturate(4382%) hue-rotate(325deg) brightness(97%) contrast(95%);
+  --timp-theme: #2C4251;
+  --timp-theme-fill: invert(20%) sepia(31%) saturate(718%) hue-rotate(161deg) brightness(91%) contrast(83%);
+
+  --color-scheme: light;
+  --logo-filter: none;
+  --foreground: #0a0a0a;
+  --background: #ededed;
+  --more-transparent: rgba(0, 0, 0, 0.03);
+  --transparent: rgba(0, 0, 0, 0.1);
+  --less-transparent: rgba(0, 0, 0, 0.2);
+  --text-shadow: rgba(240, 242, 245, 0.2);
+  --light-text: #555;
+  --body-color: #000;
+  --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
+  --icon-background: invert(98%) sepia(8%) saturate(414%) hue-rotate(278deg) brightness(116%) contrast(86%);
+  --header-background: white;
+  --accent: var(--bear-theme);
+  --icon-fill: var(--bear-theme-fill);
+}
+
 html[data-scheme="dark"] {
   --bear-theme: #7cca7c;
   --bear-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
@@ -94,37 +125,6 @@ html[data-scheme="dark"] {
   --icon-foreground: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
   --icon-background: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
   --header-background: black;
-  --accent: var(--bear-theme);
-  --icon-fill: var(--bear-theme-fill);
-}
-
-html[data-scheme="light"] {
-  --bear-theme: #c53d2b;
-  --bear-theme-fill: invert(30%) sepia(24%) saturate(4947%) hue-rotate(343deg) brightness(90%) contrast(90%);
-  --northface-theme: #7cca7c;
-  --northface-theme-fill: invert(77%) sepia(9%) saturate(1691%) hue-rotate(71deg) brightness(93%) contrast(91%);
-  --grand-theme: #902923;
-  --grand-theme-fill: invert(13%) sepia(63%) saturate(3355%) hue-rotate(350deg) brightness(106%) contrast(83%);
-  --zion-theme: #40476D;
-  --zion-theme-fill: invert(25%) sepia(40%) saturate(568%) hue-rotate(192deg) brightness(95%) contrast(87%);
-  --millcreek-theme: #750D37;
-  --millcreek-theme-fill: invert(7%) sepia(82%) saturate(4382%) hue-rotate(325deg) brightness(97%) contrast(95%);
-  --timp-theme: #2C4251;
-  --timp-theme-fill: invert(20%) sepia(31%) saturate(718%) hue-rotate(161deg) brightness(91%) contrast(83%);
-
-  --color-scheme: light;
-  --logo-filter: none;
-  --foreground: #0a0a0a;
-  --background: #ededed;
-  --more-transparent: rgba(0, 0, 0, 0.03);
-  --transparent: rgba(0, 0, 0, 0.1);
-  --less-transparent: rgba(0, 0, 0, 0.2);
-  --text-shadow: rgba(240, 242, 245, 0.2);
-  --light-text: #555;
-  --body-color: #000;
-  --icon-foreground: invert(0%) sepia(16%) saturate(2611%) hue-rotate(323deg) brightness(95%) contrast(92%);
-  --icon-background: invert(98%) sepia(8%) saturate(414%) hue-rotate(278deg) brightness(116%) contrast(86%);
-  --header-background: white;
   --accent: var(--bear-theme);
   --icon-fill: var(--bear-theme-fill);
 }

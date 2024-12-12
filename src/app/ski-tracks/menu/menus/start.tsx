@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { GameProps } from "../../game/data";
+import { Buttons } from "@/app/elements";
 
 export default function StartMenu({ rider, setMenu }: GameProps) {
   return (
@@ -22,9 +23,7 @@ export default function StartMenu({ rider, setMenu }: GameProps) {
           <Image className="rider" height={100} width={100} src={rider} alt="rider" />
         </div>
       </div>
-      <button className="sa-cta" onClick={() => setMenu(null)}>
-        Start Game
-      </button>
+      <Buttons buttons={[{ text: 'Start Game', callback: () => setMenu(null) }]} />
     </div>
   )
 }

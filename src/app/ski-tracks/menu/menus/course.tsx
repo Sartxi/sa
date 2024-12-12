@@ -3,7 +3,6 @@ import { CourseDetails } from ".";
 import { MenuType } from "../data";
 import GameController from "../controller/controller";
 
-
 function useCourseMenu({ courses, progress, setMenu, play }: GameProps) {
   const current: CourseProgress | undefined = progress?.current.find((course) => course.active);
   const course: Course | undefined = courses.find((course) => course.id === current?.id);

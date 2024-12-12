@@ -9,6 +9,23 @@ interface CompassProps {
   navigate: (nav: Nav) => void;
 }
 
+function SnowQuality({ show }: { show: boolean }) {
+  if (!show) return <span />;
+  return (
+    <div className="snow-quality">
+      {Object.keys(Snow).map((s) => {
+        const key = Snow[s as keyof typeof Snow];
+        return (
+          <div key={key} className="quality">
+            <Image className={`snow-icon ${key.toLocaleLowerCase()}`} src={MapIcon.flake} width={17} height={17} alt="quality" />
+            {key}
+          </div>
+        );
+      })}
+    </div>
+  )
+}
+
 function AvalancheReport({ show }: { show: boolean }) {
   return (
     <div className={`avy-report${show ? ' open' : ''}`}>
@@ -28,23 +45,6 @@ function AvalancheReport({ show }: { show: boolean }) {
   )
 }
 
-function SnowQuality({ show }: { show: boolean }) {
-  if (!show) return <span />;
-  return (
-    <div className="snow-quality">
-      {Object.keys(Snow).map((s) => {
-        const key = Snow[s as keyof typeof Snow];
-        return (
-          <div key={key} className="quality">
-            <Image className={`snow-icon ${key.toLocaleLowerCase()}`} src={MapIcon.flake} width={17} height={17} alt="quality" />
-            {key}
-          </div>
-        );
-      })}
-    </div>
-  )
-}
-
 export default function Compass({ metrix, navigate }: CompassProps) {
   const [hovered, setHovered] = useState(null);
   const [showAngles, setShowAngles] = useState(false);
@@ -57,11 +57,11 @@ export default function Compass({ metrix, navigate }: CompassProps) {
     return { key, angle: `${angle}%`, quality };
   });
 
-  const decide = (dir: Nav) => {
+  const choose = (direction: Nav) => {
     setShowAngles(false);
     setShowQuality(false);
     setShowReport(false);
-    navigate(dir);
+    navigate(direction);
   };
 
   const toolbtns = [
@@ -88,7 +88,7 @@ export default function Compass({ metrix, navigate }: CompassProps) {
                 key={key}
                 className={`nav-button ${key.toLowerCase()}`}
                 onMouseEnter={() => setHovered(key)}
-                onClick={() => decide(key)}>
+                onClick={() => choose(key)}>
                 <div className="nav-dir">
                   {openMetrix ?
                     <span className="metrix">

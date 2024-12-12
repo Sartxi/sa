@@ -2,19 +2,21 @@ import Image from "next/image";
 
 export interface ButtonProps {
   text: string;
-  callback?: () => void;
   icon?: string;
   link?: string;
   style?: string;
+  disable?: boolean;
+  callback?: () => void;
 }
 
 interface ButtonsProps {
   buttons: ButtonProps[];
+  disabled?: boolean;
 }
 
-function Button({ callback, text, icon, style = '' }: ButtonProps) {
+function Button({ callback, text, icon, disable = false, style = '' }: ButtonProps) {
   return (
-    <button className={`sa-cta ${style}`} onClick={() => callback?.()}>
+    <button className={`sa-cta${disable ? ' disabled ' : ''} ${style}`} onClick={() => !disable && callback?.()}>
       {icon && (
         <Image
           src={icon}
@@ -29,11 +31,12 @@ function Button({ callback, text, icon, style = '' }: ButtonProps) {
   )
 }
 
-export function Buttons({ buttons }: ButtonsProps) {
+export function Buttons({ buttons, disabled }: ButtonsProps) {
   const style = `sa-button${buttons.length > 1 ? 's' : ''}`;
   return (
     <span className={style}>
       {buttons.map((button: ButtonProps) => {
+        button.disable = disabled;
         if (button.link) return (
           <a key={button.text} href={button.link} target="_blank">
             <Button {...button} />

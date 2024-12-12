@@ -1,3 +1,4 @@
+import { Buttons } from "@/app/elements";
 import { GameProps, Course } from "../../game/data";
 import { CourseDetails } from "./";
 
@@ -18,9 +19,7 @@ export default function FinishMenu({ courses, setMenu, progress, play }: GamePro
         <div className="route-decision">
           <h2>Make a Decision</h2>
           <p>Using the avalanche report and judging by the slope angle move forward by choosing which direction to go.</p>
-          <button className="sa-cta" onClick={skiDown}>
-            Next
-          </button>
+          <Buttons buttons={[{ text: 'Next', callback: skiDown }]} />
         </div>
       </div>
     </div>

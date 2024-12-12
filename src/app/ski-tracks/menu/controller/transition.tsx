@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { CtrlProps } from "./data";
 import Image from "next/image";
 import { Difficulty } from "../../game/data";
+import { Buttons } from "@/app/elements";
 
 const matchs = (a: number[], b: number[]) => (a?.sort().join() === b?.sort().join());
 const digits = (num: number) => String(num).padStart(2, '0');
@@ -57,9 +58,7 @@ function GameTimer(props: TimerProps) {
     <div id="GameTimer" className="countdown">
       {status !== TimerStatus.started && (
         <div className="ctrl-overlay">
-          <button className="sa-cta" onClick={() => setStatus(TimerStatus.started)}>
-            {props.startText}
-          </button>
+          <Buttons buttons={[{ text: props.startText, callback: () => setStatus(TimerStatus.started) }]} />
         </div>
       )}
       <span key={timer} className="time">{timer}</span>
@@ -137,7 +136,7 @@ export default function Transition(props: CtrlProps) {
         <div className="prep">
           <GameTimer {...{
             show: active !== puzzles.length,
-            startText: 'Start',
+            startText: 'Start Timer',
             count: init.timer,
             callback: () => {
               setActive(0);

@@ -7,6 +7,7 @@ import Image from "next/image";
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
+import { getDirection } from "./util";
 
 function CtrlDeets({ id }: { id: CtrlType }) {
   const deets = details.find(d => d.id === id);
@@ -56,29 +57,6 @@ function Controller(props: CtrlProps) {
   }
 }
 
-function getDirection(start: number[], direction: Nav) {
-  const axis = [...start];
-  const x = getRandom(62, 92);
-  const y = getRandom(42, 62);
-  switch (direction) {
-    case Nav.north:
-    case Nav.south:
-      axis[1] = direction === Nav.north ? axis[1] - x : axis[1] + x;
-      break;
-    case Nav.east:
-    case Nav.west:
-      axis[0] = direction === Nav.west ? axis[0] - y : axis[0] + y;
-      break;
-    default:
-      const northaxis = [Nav.northwest, Nav.northeast].includes(direction);
-      const westaxis = [Nav.northwest, Nav.southwest].includes(direction);
-      axis[1] = northaxis ? axis[1] - x : axis[1] + x;
-      axis[0] = westaxis ? axis[0] - y : axis[0] + y;
-      break;
-  }
-  return axis;
-}
-
 function useController({ current, course, game, quit }: GameCtrlProps) {
   const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.transition);
   const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
@@ -88,6 +66,29 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     const answer: Nav = course.answers[current.points.length];
     setCorrect(answer);
   }, [current, game]);
+
+  const navigate = (direction: Nav) => {
+    const wrong = direction !== correct;
+    if (wrong) {
+      const startPoint = course.points[current.points.length - 1] ?? course.start;
+      const death = getDirection(startPoint, direction);
+      current.deaths.push(death);
+    } else if (current.summit === 2) {
+      current.summit = 3;
+    } else {
+      const atSummit = course.points.length === (current.points.length + 1);
+      current.summit = atSummit ? 1 : 0;
+      if (atSummit) setCtrl(CtrlType.transition);
+      current.points.push(1);
+    }
+    return wrong;
+  };
+
+  const respawn = () => {
+    const last = `${course.id}${current.summit === 2 ? 'Finish' : current.points.length}`;
+    togglePin(last, false);
+    setResult(null);
+  };
 
   const ctrls: CtrlProps[] = [{
     id: CtrlType.transition,
@@ -105,45 +106,30 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     difficulty: course.difficulty,
     correct,
     callback: (direction) => {
-      const wrong = direction !== correct;
-      if (wrong) {
-        const startPoint = course.points[current.points.length - 1] ?? course.start;
-        const death = getDirection(startPoint, direction);
-        current.deaths.push(death);
-      } else if (current.summit === 2) {
-        current.summit = 3;
-      } else {
-        const atSummit = course.points.length === (current.points.length + 1);
-        current.summit = atSummit ? 1 : 0;
-        if (atSummit) setCtrl(CtrlType.transition);
-        current.points.push(1);
-      }
+      const wrong = navigate(direction);
       game.play(current);
       setResult({
         wrong,
         close: () => setResult(null),
-        buttons: [{ text: 'Quit Game', callback: () => quit() }, {
-          text: 'Respawn', callback: () => {
-            const last = `${course.id}${current.summit === 2 ? 'Finish' : current.points.length}`;
-            togglePin(last, false);
-            setResult(null);
-          }
-        }]
+        buttons: wrong ? [
+          { text: 'Quit Game', style: 'inverse', callback: () => quit() },
+          { text: 'Respawn', callback: () => respawn() }
+        ] : null
       });
     }
   }];
 
-  return { controller: ctrls[ctrls.findIndex(c => c.id === ctrl)], result };
+  return { ctrl: ctrls[ctrls.findIndex(c => c.id === ctrl)], result };
 }
 
 export default function GameController(props: GameCtrlProps) {
-  const { controller, result } = useController(props);
-  if (!controller) return <span />;
+  const { ctrl, result } = useController(props);
+  if (!ctrl) return <span />;
   return (
     <>
-      <CtrlDeets id={controller.id} />
+      <CtrlDeets id={ctrl.id} />
       <div className="action-area">
-        {result ? <Result {...result} /> : <Controller {...controller} />}
+        {result ? <Result {...result} /> : <Controller {...ctrl} />}
       </div>
     </>
   );

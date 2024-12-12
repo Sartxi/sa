@@ -7,12 +7,12 @@ import { ButtonProps, Buttons } from "@/app/elements/buttons";
 export interface ResultProps {
   wrong: boolean;
   close: () => void;
-  buttons?: ButtonProps[];
+  buttons: ButtonProps[] | null;
 }
 
 export default function Result(props: ResultProps) {
   const { wrong, buttons, close } = props;
-  const [show, setShow] = useState(false);
+  const [disable, setDisable] = useState(true);
 
   const icon = wrong ? MapIcon.death : MapIcon.apres;
   const title = wrong ? 'Oops, you made a wrong turn.' : 'You chose wisely!';
@@ -20,7 +20,7 @@ export default function Result(props: ResultProps) {
   useEffect(() => {
     setTimeout(() => {
       if (!wrong) close();
-      else setShow(true);
+      setDisable(false);
     }, getDuration(wrong ? 'die' : 'skin'));
   }, []);
 
@@ -30,11 +30,11 @@ export default function Result(props: ResultProps) {
         <Image src={icon} className={`consequence-icon${wrong ? ' death' : ''}`} width={200} height={200} alt="Consequence Icon" />
         <h1>{title}</h1>
       </div>
-      <div className="choices">
-        {buttons && show ? (
-          <Buttons buttons={buttons} />
-        ) : ''}
-      </div>
+      {buttons ? (
+        <div className="choices">
+          <Buttons buttons={buttons} disabled={disable} />
+        </div>
+      ) : ''}
     </div >
   )
 }

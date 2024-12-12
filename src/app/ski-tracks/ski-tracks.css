@@ -45,18 +45,8 @@
   filter: var(--icon-foreground);
 }
 
-.close-game {
-  border-radius: 3px;
-  font-size: 1em;
-  padding: 10px;
-  border: 0;
-  cursor: pointer;
-  background-color: var(--transparent);
-}
-
-.close-game:hover {
-  background-color: var(--accent);
-  color: var(--background);
+.tool-menu .sa-cta {
+  margin-top: 5px;
 }
 
 .ski-menu {
@@ -103,8 +93,7 @@
   padding: 20px;
 }
 
-.ski-menu.start,
-.ski-menu.gameover {
+.ski-menu.start {
   top: 0;
   bottom: 0;
   left: 0;
@@ -119,29 +108,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.ski-menu.gameover .menu {
-  height: 270px;
-  width: 90vw;
-  max-width: 450px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.gameover-ctas {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-.gameover-ctas .sa-cta {
-  margin: 0;
-}
-
-.ski-menu.gameover .menu img {
-  filter: var(--icon-foreground);
 }
 
 .ski-menu.start .menu .menu-body,
@@ -161,7 +127,7 @@
   top: 20px;
   z-index: 9;
   left: 20px;
-  filter: var(--icon-foreground);
+  filter: var(--icon-fill);
 }
 
 .ski-menu.start .menu .menu-body {
@@ -218,19 +184,16 @@
   border-bottom: 3px solid var(--transparent);
 }
 
-.ski-menu.gameover h1,
 .ski-menu .course-details h1 {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.ski-menu.gameover h1 .icon,
 .ski-menu .course-details h1 .icon {
   height: 35px;
 }
 
-.ski-menu.gameover h1 img,
 .ski-menu .course-details h1 img {
   filter: var(--icon-fill);
 }
@@ -250,7 +213,7 @@
 .course-details .course-stats .stat {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
 }
 
 .stat img {
@@ -370,7 +333,7 @@
   text-align: center;
   height: 100%;
   gap: 30px;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .consequence .sa-cta {
@@ -427,6 +390,9 @@
 
 #Pzl .select:hover {
   background-color: var(--transparent);
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
 }
 
 #Pzl .select:active {
@@ -666,9 +632,9 @@ html[data-scheme="dark"] .nav-icon.loading {
   border: 10px solid var(--less-transparent);
   font-weight: bold;
   opacity: 0;
-  -webkit-transition: opacity 300ms ease-in-out;
-  -ms-transition: opacity 300ms ease-in-out;
-  transition: opacity 300ms ease-in-out;
+  -webkit-transition: opacity 200ms ease-in-out;
+  -ms-transition: opacity 200ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
   line-height: 34px;
 }
 
@@ -681,8 +647,8 @@ html[data-scheme="dark"] .nav-icon.loading {
 
 .nav-buttons .nav-indicator.show {
   opacity: 1;
-  background-color: var(--accent);
-  filter: brightness(110%);
+  background-color: var(--foreground);
+  filter: brightness(120%);
 }
 
 .nav-icon {
@@ -691,10 +657,23 @@ html[data-scheme="dark"] .nav-icon.loading {
   inset: unset !important;
   align-self: center;
   justify-self: center;
-  filter: var(--icon-fill);
-  background-color: var(--background);
+  filter: var(--icon-background);
   border-radius: 10rem;
   z-index: 99;
+}
+
+.nav-buttons::after {
+  content: '';
+  display: flex;
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 10rem;
+  background-color: var(--accent);
+  mix-blend-mode: var(--roam-blend);
+  z-index: 999;
+  top: 86px;
+  left: 86px;
 }
 
 .nav-icon.loading {
@@ -889,7 +868,7 @@ html[data-scheme="dark"] .nav-icon.loading {
   left: 0;
   right: 0;
   border-radius: 10px;
-  background-color: var(--less-transparent);
+  background-color: var(--more-transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,8 +884,13 @@ html[data-scheme="dark"] .nav-icon.loading {
 }
 
 @keyframes textSize {
-  0% { font-size: 15px; }
-  100% { font-size: 16px; }
+  0% {
+    font-size: 15px;
+  }
+
+  100% {
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 600px) and (max-width: 1199px) {

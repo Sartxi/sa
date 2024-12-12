@@ -27,7 +27,7 @@ export default function Game({ map, rider, closeGame }: SkiTracksGame) {
   if (typeof rider === 'boolean') return <span />;
   return (
     <div id="SkiTracks">
-      {menu?.type !== MenuType.start && <Image className="trax-logo" height={100} width={100} src='./skitrax.svg' alt="Ski Tracks" />}
+      {menu?.type !== MenuType.start && <Image className="trax-logo" height={80} width={80} src='./skitrax.svg' alt="Ski Tracks" />}
       <ToolMenu game={game} close={() => closeGame?.()} />
       <SkiMenu {...game} />
       <div id="GameArea">

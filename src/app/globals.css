@@ -471,8 +471,12 @@ button.sa-cta.small {
 }
 
 button.sa-cta:hover {
-  color: white;
+  color: var(--background);
+  text-shadow: none;
   background-color: var(--accent);
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
 }
 
 button.sa-cta.inverse {
@@ -483,6 +487,13 @@ button.sa-cta.inverse {
 button.sa-cta.inverse:hover {
   background-color: var(--foreground);
   color: var(--background);
+  -webkit-transition: background-color 300ms linear;
+  -ms-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+}
+
+button.sa-cta.disabled {
+  opacity: 0.3;
 }
 
 .button-icon {
@@ -491,6 +502,20 @@ button.sa-cta.inverse:hover {
 
 button.sa-cta:hover .button-icon {
   filter: var(--icon-background);
+}
+
+button.sa-cta.transparent {
+  border-radius: 3px;
+  font-size: 1em;
+  padding: 10px;
+  border: 0;
+  cursor: pointer;
+  background-color: var(--transparent);
+}
+
+button.sa-cta.transparent:hover {
+  background-color: var(--accent);
+  color: var(--background);
 }
 
 a {
