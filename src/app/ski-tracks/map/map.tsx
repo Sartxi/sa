@@ -147,7 +147,7 @@ function useSkiMap(game: GameProps) {
       lock(course);
       const skins = course.points.length;
       const deaths = course.deaths.length;
-      if (skins !== log.skins || course.pastdeaths.length) setPins(map, game);
+      if (skins !== log.skins || game.pastdeaths?.length) setPins(map, game);
       update(course, [skins, deaths], mapBg);
     } else {
       unlock();

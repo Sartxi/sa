@@ -27,11 +27,12 @@ function Point({ id, icon, desc, click, trail, death = false }: CoursePoint) {
   )
 }
 
-function Deaths({ active }: { active: CourseProgress }) {
-  return <>{active.deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}</>;
+function Deaths({ deaths }: { deaths: number[][] | undefined }) {
+  if (!deaths?.length) return <span />;
+  return <>{deaths.map((d, index) => <Point key={`Death${index}`} death id={`Death${index}`} icon={MapIcon.death} desc="Death" />)}</>;
 }
 
-const newProgress = (id: string) => ({ 
+const newProgress = (id: string) => ({
   id, active: true,
   points: [],
   deaths: [],
@@ -41,7 +42,7 @@ const newProgress = (id: string) => ({
   finished: false
 });
 
-function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
+function SkiCourse({ rider, course, progress, setMenu, play, pastdeaths }: SkiCourseProps) {
   const getPointId = (point: string) => (`${course.id}${point}`);
   const courses = progress?.current ?? [];
   const active: CourseProgress | undefined = courses.find((p) => p.id === course.id);
@@ -49,6 +50,7 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
   const atSummit = active?.summit && active.summit >= 2;
   const isFinished = active?.finished;
 
+  const deaths = [...active?.deaths || [], ...pastdeaths || []];
   const startCourse = () => {
     if (points.length) return;
     if (active) active.active = true;
@@ -62,7 +64,7 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
         id={getPointId('Start')}
         icon={MapIcon.apres}
         desc="Finished Route" />
-      {active && <Deaths active={active} />}
+      {deaths.length && <Deaths deaths={deaths} />}
     </div>
   )
 
@@ -84,7 +86,7 @@ function SkiCourse({ rider, course, progress, setMenu, play }: SkiCourseProps) {
         )
       })}
       {atSummit ? <Point id={getPointId('Finish')} icon={active.summit === 1 ? MapIcon.skinner : rider} desc="Rallying down" /> : ''}
-      {active && <Deaths active={active} />}
+      {deaths && <Deaths deaths={deaths} />}
     </div>
   )
 }

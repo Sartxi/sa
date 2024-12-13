@@ -3,15 +3,17 @@ import { CourseDetails } from ".";
 import { MenuType } from "../data";
 import GameController from "../controller/controller";
 
-function useCourseMenu({ courses, progress, setMenu, play }: GameProps) {
+function useCourseMenu({ courses, progress, setMenu, play, pastdeaths, setPastDeaths }: GameProps) {
   const current: CourseProgress | undefined = progress?.current.find((course) => course.active);
   const course: Course | undefined = courses.find((course) => course.id === current?.id);
   const quit = (menu: { type: MenuType } | null = null) => {
     if (!current) return;
     current.active = false;
     current.points = [];
-    current.pastdeaths = current.deaths;
-    current.deaths = [];
+    if (current.deaths.length) {
+      setPastDeaths([...pastdeaths || [], ...current.deaths]);
+      current.deaths = [];
+    }
     play(current);
     setMenu(menu);
   };

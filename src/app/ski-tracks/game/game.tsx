@@ -11,6 +11,7 @@ import { GameProps, GameProgress } from "../game/data";
 export default function Game({ map, rider, closeGame }: SkiTracksGame) {
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
   const [progress, setProgress] = useState<GameProgress>({ current: [] });
+  const [gameDeaths, setGameDeaths] = useState<number[][] | null>(null);
 
   const game: GameProps = {
     rider,
@@ -18,6 +19,8 @@ export default function Game({ map, rider, closeGame }: SkiTracksGame) {
     menu,
     setMenu,
     progress,
+    pastdeaths: gameDeaths,
+    setPastDeaths: (deaths: number[][] | null) => setGameDeaths(deaths),
     play: (choice) => {
       const routes = progress?.current.filter((r) => r.id !== choice.id) ?? [];
       setProgress({ current: [...routes.map(r => ({ ...r, active: false })), choice] });

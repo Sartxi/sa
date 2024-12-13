@@ -35,6 +35,8 @@ export interface GameProps {
   rider: MapIcon | any;
   menu: MenuProps | null;
   progress: GameProgress | undefined;
+  pastdeaths: number[][] | null;
+  setPastDeaths: (deaths: number[][] | null) => void;
   setMenu: (menu: MenuProps | null) => void;
   play: (event: CourseProgress) => void;
 }
@@ -51,7 +53,6 @@ export interface CourseProgress {
   rally: boolean;
   finished: boolean;
   deaths: number[][];
-  pastdeaths: number[][];
 }
 
 export interface GameMap {

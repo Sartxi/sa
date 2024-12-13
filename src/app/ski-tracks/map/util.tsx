@@ -36,9 +36,7 @@ function placePin(id: string, [a, c]: number[], [b, d]: number[]) {
 
 function togglePin(id: string, hide: boolean) {
   const el = document.getElementById(id);
-  if (el) {
-    el.style.visibility = hide ? 'hidden' : 'visible';
-  }
+  if (el) el.style.visibility = hide ? 'hidden' : 'visible';
 }
 
 function getBgAxis(map: HTMLElement) {
@@ -71,18 +69,11 @@ function setPins(map: HTMLElement | null, game: GameProps) {
         setSkinner(trail, `${id}${i + 1}`);
       }
     });
-    if (reached?.deaths.length) {
-      reached.deaths.forEach((death, index) => placePin(`Death${index}`, mapBg, death));
+    if (reached?.deaths.length || game.pastdeaths?.length) {
+      const deaths = [...reached?.deaths || [], ...game?.pastdeaths || []];
+      deaths.forEach((death, index) => placePin(`Death${index}`, mapBg, death));
     }
   });
 }
 
-export {
-  setPins,
-  listeners,
-  getAxis,
-  getRandom,
-  getBgAxis,
-  placePin,
-  togglePin
-}
+export { setPins, listeners, getAxis, getRandom, getBgAxis, placePin, togglePin };

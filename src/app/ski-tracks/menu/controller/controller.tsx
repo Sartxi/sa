@@ -3,11 +3,11 @@ import { Nav, Rose, Snow } from "../../game/data";
 import { GameCtrlProps, CtrlProps, CtrlType, details, SafetyMetrix } from "./data";
 import { ResultProps } from "./result";
 import { getRandom, togglePin } from "../../map/util";
+import { getDirection } from "./util";
 import Image from "next/image";
 import Compass from "./compass";
 import Transition from "./transition";
 import Result from "./result";
-import { getDirection } from "./util";
 
 function CtrlDeets({ id }: { id: CtrlType }) {
   const deets = details.find(d => d.id === id);
@@ -112,14 +112,17 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
         wrong,
         close: () => setResult(null),
         buttons: wrong ? [
-          { text: 'Quit Game', style: 'inverse', callback: () => quit() },
+          { text: 'Quit Route', style: 'inverse', callback: () => quit() },
           { text: 'Respawn', callback: () => respawn() }
         ] : null
       });
     }
   }];
 
-  return { ctrl: ctrls[ctrls.findIndex(c => c.id === ctrl)], result };
+  return {
+    ctrl: ctrls[ctrls.findIndex(c => c.id === ctrl)],
+    result
+  };
 }
 
 export default function GameController(props: GameCtrlProps) {
