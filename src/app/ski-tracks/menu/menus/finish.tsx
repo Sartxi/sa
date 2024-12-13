@@ -2,24 +2,17 @@ import { Buttons } from "@/app/elements";
 import { GameProps, Course } from "../../game/data";
 import { CourseDetails } from "./";
 
-export default function FinishMenu({ courses, setMenu, progress, play }: GameProps) {
+export default function FinishMenu({ courses, setMenu, progress }: GameProps) {
   const active = progress?.current.find((route) => route.active);
   const data: Course | undefined = courses.find((course) => course.id === active?.id);
-  const skiDown = () => {
-    if (active) {
-      active.finished = true;
-      play(active);
-      setMenu(null);
-    }
-  };
   return (
     <div className="menu">
       <div className="route-info">
         <CourseDetails course={data} />
         <div className="route-decision">
-          <h2>Make a Decision</h2>
-          <p>Using the avalanche report and judging by the slope angle move forward by choosing which direction to go.</p>
-          <Buttons buttons={[{ text: 'Next', callback: skiDown }]} />
+          <h2>You Finished this bitch</h2>
+          <p>Your skills got you to the top and then you got to shred down like a beast!</p>
+          <Buttons buttons={[{ text: 'Next', callback: () => setMenu(null) }]} />
         </div>
       </div>
     </div>

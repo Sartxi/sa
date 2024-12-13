@@ -29,6 +29,14 @@ export enum Rose {
   ne = 'North East'
 }
 
+export interface DevModes {
+  mapPlotting: boolean;
+  skipTransition: boolean;
+}
+export interface DevMode extends DevModes {
+  enabled: string | null;
+}
+
 export interface GameProps {
   children?: any;
   courses: Course[];
@@ -36,6 +44,7 @@ export interface GameProps {
   menu: MenuProps | null;
   progress: GameProgress | undefined;
   pastdeaths: number[][] | null;
+  devmode: DevMode;
   setPastDeaths: (deaths: number[][] | null) => void;
   setMenu: (menu: MenuProps | null) => void;
   play: (event: CourseProgress) => void;
@@ -71,7 +80,7 @@ export const maps: GameMap[] = [{
     difficulty: Difficulty.green,
     start: [410, 1200],
     points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-    finish: [[455, 1675], [570, 1610], [590, 1564], [660, 1314], [560, 1244], [410, 1200]],
+    finish: [[493, 1632], [579, 1580], [619, 1486], [723, 1441], [633, 1326], [410, 1200]],
     center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]],
     answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
   }]

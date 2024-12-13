@@ -35,14 +35,15 @@ export function Buttons({ buttons, disabled }: ButtonsProps) {
   const style = `sa-button${buttons.length > 1 ? 's' : ''}`;
   return (
     <span className={style}>
-      {buttons.map((button: ButtonProps) => {
+      {buttons.map((button: ButtonProps, i) => {
         button.disable = disabled;
+        const key = `${button.text}${i}`;
         if (button.link) return (
-          <a key={button.text} href={button.link} target="_blank">
+          <a key={key} href={button.link} target="_blank">
             <Button {...button} />
           </a>
         )
-        return <Button key={button.text} {...button} />;
+        return <Button key={key} {...button} />;
       })}
     </span>
   )

@@ -1,7 +1,7 @@
 export enum MenuType {
-  start,
-  finish,
-  course
+  start = 'start',
+  finish = 'finish',
+  course = 'course'
 };
 
 export interface MenuProps {

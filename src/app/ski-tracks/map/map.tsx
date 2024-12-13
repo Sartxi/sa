@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useMedia } from "../../hooks/viewport";
 import { GameProps, CourseProgress } from "../game/data";
 import { skin, ski, died, centerMap } from "./animation";
-import { listeners, getAxis, setPins, placePin, togglePin } from "./util";
+import { listeners, getAxis, setPins, placePin, togglePin, getBgAxis } from "./util";
 import { MapIcon } from "./data";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
@@ -157,7 +157,36 @@ function useSkiMap(game: GameProps) {
   }, [map, progress]);
 }
 
+function useMapPlotting(game: GameProps) {
+  useEffect(() => {
+    const map = document.getElementById('SkiMap');
+    const getPosition = (event: any) => {
+      if (map && game.devmode.enabled && game.devmode.mapPlotting) {
+        const [a, c] = getBgAxis(map);
+        const x = event.offsetX - parseInt(a);
+        const y = event.offsetY - parseInt(c);
+        console.log('clicked point:', x, y);
+        console.log('background position:', a, c);
+        const plotPoint = document.getElementById('MapPlotPoint');
+        if (plotPoint) {
+          plotPoint.style.left = `${x + parseInt(a)}px`;
+          plotPoint.style.top = `${y + parseInt(c)}px`;
+        }
+      }
+    }
+    if (game.devmode.enabled) map?.addEventListener('click', getPosition);
+    return () => {
+      if (game.devmode.enabled) map?.removeEventListener('click', getPosition);
+    }
+  }, [game]);
+}
+
 export default function SkiMap(game: GameProps) {
   useSkiMap(game);
-  return <div id="SkiMap">{game.children}</div>;
+  useMapPlotting(game);
+  return (
+    <div id="SkiMap">
+      {game.children}
+    </div>
+  );
 }

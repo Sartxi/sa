@@ -1,5 +1,6 @@
 enum Map {
-  west = 'west'
+  west = 'west',
+  alta = 'alta'
 }
 
 enum MapIcon {
@@ -39,4 +40,11 @@ function useMapIconSize(icon: MapIcon) {
   }
 }
 
-export { Map, MapIcon, Animate, useMapIconSize };
+export interface GameMap {
+  id: Map;
+  src: string;
+}
+
+const gameMaps: GameMap[] = [{ id: Map.alta, src: "./topo.png" }];
+
+export { gameMaps, Map, MapIcon, Animate, useMapIconSize };

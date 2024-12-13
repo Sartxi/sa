@@ -2,33 +2,22 @@ import { GameProps } from "../game/data";
 import { StartMenu, CourseMenu, FinishMenu, HelpMenu } from "./menus";
 import { MenuType } from "./data";
 
-function useMenu(game: GameProps): { style: string, menu: any } {
-  switch (game.menu?.type) {
-    case MenuType.course:
-      return {
-        style: 'course',
-        menu: () => <CourseMenu {...game} />
-      }
-    case MenuType.finish:
-      return {
-        style: 'finish',
-        menu: () => <FinishMenu {...game} />
-      }
-    default:
-      return {
-        style: 'start',
-        menu: () => <StartMenu {...game} />
-      };
-  }
-}
-
 function Menu(game: GameProps) {
-  const { style, menu } = useMenu(game);
-  return (
-    <div className={`ski-menu ${style}`}>
-      {menu()}
-    </div>
-  )
+  const current = game.progress?.current?.find(i => i.active);
+  const isFinished = game.menu?.type === MenuType.course && current?.finished;
+  const menu = game.menu?.type ?? '';
+  const getMenu = () => {
+    switch (game.menu?.type) {
+      case MenuType.finish:
+      case isFinished:
+        return <FinishMenu {...game} />;
+      case MenuType.course:
+        return <CourseMenu {...game} />;
+      default:
+        return <StartMenu {...game} />;
+    }
+  };
+  return <div className={`ski-menu ${menu}`}>{getMenu()}</div>;
 }
 
 export default function SkiMenu(game: GameProps) {
