@@ -4,18 +4,11 @@ import { MenuType } from "./data";
 
 function Menu(game: GameProps) {
   const current = game.progress?.current?.find(i => i.active);
-  const isFinished = game.menu?.type === MenuType.course && current?.finished;
   const menu = game.menu?.type ?? '';
   const getMenu = () => {
-    switch (game.menu?.type) {
-      case MenuType.finish:
-      case isFinished:
-        return <FinishMenu {...game} />;
-      case MenuType.course:
-        return <CourseMenu {...game} />;
-      default:
-        return <StartMenu {...game} />;
-    }
+    if (current?.finished) return <FinishMenu {...game} />;
+    else if (game.menu?.type === MenuType.course) return <CourseMenu {...game} />;
+    else return <StartMenu {...game} />;
   };
   return <div className={`ski-menu ${menu}`}>{getMenu()}</div>;
 }

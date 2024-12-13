@@ -21,7 +21,6 @@ export default function DevModeMenu({ mode, setModes }: DevMenuProps) {
 
   return (
     <div className="dev-mode-menu">
-      {mode.mapPlotting ? <div id="MapPlotPoint" /> : ''}
       <Buttons buttons={modes} />
     </div>
   )

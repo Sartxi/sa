@@ -7,6 +7,7 @@ import Game from "./game/game";
 export interface SkiTracksGame {
   rider: MapIcon | boolean;
   map: GameMap;
+  setMap: (map: GameMap) => void;
   closeGame?: () => void;
 }
 
@@ -37,12 +38,12 @@ function SkierEggs({ play }: { play: (player: any) => void }) {
 
 export default function SkiTracks() {
   const [play, setPlay] = useState<MapIcon | boolean>(false);
-  const [map] = useState(maps[0]);
+  const [map, setMap] = useState(maps[0]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-scrolling', play ? 'false' : 'true');
   }, [play]);
 
   if (!play) return <SkierEggs play={setPlay} />;
-  return <Game map={map} rider={play} closeGame={() => setPlay(false)} />;
+  return <Game map={map} setMap={(map) => setMap(map)} rider={play} closeGame={() => setPlay(false)} />;
 }

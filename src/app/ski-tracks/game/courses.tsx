@@ -63,8 +63,9 @@ function SkiCourse({ rider, course, progress, setMenu, play, pastdeaths }: SkiCo
       <Point
         id={getPointId('Start')}
         icon={MapIcon.apres}
-        desc="Finished Route" />
-      {deaths.length && <Deaths deaths={deaths} />}
+        desc="Finished Route"
+        click={startCourse} />
+      {deaths.length ? <Deaths deaths={deaths} /> : ''}
     </div>
   )
 
@@ -86,11 +87,16 @@ function SkiCourse({ rider, course, progress, setMenu, play, pastdeaths }: SkiCo
         )
       })}
       {atSummit ? <Point id={getPointId('Finish')} icon={active.summit === 1 ? MapIcon.skinner : rider} desc="Rallying down" /> : ''}
-      {deaths && <Deaths deaths={deaths} />}
+      {deaths ? <Deaths deaths={deaths} /> : ''}
     </div>
   )
 }
 
 export default function SkiCourses(game: GameProps) {
-  return game.courses.map((course: Course) => <SkiCourse key={course.id} course={course} {...game} />);
+  return (
+    <>
+      {game.devmode.mapPlotting ? <div id="MapPlotPoint" /> : ''}
+      {game.courses.map((course: Course) => <SkiCourse key={course.id} course={course} {...game} />)}
+    </>
+  )
 }

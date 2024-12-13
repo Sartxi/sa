@@ -9,8 +9,9 @@ import { MenuType, MenuProps } from "../menu/data";
 import { SkiTracksGame } from "../ski-tracks";
 import { GameProps, GameProgress, DevModes } from "../game/data";
 import { useSearchParams } from "next/navigation";
+import { GameMap } from "../map/data";
 
-export default function Game({ map, rider, closeGame }: SkiTracksGame) {
+export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
   const searchParams = useSearchParams();
   const devmode = searchParams.get('devmode');
 
@@ -24,12 +25,14 @@ export default function Game({ map, rider, closeGame }: SkiTracksGame) {
 
   const game: GameProps = {
     rider,
+    map,
     courses: map?.courses ?? [],
     menu,
     setMenu,
     progress,
     pastdeaths: gameDeaths,
     devmode: { enabled: devmode, ...devmodes },
+    setMap,
     setPastDeaths: (deaths: number[][] | null) => setGameDeaths(deaths),
     play: (choice) => {
       const routes = progress?.current.filter((r) => r.id !== choice.id) ?? [];

@@ -3,7 +3,7 @@ import { useMedia } from "../../hooks/viewport";
 import { GameProps, CourseProgress } from "../game/data";
 import { skin, ski, died, centerMap } from "./animation";
 import { listeners, getAxis, setPins, placePin, togglePin, getBgAxis } from "./util";
-import { MapIcon } from "./data";
+import { gameMaps, MapIcon } from "./data";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
   const { mobile, tablet } = useMedia();
@@ -11,9 +11,6 @@ function useDrag(map: HTMLElement | null, setMap: () => void) {
   const [stPos, setStPos] = useState<[number, number]>([0, 0]);
   const [bgPos, setBgPos] = useState<[number, number]>([0, 0]);
   const [dragging, setDragging] = useState(false);
-
-  // turn on to set centers
-  // console.log(bgPos);
 
   useEffect(() => {
     if (!map || locked) return;
@@ -184,8 +181,10 @@ function useMapPlotting(game: GameProps) {
 export default function SkiMap(game: GameProps) {
   useSkiMap(game);
   useMapPlotting(game);
+  const gameMap = gameMaps.find(map => map.id === game.map.id);
+  if (!gameMap) return <div>No Game Map Selected</div>;
   return (
-    <div id="SkiMap">
+    <div id="SkiMap" style={{ backgroundImage: `url(${gameMap.src})` }}>
       {game.children}
     </div>
   );

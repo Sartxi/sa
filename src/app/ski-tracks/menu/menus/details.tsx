@@ -14,7 +14,7 @@ export default function CourseDetails({ course, cancel }: { course: Course | und
   const diff = useDifficulty(course?.difficulty);
   if (!course) return;
   const { title, description, elevation, distance } = course;
-  const button = { text: 'Close', style: 'inverse small close', callback: () => cancel && cancel() };
+  const button = { text: 'Close', style: 'inverse small close', callback: () => cancel?.() };
   return (
     <>
       <Buttons buttons={[button]} />

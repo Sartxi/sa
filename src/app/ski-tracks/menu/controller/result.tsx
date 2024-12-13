@@ -6,22 +6,27 @@ import { ButtonProps, Buttons } from "@/app/elements/buttons";
 
 export interface ResultProps {
   wrong: boolean;
+  dropping: boolean;
   close: () => void;
   buttons: ButtonProps[] | null;
 }
 
 export default function Result(props: ResultProps) {
-  const { wrong, buttons, close } = props;
+  const { wrong, buttons, close, dropping } = props;
   const [disable, setDisable] = useState(true);
 
   const icon = wrong ? MapIcon.death : MapIcon.apres;
   const title = wrong ? 'Oops, you made a wrong turn.' : 'You chose wisely!';
 
   useEffect(() => {
+    const duration = () => {
+      if (wrong) return 'die';
+      return dropping ? 'ski' : 'skin';
+    }
     setTimeout(() => {
       if (!wrong) close();
       setDisable(false);
-    }, getDuration(wrong ? 'die' : 'skin'));
+    }, getDuration(duration()));
   }, []);
 
   return (

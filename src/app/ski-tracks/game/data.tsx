@@ -39,6 +39,7 @@ export interface DevMode extends DevModes {
 
 export interface GameProps {
   children?: any;
+  map: GameMap;
   courses: Course[];
   rider: MapIcon | any;
   menu: MenuProps | null;
@@ -47,6 +48,7 @@ export interface GameProps {
   devmode: DevMode;
   setPastDeaths: (deaths: number[][] | null) => void;
   setMenu: (menu: MenuProps | null) => void;
+  setMap: (map: GameMap) => void;
   play: (event: CourseProgress) => void;
 }
 
@@ -80,7 +82,7 @@ export const maps: GameMap[] = [{
     difficulty: Difficulty.green,
     start: [410, 1200],
     points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-    finish: [[493, 1632], [579, 1580], [619, 1486], [723, 1441], [633, 1326], [410, 1200]],
+    finish: [[455, 1675], [579, 1580], [619, 1486], [723, 1441], [633, 1326], [410, 1200]],
     center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]],
     answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
   }]

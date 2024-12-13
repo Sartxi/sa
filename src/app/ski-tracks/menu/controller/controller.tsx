@@ -61,6 +61,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
   const [ctrl, setCtrl] = useState<CtrlType>(CtrlType.transition);
   const [correct, setCorrect] = useState<Nav>(course.answers[current.points.length]);
   const [result, setResult] = useState<ResultProps | null>(null);
+  const [dropping, setDropping] = useState(false);
 
   useEffect(() => {
     const answer: Nav = course.answers[current.points.length];
@@ -78,7 +79,10 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
     } else {
       const atSummit = course.points.length === (current.points.length + 1);
       current.summit = atSummit ? 1 : 0;
-      if (atSummit) setCtrl(CtrlType.transition);
+      if (atSummit) {
+        setDropping(true);
+        setCtrl(CtrlType.transition);
+      }
       current.points.push(1);
     }
     return wrong;
@@ -110,6 +114,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
       game.play(current);
       setResult({
         wrong,
+        dropping,
         close: () => setResult(null),
         buttons: wrong ? [
           { text: 'Quit Route', style: 'inverse', callback: () => quit() },
@@ -121,18 +126,35 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
 
   return {
     ctrl: ctrls[ctrls.findIndex(c => c.id === ctrl)],
-    result
+    result,
+    setCtrl
   };
 }
 
+function useSkipTrans(ctrl: GameCtrlProps, setCtrl: any) {
+  const button = () => (
+    <button className="sa-cta skip-btn" onClick={() => {
+      setCtrl(CtrlType.navigation);
+      if (ctrl.current.summit) {
+        ctrl.current.summit = 2;
+        ctrl.game.play(ctrl.current);
+      }
+    }}>Skip</button>
+  );
+  return { skip: ctrl.game.devmode.enabled && ctrl.game.devmode.skipTransition, button };
+}
+
 export default function GameController(props: GameCtrlProps) {
-  const { ctrl, result } = useController(props);
+  const { ctrl, result, setCtrl } = useController(props);
+  const { skip, button } = useSkipTrans(props, setCtrl);
+
   if (!ctrl) return <span />;
   return (
     <>
       <CtrlDeets id={ctrl.id} />
       <div className="action-area">
         {result ? <Result {...result} /> : <Controller {...ctrl} />}
+        {skip && ctrl.id === CtrlType.transition ? button() : ''}
       </div>
     </>
   );
