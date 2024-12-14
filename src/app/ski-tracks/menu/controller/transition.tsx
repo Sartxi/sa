@@ -128,7 +128,7 @@ export default function Transition(props: CtrlProps) {
 
   return (
     <div id="Pzl" className="transition">
-      {won && <div className="ctrl-overlay">You did it!</div>}
+      {won && <div className="ctrl-overlay"><h2>You did it!</h2></div>}
       <div className="area preps">
         <div className="prep">
           Safety Check

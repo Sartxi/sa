@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { MapIcon } from "./map/data";
 import { GameMap, maps } from "./game/data";
 import Game from "./game/game";
@@ -15,6 +15,7 @@ export interface SkiTracksGame {
 }
 
 export default function SkiTracksPage() {
+  const router = useRouter();
   const [play, setPlayer] = useState<MapIcon | boolean>(MapIcon.skier);
   const [map, setMap] = useState(maps[0]);
 
@@ -29,7 +30,7 @@ export default function SkiTracksPage() {
         setMap={(map) => setMap(map)}
         setPlayer={(rider: MapIcon) => setPlayer(rider)}
         rider={play}
-        closeGame={() => redirect('/')} />
+        closeGame={() => router.push('/')} />
     </div>
   );
 }
