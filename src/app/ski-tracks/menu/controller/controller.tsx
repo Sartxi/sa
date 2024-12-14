@@ -133,7 +133,7 @@ function useController({ current, course, game, quit }: GameCtrlProps) {
 
 function useSkipTrans(ctrl: GameCtrlProps, setCtrl: any) {
   const button = () => (
-    <button className="sa-cta skip-btn" onClick={() => {
+    <button className="sa-cta small skip-btn" onClick={() => {
       setCtrl(CtrlType.navigation);
       if (ctrl.current.summit) {
         ctrl.current.summit = 2;

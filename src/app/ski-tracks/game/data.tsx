@@ -71,23 +71,6 @@ export interface GameMap {
   courses: Course[];
 };
 
-export const maps: GameMap[] = [{
-  id: Map.west,
-  courses: [{
-    id: 'StormMountain',
-    title: 'Storm Mountain',
-    description: 'Storm Mountain lies on the western end of the Cottonwood Ridge. Rising nearly 5,000 feet directly out of the valley, any approach requires significant elevation gain.',
-    elevation: 2300,
-    distance: 2.3,
-    difficulty: Difficulty.green,
-    start: [410, 1200],
-    points: [[315, 1295], [320, 1530], [510, 1580], [455, 1675]],
-    finish: [[455, 1675], [579, 1580], [619, 1486], [723, 1441], [633, 1326], [410, 1200]],
-    center: [[-9, -908], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]],
-    answers: [Nav.southwest, Nav.south, Nav.southeast, Nav.southwest, Nav.northeast],
-  }]
-}];
-
 export interface Course {
   id: string;
   title: string;
@@ -101,3 +84,21 @@ export interface Course {
   center: [number, number][];
   difficulty: Difficulty;
 }
+
+
+export const maps: GameMap[] = [{
+  id: Map.central,
+  courses: [{
+    id: 'toledo',
+    title: 'Toledo Bowl',
+    description: 'Toledo Bowl is a low angle bowl to the north west of the peak of Flagstaff mountain. With under 2k in elevation gain this tour is great for a quick morning hike.',
+    elevation: 1900,
+    distance: 3.5,
+    difficulty: Difficulty.blue,
+    start: [1608, 1232],
+    points: [[1515, 1110], [1398, 1075], [1412, 948], [1354, 917], [1453, 846], [1417, 765], [1336, 723]],
+    finish: [[1336, 723], [1275, 813], [1310, 824], [1311, 859], [1347, 861], [1344, 940], [1391, 1071], [1370, 1204], [1525, 1250], [1608, 1232]],
+    center: [[-1047, -485], [-195.94921875, -904.5390625], [-272.39453125, -1152.640625]],
+    answers: [Nav.northwest, Nav.west, Nav.north, Nav.northwest, Nav.northeast, Nav.north, Nav.northwest, Nav.southwest],
+  }]
+}];

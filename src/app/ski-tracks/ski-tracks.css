@@ -28,6 +28,7 @@
   right: 0;
   z-index: 9;
   color: var(--foreground);
+  background-color: var(--background);
 }
 
 .tool-menu {
@@ -279,6 +280,11 @@
   background-repeat: no-repeat;
   width: 3850px;
   height: 2110px;
+}
+
+html[data-scheme="dark"] #SkiMap {
+  filter: invert();
+  background-color: var(--foreground);
 }
 
 #SkiMap.locked {

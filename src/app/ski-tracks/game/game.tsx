@@ -9,7 +9,6 @@ import { MenuType, MenuProps } from "../menu/data";
 import { SkiTracksGame } from "../ski-tracks";
 import { GameProps, GameProgress, DevModes } from "../game/data";
 import { useSearchParams } from "next/navigation";
-import { GameMap } from "../map/data";
 
 export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
   const searchParams = useSearchParams();
