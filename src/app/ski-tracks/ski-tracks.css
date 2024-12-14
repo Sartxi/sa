@@ -280,11 +280,6 @@
   height: 2110px;
 }
 
-html[data-scheme="dark"] #SkiMap {
-  filter: invert();
-  background-color: var(--foreground);
-}
-
 #SkiMap.locked {
   cursor: default !important;
 }
@@ -300,6 +295,10 @@ html[data-scheme="dark"] #SkiMap {
   filter: var(--icon-foreground);
   opacity: 1;
   transition: opacity .2s;
+}
+
+.course .point.flip {
+  transform: scale(-1, 1);
 }
 
 .course .point.link {

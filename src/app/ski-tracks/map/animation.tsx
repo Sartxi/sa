@@ -47,10 +47,17 @@ export function skin(course: CourseProgress, callback: (index: number) => void) 
   if (skinner && st && en) {
     const start = st.getBoundingClientRect();
     const end = en.getBoundingClientRect();
+    const isWest = start.left > end.left;
+    if (isWest) skinner.classList.add('flip');
+    else skinner.classList.remove('flip');
     skinner.animate([
       { left: `${start.left}px`, top: `${start.top}px`, visibility: 'visible' },
       { left: `${end.left}px`, top: `${end.top}px`, visibility: 'hidden' }
-    ], animation.skin).onfinish = () => callback(point);
+    ], animation.skin).onfinish = () => {
+      callback(point);
+      if (isWest) en.classList.add('flip');
+      else en.classList.remove('flip');
+    };
   }
 }
 
@@ -65,7 +72,7 @@ export function ski(
   if (el) {
     const frames = finish.map(([b, d]) => ({ left: `${a + b}px`, top: `${c + d}px` }));
     el.animate(frames, animation.ski).onfinish = () => {
-      const last = frames[frames.length - 1]
+      const last = frames[frames.length - 1];
       el.style.left = last.left;
       el.style.top = last.top;
       callback();
