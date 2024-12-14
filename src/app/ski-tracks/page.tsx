@@ -10,11 +10,12 @@ export interface SkiTracksGame {
   rider: MapIcon | boolean;
   map: GameMap;
   setMap: (map: GameMap) => void;
+  setPlayer: (player: MapIcon) => void;
   closeGame?: () => void;
 }
 
 export default function SkiTracksPage() {
-  const [play] = useState<MapIcon | boolean>(MapIcon.skier);
+  const [play, setPlayer] = useState<MapIcon | boolean>(MapIcon.skier);
   const [map, setMap] = useState(maps[0]);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function SkiTracksPage() {
       <Game
         map={map}
         setMap={(map) => setMap(map)}
+        setPlayer={(rider: MapIcon) => setPlayer(rider)}
         rider={play}
         closeGame={() => redirect('/')} />
     </div>

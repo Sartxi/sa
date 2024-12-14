@@ -1,19 +1,22 @@
 import { Suspense, useState } from "react";
+import { ToolMenu } from "../menu/menus";
+import { MenuType, MenuProps } from "../menu/data";
+import { GameProps, GameProgress, DevModes } from "../game/data";
+import { SkiTracksGame } from "../page";
+import { useSearchParams } from "next/navigation";
+import { useMedia } from "@/app/hooks/viewport";
 import SkiMenu from "../menu/menu";
 import SkiCourses from "./courses";
 import SkiMap from "../map/map";
 import Image from "next/image";
 import DevModeMenu from "../menu/menus/devmode";
-import { ToolMenu } from "../menu/menus";
-import { MenuType, MenuProps } from "../menu/data";
-import { SkiTracksGame } from "../page";
-import { GameProps, GameProgress, DevModes } from "../game/data";
-import { useSearchParams } from "next/navigation";
-import { useMedia } from "@/app/hooks/viewport";
+import { usePlayerParam } from "../skiers";
 
-function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
+function Game({ map, setMap, rider, closeGame, setPlayer }: SkiTracksGame) {
   const searchParams = useSearchParams();
   const devmode = searchParams.get('devmode');
+  const player = searchParams.get('rider');
+  usePlayerParam(rider, player, setPlayer);
 
   const [menu, setMenu] = useState<MenuProps | null>({ type: MenuType.start });
   const [progress, setProgress] = useState<GameProgress>({ current: [] });
@@ -35,6 +38,7 @@ function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
     pastdeaths: gameDeaths,
     devmode: { enabled: devmode, ...devmodes },
     setMap,
+    setPlayer,
     setPastDeaths: (deaths: number[][] | null) => setGameDeaths(deaths),
     play: (choice) => {
       const routes = progress?.current.filter((r) => r.id !== choice.id) ?? [];

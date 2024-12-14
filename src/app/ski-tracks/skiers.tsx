@@ -1,8 +1,19 @@
 import Image from "next/image";
 import { MapIcon } from "./map/data";
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
+
+export function usePlayerParam(rider: boolean | MapIcon, player: string | null, setPlayer: (icon: MapIcon) => void) {
+  return useEffect(() => {
+    if (rider && player) {
+      const playerIcon = player === 'skier' ? MapIcon.skier : MapIcon.snowboarder;
+      if (rider !== playerIcon) setPlayer(playerIcon);
+    }
+  }, [player]);
+}
 
 export default function SkierEggs() {
+  const router = useRouter();
   const riders = [MapIcon.skier, MapIcon.snowboarder];
   const getType = (rider: MapIcon) => {
     let type = 'skier';
@@ -20,7 +31,7 @@ export default function SkierEggs() {
           height={20}
           className={`${type} ski-egg`}
           alt="ski tracks player"
-          onClick={() => redirect('/ski-tracks')} />
+          onClick={() => router.push(`/ski-tracks?rider=${rider === MapIcon.skier ? 'skier' : 'snowboarder'}`)} />
       )
     })
   );

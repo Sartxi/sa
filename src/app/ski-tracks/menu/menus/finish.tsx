@@ -40,7 +40,7 @@ export default function FinishMenu({ courses, setMenu, progress, pastdeaths, set
           <div className="action-area">
             <div className="consequence">
               <div>
-                <Image src={MapIcon.apres} className={`consequence-icon`} width={200} height={200} alt="Finish Icon" />
+                <Image src={MapIcon.apres} className={`consequence-icon`} width={150} height={150} alt="Finish Icon" />
                 <h2>You finished this course!</h2>
               </div>
               <div className="choices">

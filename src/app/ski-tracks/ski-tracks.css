@@ -152,7 +152,7 @@
   padding: 0 15px;
 }
 
-.ski-menu.start .menu .menu-body .player {
+.ski-menu.start .player {
   background-color: var(--background);
   padding: 19px;
   border-radius: 8px;
@@ -161,7 +161,13 @@
   gap: 10px;
   font-size: 12px;
   margin: 10px auto 0;
+  width: 240px;
+  cursor: pointer;
 }
+
+.ski-menu.start .player .rider:hover {
+  filter: var(--icon-fill);
+} 
 
 .ski-menu.start .menu h1 {
   color: var(--accent);
@@ -366,7 +372,7 @@
 }
 
 .consequence-icon:not(.death) {
-  filter: var(--icon-fill);
+  filter: var(--icon-foreground);
 }
 
 .options {

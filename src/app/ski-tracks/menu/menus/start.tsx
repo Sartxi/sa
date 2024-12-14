@@ -2,10 +2,11 @@ import Image from "next/image";
 import { GameProps } from "../../game/data";
 import { Buttons } from "@/app/elements";
 import { useState } from "react";
-import { GameMap, gameMaps } from "../../map/data";
+import { GameMap, gameMaps, MapIcon } from "../../map/data";
 import MapViewer from "../../map/viewer";
 
-export default function StartMenu({ rider, setMenu }: GameProps) {
+export default function StartMenu({ rider, setMenu, setPlayer }: GameProps) {
+  const [open, setOpen] = useState(false);
   const [viewMap, setViewMap] = useState<GameMap | null>(null);
   if (viewMap) return <MapViewer map={viewMap} close={() => setViewMap(null)} />;
   return (
@@ -28,9 +29,15 @@ export default function StartMenu({ rider, setMenu }: GameProps) {
             {gameMaps.map((map: GameMap) => (<li key={map.id} onClick={() => setViewMap(map)}>{map.id}</li>))}
           </ul>
         </div>
-        <div className="player">
-          <p>Playing As:</p>
-          <Image className="rider" height={100} width={100} src={rider} alt="rider" />
+        <div className="player" onClick={() => setOpen(!open)}>
+          <p>{open ? 'Play' : 'Playing'} As:</p>
+          {open ? (
+            <div>{[MapIcon.skier, MapIcon.snowboarder].map((player) => (
+              <Image key={player} className="rider" height={40} width={40} src={player} alt={player} onClick={() => setPlayer(player)} />
+            ))}</div>
+          ) : (
+            <Image className="rider" height={75} width={75} src={rider} alt="rider" />
+          )}
         </div>
       </div>
       <Buttons buttons={[{ text: 'Start Game', callback: () => setMenu(null) }]} />

@@ -48,6 +48,7 @@ export interface GameProps {
   devmode: DevMode;
   setPastDeaths: (deaths: number[][] | null) => void;
   setMenu: (menu: MenuProps | null) => void;
+  setPlayer: (player: MapIcon) => void;
   setMap: (map: GameMap) => void;
   play: (event: CourseProgress) => void;
 }

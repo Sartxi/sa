@@ -32,8 +32,8 @@ export default function Result(props: ResultProps) {
   return (
     <div className="consequence">
       <div>
-        <Image src={icon} className={`consequence-icon${wrong ? ' death' : ''}`} width={200} height={200} alt="Consequence Icon" />
-        <h1>{title}</h1>
+        <Image src={icon} className={`consequence-icon${wrong ? ' death' : ''}`} width={100} height={100} alt="Consequence Icon" />
+        <h2>{title}</h2>
       </div>
       {buttons ? (
         <div className="choices">
