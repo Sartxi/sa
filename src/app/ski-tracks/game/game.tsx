@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import SkiMenu from "../menu/menu";
 import SkiCourses from "./courses";
 import SkiMap from "../map/map";
@@ -6,12 +6,12 @@ import Image from "next/image";
 import DevModeMenu from "../menu/menus/devmode";
 import { ToolMenu } from "../menu/menus";
 import { MenuType, MenuProps } from "../menu/data";
-import { SkiTracksGame } from "../ski-tracks";
+import { SkiTracksGame } from "../page";
 import { GameProps, GameProgress, DevModes } from "../game/data";
 import { useSearchParams } from "next/navigation";
 import { useMedia } from "@/app/hooks/viewport";
 
-export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
+function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
   const searchParams = useSearchParams();
   const devmode = searchParams.get('devmode');
 
@@ -59,5 +59,13 @@ export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
       </div>
       <Image className="compass" height={70} width={70} src='./compass.svg' alt="Ski Compass" />
     </div>
+  )
+}
+
+export default function GameTime(game: SkiTracksGame) {
+  return (
+    <Suspense>
+      <Game {...game} />
+    </Suspense>
   )
 }

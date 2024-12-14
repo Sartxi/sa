@@ -119,8 +119,16 @@ function useLog(game: GameProps) {
   };
 }
 
+function useMapEl() {
+  const [map, setMap] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setMap(document.getElementById('SkiMap'));
+  }, []);
+  return map;
+}
+
 function useMap(game: GameProps) {
-  const map = document.getElementById('SkiMap');
+  const map = useMapEl();
   const { mapBg, center } = useDrag(map, () => setPins(map, game));
   return {
     map,
@@ -152,6 +160,7 @@ function useSkiMap(game: GameProps) {
       setPins(map, game);
     };
   }, [map, progress]);
+  return { hasMap: !!map };
 }
 
 function useMapPlotting(game: GameProps) {
@@ -179,13 +188,13 @@ function useMapPlotting(game: GameProps) {
 }
 
 export default function SkiMap(game: GameProps) {
-  useSkiMap(game);
+  const { hasMap } = useSkiMap(game);
   useMapPlotting(game);
   const gameMap = gameMaps.find(map => map.id === game.map.id);
   if (!gameMap) return <div>No Game Map Selected</div>;
   return (
     <div id="SkiMap" style={{ backgroundImage: `url(${gameMap.src})` }}>
-      {game.children}
+      {hasMap ? game.children : ''}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 'use client'
+
 import styles from "./page.module.css";
 import { useState } from "react";
 import { Header, PageSections } from "./elements/header";
@@ -9,7 +10,7 @@ import { useScrolling } from "./hooks/scrolling";
 import { useTheme } from "./hooks/scheme";
 import { Loading } from "./elements/loading";
 import { Modal } from "./elements/modal";
-import SkiTracks from "./ski-tracks/ski-tracks";
+import Skiers from "./ski-tracks/skiers";
 
 export interface PageProps {
   active: PageSections;
@@ -41,7 +42,7 @@ export default function Page() {
       <Skills />
       <Contact />
       <Modal />
-      <SkiTracks />
+      <Skiers />
     </div>
   );
 }
