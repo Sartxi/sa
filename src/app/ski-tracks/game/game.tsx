@@ -9,6 +9,7 @@ import { MenuType, MenuProps } from "../menu/data";
 import { SkiTracksGame } from "../ski-tracks";
 import { GameProps, GameProgress, DevModes } from "../game/data";
 import { useSearchParams } from "next/navigation";
+import { useMedia } from "@/app/hooks/viewport";
 
 export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
   const searchParams = useSearchParams();
@@ -21,6 +22,8 @@ export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
     mapPlotting: false,
     skipTransition: false
   });
+
+  const { mobile } = useMedia();
 
   const game: GameProps = {
     rider,
@@ -40,9 +43,12 @@ export default function Game({ map, setMap, rider, closeGame }: SkiTracksGame) {
   };
 
   if (typeof rider === 'boolean') return <span />;
+
+  const logoSize = mobile ? 50 : 80;
+
   return (
     <div id="SkiTracks">
-      {menu?.type !== MenuType.start && <Image className="trax-logo" height={80} width={80} src='./skitrax.svg' alt="Ski Tracks" />}
+      {menu?.type !== MenuType.start && <Image className="trax-logo" height={logoSize} width={logoSize} src='./skitrax.svg' alt="Ski Tracks" />}
       <DevModeMenu mode={game.devmode} setModes={(modes: DevModes) => setDevModes(modes)} />
       <ToolMenu game={game} close={() => closeGame?.()} />
       <SkiMenu {...game} />

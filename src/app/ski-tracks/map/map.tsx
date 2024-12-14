@@ -6,7 +6,7 @@ import { listeners, getAxis, setPins, placePin, togglePin, getBgAxis } from "./u
 import { gameMaps, MapIcon } from "./data";
 
 function useDrag(map: HTMLElement | null, setMap: () => void) {
-  const { mobile, tablet } = useMedia();
+  const { mobile, tablet, isDevice } = useMedia();
   const [locked, setLocked] = useState(false);
   const [stPos, setStPos] = useState<[number, number]>([0, 0]);
   const [bgPos, setBgPos] = useState<[number, number]>([0, 0]);
@@ -14,7 +14,7 @@ function useDrag(map: HTMLElement | null, setMap: () => void) {
 
   useEffect(() => {
     if (!map || locked) return;
-    const isTouch = mobile || tablet;
+    const isTouch = isDevice;
     const [starting, moving, ending] = listeners(isTouch);
 
     const down = (e: any) => {

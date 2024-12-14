@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Windows NT|Opera Mini/i.test(navigator.userAgent);
 }
 
 export function useMedia() {
@@ -26,7 +26,7 @@ export function useMedia() {
   const mobile = isDevice && width <= 599;
   const tablet = isDevice && width >= 600 && width <= 1199;
 
-  return { mobile, tablet };
+  return { mobile, tablet, isDevice };
 }
 
 export function useClickOutside(el: string, enabled: any, callback: () => void) {

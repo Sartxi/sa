@@ -121,10 +121,8 @@
 }
 
 .ski-menu.start .menu {
-  height: 90vh;
   width: 90vw;
   max-width: 650px;
-  max-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -388,7 +386,7 @@ html[data-scheme="dark"] #SkiMap {
 
 #Pzl .area {
   padding: 20px;
-  background-color: var(--transparent);
+  background-color: var(--slight-transparent);
   border-radius: 6px;
 }
 
@@ -958,8 +956,47 @@ html[data-scheme="dark"] .nav-icon.loading {
 
 @media (max-width: 600px) {
 
+  .help-menu {
+    bottom: 103px;
+  }
+
+  .dev-mode-menu {
+    left: unset;
+    right: 7px;
+    bottom: 24px;
+  }
+
   .ski-menu.course,
   .ski-menu.finish {
-    width: 90vw;
+    width: 100vw;
+    bottom: 0;
+    right: unset;
+  }
+
+  .ski-menu.course .menu,
+  .ski-menu.finish .menu {
+    height: 90vh;
+    font-size: 0.7em;
+  }
+
+  .action-area {
+    padding: 0;
+    padding-bottom: 50px;
+  }
+
+  .ctrl-overlay {
+    background-color: unset;
+  }
+
+  #GameTimer .time {
+    animation: unset;
+  }
+
+  .tool-menu {
+    right: 9px;
+  }
+
+  .tool-menu button.sa-cta.transparent {
+    font-size: 0.7em;
   }
 }
