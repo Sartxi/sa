@@ -413,6 +413,8 @@
   background-color: var(--more-transparent);
   border-radius: 12px;
   cursor: pointer;
+  width: 113.33px;
+  height: 113.33px;
 }
 
 #Pzl .select:hover {

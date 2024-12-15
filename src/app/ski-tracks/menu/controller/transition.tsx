@@ -71,7 +71,8 @@ function useDifficulty(difficulty: Difficulty) {
   if (difficulty === Difficulty.blue) length = 6;
   if (difficulty === Difficulty.green) length = 3;
   const random = () => (Array.from({ length: 6 }, () => Math.floor(Math.random() * 9)));
-  const puzzles = [...Array(length).keys().map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))];
+  const pzlarray = Array.from({ length }, (_, i) => i + 1);
+  const puzzles = [...pzlarray.map(() => random().filter((b, t, n) => b && n.indexOf(b) === t))];
   const answers = Array.from({ length }, () => []);
   return { puzzles, answers, timer: 81 };
 }
