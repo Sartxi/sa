@@ -139,7 +139,7 @@ export const maps: GameMap[] = [{
     answers: [Nav.northeast, Nav.southeast, Nav.east, Nav.southeast, Nav.east, Nav.northeast, Nav.northwest, Nav.east, Nav.northwest, Nav.northeast, Nav.northwest, Nav.southwest],
   }, {
     id: 'wolvie',
-    title: 'Wolverine Granny Chute',
+    title: 'Granny Chute',
     description: 'A peak with something for everyone, the eastern side of Mount Wolverine offers the intermediate Wolverine Bowl whereas the north-facing Wolverine Cirque proffers death-defying chutes.',
     elevation: 1900,
     distance: 2.9,
