@@ -96,14 +96,14 @@ h1 img {
 .processor {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   height: 100%;
 }
 
 .processor div {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
   font-size: 0.9em;
