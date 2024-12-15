@@ -52,7 +52,7 @@ function Game({ map, setMap, rider, closeGame, setPlayer }: SkiTracksGame) {
 
   return (
     <div id="SkiTracks">
-      {menu?.type !== MenuType.start && <Image className="trax-logo" height={logoSize} width={logoSize} src='./skitrax.svg' alt="Ski Tracks" />}
+      {menu?.type !== MenuType.start && <Image className="trax-logo" height={logoSize} width={logoSize} src='./skitrax.svg' alt="Ski Tracks" priority />}
       <DevModeMenu mode={game.devmode} setModes={(modes: DevModes) => setDevModes(modes)} />
       <ToolMenu game={game} close={() => closeGame?.()} />
       <SkiMenu {...game} />
