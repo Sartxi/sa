@@ -1,5 +1,5 @@
 function hexToRgb(hex: string) {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),
@@ -13,14 +13,14 @@ function rgbToHex(r: number, g: number, b: number) {
 
 export function getColorShades(hex: string | null, num: number = 6) {
   if (hex) {
-    let shades = [];
-    let rgb = hexToRgb(hex);
+    const shades = [];
+    const rgb = hexToRgb(hex);
     if (!rgb) return;
-    let step = 255 / num;
+    const step = 255 / num;
     for (let i = 0; i < num; i++) {
-      let r = Math.round(Math.max(0, rgb.r - i * step));
-      let g = Math.round(Math.max(0, rgb.g - i * step));
-      let b = Math.round(Math.max(0, rgb.b - i * step));
+      const r = Math.round(Math.max(0, rgb.r - i * step));
+      const g = Math.round(Math.max(0, rgb.g - i * step));
+      const b = Math.round(Math.max(0, rgb.b - i * step));
       if (!(r == 0 && g == 0 && b == 0)) shades.push(rgbToHex(r, g, b));
     }
     return shades;
