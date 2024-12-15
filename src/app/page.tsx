@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header, PageSections } from "./elements/header";
 import { Roamer, Trail } from "./elements";
 import { Landing, About, Skills, Work, Contact } from "./sections";
@@ -23,6 +23,10 @@ export default function Page() {
   const { refresh } = useScrolling(active, setActive);
   const theme = useTheme();
   const props: PageProps = { active, setActive };
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-scrolling', 'true');
+  }, []);
 
   return (
     <div className={`${styles.page} ${!init ? 'is-loading' : ''}`}>

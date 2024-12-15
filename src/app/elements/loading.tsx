@@ -14,7 +14,7 @@ function useRandomTheme(setTheme: any) {
     setTimeout(() => {
       clearInterval(randoms);
       finish(true);
-    }, 4000);
+    }, 2000);
   };
 }
 
@@ -35,7 +35,7 @@ export function Loading({ complete, refresh, setTheme }: { complete: any; refres
         });
         break;
       default:
-        setTimeout(() => setActive('theme'), 2000);
+        setTimeout(() => setActive('theme'), 1000);
         break;
     }
   }, [active]);

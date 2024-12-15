@@ -2,7 +2,7 @@ import { Suspense, useState } from "react";
 import { ToolMenu } from "../menu/menus";
 import { MenuType, MenuProps } from "../menu/data";
 import { GameProps, GameProgress, DevModes } from "../game/data";
-import { SkiTracksGame } from "../page";
+import { SkiTracksProps } from "../ski-tracks";
 import { useSearchParams } from "next/navigation";
 import { useMedia } from "@/app/hooks/viewport";
 import SkiMenu from "../menu/menu";
@@ -12,7 +12,7 @@ import Image from "next/image";
 import DevModeMenu from "../menu/menus/devmode";
 import { usePlayerParam } from "../skiers";
 
-function Game({ map, setMap, rider, closeGame, setPlayer }: SkiTracksGame) {
+function Game({ map, setMap, rider, closeGame, setPlayer }: SkiTracksProps) {
   const searchParams = useSearchParams();
   const devmode = searchParams.get('devmode');
   const player = searchParams.get('rider');
@@ -66,7 +66,7 @@ function Game({ map, setMap, rider, closeGame, setPlayer }: SkiTracksGame) {
   )
 }
 
-export default function GameTime(game: SkiTracksGame) {
+export default function GameTime(game: SkiTracksProps) {
   return (
     <Suspense>
       <Game {...game} />

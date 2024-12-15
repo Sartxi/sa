@@ -1,6 +1,7 @@
 @import url(./theme.css);
 @import url(./loading.css);
 @import url(./ski-tracks/ski-tracks.css);
+@import url(./toolbox/toolbox.css);
 
 html[data-scrolling="false"] {
   overflow: hidden;
@@ -944,6 +945,18 @@ a {
   flex-direction: column;
   align-items: flex-end;
   gap: 20px;
+}
+
+#Themes .tool-box {
+  filter: var(--icon-foreground);
+  cursor: pointer;
+  position: relative;
+  right: 20px;
+  top: 12px;
+}
+
+#Themes .tool-box:hover {
+  filter: var(--icon-fill);
 }
 
 #ThemeSelector,

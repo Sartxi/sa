@@ -38,7 +38,7 @@ export interface DevMode extends DevModes {
 }
 
 export interface GameProps {
-  children?: any;
+  children?: React.ReactNode;
   map: GameMap;
   courses: Course[];
   rider: MapIcon | any;

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Blends, Themes, useBlendScheme, useColorScheme } from "../hooks/scheme";
 import { useMedia } from "../hooks/viewport";
+import { MapIcon } from "../ski-tracks/map/data";
 import Image from "next/image";
 
 enum SiteThemes {
@@ -119,6 +121,7 @@ function BlendsTool({ open, setOpen }: ThemeMenuProps) {
 export function Theme({ refresh, theme, setTheme }: { refresh: any, theme: any, setTheme: any }) {
   const [open, setOpen] = useState<number | undefined>();
   const { mobile } = useMedia();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => open && setOpen(undefined);
@@ -146,6 +149,13 @@ export function Theme({ refresh, theme, setTheme }: { refresh: any, theme: any, 
         open={open === SiteThemes.Blends}
         setOpen={() => toggleOpen(SiteThemes.Blends)}
         refresh={refresh} />
+      <Image
+        className="tool-box"
+        src={MapIcon.toolbox}
+        width={20}
+        height={20}
+        alt="Tools"
+        onClick={() => router.push('/toolbox')} />
     </div>
   )
 }

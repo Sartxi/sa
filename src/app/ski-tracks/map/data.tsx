@@ -14,7 +14,8 @@ enum MapIcon {
   compass = './compassicon.svg',
   flake = './snowflake.svg',
   angle = './angle.svg',
-  report = './report.svg'
+  report = './report.svg',
+  toolbox = './toolbox.svg'
 }
 
 enum Animate {
