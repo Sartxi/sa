@@ -42,14 +42,33 @@ h1 img {
 }
 
 .code-panel .code {
-  height: calc(100% - 38px);
+  height: calc(100% - 36px);
   padding: 35px;
   color: #abb2bf;
   background: #282c34;
-  overflow-y: auto;
   position: relative;
   font-size: 1.4em;
   border-radius: 0 0 8px 8px;
+}
+
+.code img {
+  filter: var(--icon-background);
+}
+
+@media (prefers-color-scheme: dark) {
+  .code img {
+    filter: var(--icon-foreground);
+  }
+
+  html[data-scheme="light"] .code img {
+    filter: var(--icon-background);
+  }
+}
+
+.codedisplay {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .codetype {
@@ -67,7 +86,6 @@ h1 img {
   position: absolute;
   bottom: 8px;
   left: 8px;
-  filter: var(--icon-background);
   cursor: pointer;
 }
 
@@ -95,10 +113,28 @@ h1 img {
 
 .processor {
   display: flex;
+  height: 100%;
+  color: var(--foreground);
+}
+
+.shades {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 100%;
+}
+
+.filters {
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.filters .image {
+  display: flex;
+  flex-direction: column;
+}
+
+.processor img {
+  filter: var(--icon-foreground);
 }
 
 .processor div {
@@ -107,7 +143,6 @@ h1 img {
   align-items: center;
   gap: 5px;
   font-size: 0.9em;
-  color: #333;
   margin-bottom: 15px;
 }
 
@@ -124,6 +159,7 @@ h1 img {
   background-color: var(--more-transparent);
   padding: 20px 30px;
   font-size: 0.9em;
+  border-radius: 0 0 5px 5px;
 }
 
 .nohex {

@@ -1,19 +1,9 @@
 import { useState } from "react";
-import { Tool, useToolIcon } from "./header";
+import { Tool, useToolIcon } from "../elements/header";
 import { getColorShadeCss } from "./data";
-import { getColorShades } from "./util";
+import { getColorFilter, getColorShades } from "./util";
 import Image from "next/image";
-import Code, { CodeType } from "./code";
-
-function useShades() {
-  const createShades = (hex: string | null) => {
-    const shades = getColorShades(hex);
-    let code = '';
-    if (shades?.length) code = getColorShadeCss(shades);
-    return { shades, code };
-  };
-  return createShades;
-}
+import Code, { CodeProp, CodeType } from "../elements/code";
 
 enum Process {
   Shades = 'Shades',
@@ -21,12 +11,30 @@ enum Process {
   Filter = 'Filter',
 }
 
+function useShades() {
+  const createShades = (hex: string | null) => {
+    const shades = getColorShades(hex);
+    let code = '';
+    if (shades?.length) code = getColorShadeCss(shades);
+    return { data: shades, code: [{ code, type: CodeType.css }] };
+  };
+  return createShades;
+}
+
+function useFilter() {
+  const createFilter = (hex: string | null) => {
+    const { code, filter, message } = getColorFilter(hex);
+    return { data: { filter, message }, code: [{ code, type: CodeType.css }] };
+  };
+  return createFilter;
+}
+
 function Processor({ process, vars, code }: { process: Process; vars: any; code: any }) {
   if (!code || !vars) return <span className="nohex">Add hex code to see preview</span>
   switch (process) {
     case Process.Shades:
       return (
-        <div className="processor">
+        <div className="processor shades">
           {vars.map((shade: string, i: number) => {
             return (
               <div key={shade}>
@@ -35,6 +43,23 @@ function Processor({ process, vars, code }: { process: Process; vars: any; code:
               </div>
             )
           })}
+        </div>
+      )
+    case Process.Filter:
+      const compare = ['before', 'after'];
+      return (
+        <div className="processor filters">
+          <div>
+            {compare.map(i => {
+              const style = i === 'after' ? { filter: vars.filter } : {};
+              return (
+                <div key={i} className='image'>
+                  {i}<Image style={style} src="./beer.svg" height={100} width={100} alt={i} />
+                </div>
+              )
+            })}
+          </div>
+          {vars.message}
         </div>
       )
     default:
@@ -47,18 +72,27 @@ export default function ColorTool() {
   const [process, setProcess] = useState<Process>(Process.Shades);
   const [hex, setHex] = useState<string | null>(null);
   const [vars, setVars] = useState<any>(null);
-  const [code, setCode] = useState<string | null>(null);
+  const [code, setCode] = useState<CodeProp[] | null>(null);
+
   const createShades = useShades();
+  const createFilter = useFilter();
 
   const handleChange = (event: any) => {
     setHex(event.target.value.toUpperCase());
   };
 
   const submit = () => {
+    let result; ``
     if (process === Process.Shades && hex) {
-      const { shades, code } = createShades(hex);
-      setCode(code);
-      setVars(shades);
+      result = createShades(hex);
+    } else if (process === Process.Filter) {
+      result = createFilter(hex);
+      console.log(result);
+
+    }
+    if (result?.code && result?.data) {
+      setCode(result.code);
+      setVars(result.data);
     }
   }
 
@@ -94,7 +128,7 @@ export default function ColorTool() {
               <Processor code={code} vars={vars} process={process} />
             </div>
           </div>
-          <Code type={CodeType.css} code={code} cleared={() => console.log('clear')} />
+          <Code code={code} cleared={() => console.log('clear')} />
         </div>
       </div>
     </div>

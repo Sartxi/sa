@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ToolBoxHeader, { Tool } from "./elements/header";
-import { ColorTool, FlexTool, GridTool, ListTool } from "./elements/tools";
+import { ColorTool, FlexTool, GridTool, ListTool } from "./tools/tools";
 
 export interface ToolsProps {
   activeTool: Tool;
