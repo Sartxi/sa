@@ -82,7 +82,7 @@ export default function ColorTool() {
   };
 
   const submit = () => {
-    let result; ``
+    let result;
     if (process === Process.Shades && hex) {
       result = createShades(hex);
     } else if (process === Process.Filter) {

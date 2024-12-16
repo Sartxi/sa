@@ -119,7 +119,10 @@ class Color {
     const b = this.b / 255;
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h: any, s: any, l: any = (max + min) / 2;
+    let h: any = (max + min) / 2;
+    let s: any = (max + min) / 2;
+    const l: any = (max + min) / 2;
+
     if (max === min) h = s = 0;
     else {
       const d = max - min;
