@@ -15,7 +15,6 @@ export enum CodeType {
 
 interface CodeProps {
   code: CodeProp[] | null;
-  cleared: () => void;
 }
 
 export interface CodeProp {

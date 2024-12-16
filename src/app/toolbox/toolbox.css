@@ -11,8 +11,8 @@ h1 img {
 }
 
 .toolbox {
-  width: 100%;
-  max-width: 1200px;
+  width: 80vw;
+  max-width: 1400px;
 }
 
 .tool-content {
@@ -26,7 +26,7 @@ h1 img {
 .code-panel {
   font-family: var(--font-geist-mono);
   flex-grow: 2;
-  height: 41vh;
+  height: 50vh;
   overflow: hidden;
   position: relative;
 }
@@ -111,21 +111,22 @@ h1 img {
   padding: 5px 0;
 }
 
-.processor {
+.preview {
   display: flex;
   height: 100%;
   color: var(--foreground);
 }
 
-.shades {
+.shades,
+.theme {
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .filters {
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .filters .image {
@@ -133,25 +134,26 @@ h1 img {
   flex-direction: column;
 }
 
-.processor img {
+.preview img {
   filter: var(--icon-foreground);
 }
 
-.processor div {
+.preview div {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   font-size: 0.9em;
   margin-bottom: 15px;
 }
 
-.processor .cube {
+.preview .sample {
   content: '';
   display: inline-block;
   width: 25px;
   height: 25px;
   border-radius: 50%;
+  border: 1px solid;
 }
 
 .tools .result {

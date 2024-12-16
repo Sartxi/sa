@@ -1,4 +1,4 @@
-import ColorTool from './color';
+import ColorTool from './color/tool';
 import FlexTool from './flex';
 import GridTool from './grid';
 import ListTool from './list';
