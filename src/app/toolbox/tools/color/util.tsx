@@ -314,7 +314,7 @@ class Filter {
   }
 }
 
-export function getColorShades(hex: string | null, num: number = 6): ColorData {
+export function getColorShades(hex: string | undefined, num: number = 6): ColorData {
   if (hex) {
     const shades: string[] = [];
     const rgb = hexToRgb(hex);
@@ -325,7 +325,7 @@ export function getColorShades(hex: string | null, num: number = 6): ColorData {
   } else return { shades: [] };
 };
 
-export const getColorFilter = (hex: string | null): ColorData => {
+export const getColorFilter = (hex: string | undefined): ColorData => {
   let filter: any = { code: null, filter: null };
   let message;
   if (hex) {
@@ -347,7 +347,7 @@ export const getColorFilter = (hex: string | null): ColorData => {
   return { ...filter, message };
 };
 
-export const getColorTheme = (hex: string | null, num: number): ColorData => {
+export const getColorTheme = (hex: string | undefined, num: number): ColorData => {
   if (hex) {
     const rgb = hexToRgb(hex);
     if (rgb) {
@@ -376,7 +376,7 @@ export const getColorTheme = (hex: string | null, num: number): ColorData => {
   return {};
 };
 
-export const getColorHarmony = (hex: string | null): ColorData => {
+export const getColorHarmony = (hex: string | undefined): ColorData => {
   if (hex) {
     const rgb = hexToRgb(hex);
     if (rgb) {

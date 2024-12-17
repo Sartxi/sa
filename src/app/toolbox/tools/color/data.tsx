@@ -45,7 +45,7 @@ export interface HarmonyData {
 }
 
 function useShades() {
-  return (hex: string | null, shades: number): ProcessResult => {
+  return (hex: string | undefined, shades: number): ProcessResult => {
     let code = '';
     const data: ColorData = getColorShades(hex, shades);
     if (data.shades?.length) code = getColorShadeCss(data.shades);
@@ -54,21 +54,21 @@ function useShades() {
 }
 
 function useFilter() {
-  return (hex: string | null): ProcessResult => {
+  return (hex: string | undefined): ProcessResult => {
     const { code, filter, message }: ColorData = getColorFilter(hex);
     return { data: { filter, message }, code: [{ code, type: CodeType.css }] };
   };
 }
 
 function useTheme() {
-  return (hex: string | null, shades: number): ProcessResult => {
+  return (hex: string | undefined, shades: number): ProcessResult => {
     const { theme }: ColorData = getColorTheme(hex, shades);
     return { data: { theme }, code: [{ code: getColorThemeCss(theme), type: CodeType.css }] };
   }
 }
 
 function useHarmony() {
-  return (hex: string | null): ProcessResult => {
+  return (hex: string | undefined): ProcessResult => {
     const { harmony }: ColorData = getColorHarmony(hex);
     return { data: { harmony }, code: [{ code: getColorHarmonyCss(harmony), type: CodeType.css }] };
   }

@@ -13,7 +13,7 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
         <div className="preview shades">
           {data.shades?.map((shade: string, i: number) => {
             return (
-              <div key={shade}>
+              <div key={`${shade}${i}`}>
                 <span className="sample" style={{ backgroundColor: shade }} />
                 <span className="label">{i ? `Shade${i}` : 'Primary'}</span>
               </div>
@@ -43,9 +43,9 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
       const theme = Object.entries(themedata).map(([key, value]) => ({ key, value }));
       return (
         <div className="preview theme">
-          {theme ? theme.map(({ key, value }: any) => {
+          {theme ? theme.map(({ key, value }: any, i) => {
             return (
-              <div key={key}>
+              <div key={`${key}${i}`}>
                 <span className={`sample ${theme.length > 10 ? 'small' : ''}`} style={{ backgroundColor: value }} />
                 <span className="label">{key}</span>
               </div>
@@ -58,9 +58,9 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
       const harmony = Object.entries(HarmonyData).map(([key, value]) => ({ key, value }));
       return (
         <div className="preview theme">
-          {harmony ? harmony.map(({ key, value }: any) => {
+          {harmony ? harmony.map(({ key, value }: any, i) => {
             return (
-              <div key={key}>
+              <div key={`${key}${i}`}>
                 {value.map((color: string) => (<span key={`key${color}`} className="sample" style={{ backgroundColor: color }} />))}
                 <span className="label">{key}</span>
               </div>

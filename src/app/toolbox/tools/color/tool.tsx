@@ -8,7 +8,7 @@ import ColorPreview from "./preview";
 function useResults(type: Process, shades: number): {
   code: CodeProp[] | null;
   data: ColorData | null;
-  send: (hex: string | null) => void;
+  send: (hex: string | undefined) => void;
 } {
   const write = useColorData();
   const [data, setData] = useState<ColorData | null>(null);
@@ -19,7 +19,7 @@ function useResults(type: Process, shades: number): {
     setCode(null);
   }, [type]);
 
-  const send = (hex: string | null) => {
+  const send = (hex: string | undefined) => {
     let result;
     switch (type) {
       case Process.Shades:
@@ -48,7 +48,7 @@ export default function ColorTool() {
   const icon = useToolIcon(Tool.Color);
 
   const [process, setProcess] = useState<Process>(Process.Shades);
-  const [hex, setHex] = useState<string | null>(null);
+  const [hex, setHex] = useState<string | undefined>();
   const [shades, setShades] = useState<number>(5);
   const [selectShades, setSelectShades] = useState<boolean>(false);
 
@@ -60,8 +60,10 @@ export default function ColorTool() {
 
   const handleChange = (event: any) => {
     setHex(event.target.value);
-    const sample = document.getElementById('InputColor');
-    if (sample) sample.style.backgroundColor = event.target.value;
+    console.log(event.target.value);
+    
+    // const sample = document.getElementById('InputColor');
+    // if (sample) sample.style.backgroundColor = event.target.value;
   };
 
   return (
@@ -75,10 +77,11 @@ export default function ColorTool() {
           <div className="inputs">
             <div className="input">
               <label>Hex Value</label>
-              <div id="InputColor" className="submit-btn" onClick={() => send(hex)}></div>
+              <input id="InputColor" name="color-picker" className="submit-btn" type="color" onChange={handleChange} />
               <input
                 name="color"
                 type="text"
+                value={hex ?? ''}
                 placeholder="#"
                 onChange={handleChange}
                 onKeyDown={(event: any) => { if (event.key === 'Enter') send(hex) }} />
