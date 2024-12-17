@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tool, useToolIcon } from "../../elements/header";
+import { Tool, useToolIcon } from "../../toolbox";
 import { ColorData, Process, useColorData } from "./data";
 import Image from "next/image";
 import Code, { CodeProp } from "../../elements/code";
@@ -69,7 +69,7 @@ export default function ColorTool() {
       <div className="toolbox">
         <h1>
           <Image src={icon} alt="Color Tool Icon" width={35} height={35} />
-          Color Tools
+          Color Tool
         </h1>
         <div className="tool-content">
           <div className="inputs">

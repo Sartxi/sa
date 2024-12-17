@@ -1,10 +1,26 @@
 import { useEffect, useState } from "react";
-import ToolBoxHeader, { Tool } from "./elements/header";
-import { ColorTool, FlexTool, GridTool, ListTool } from "./tools/tools";
+import ToolBoxHeader from "./elements/header";
+import { ColorTool, FlexTool } from "./tools/tools";
 
 export interface ToolsProps {
   activeTool: Tool;
   setTool: (tool: Tool) => void;
+}
+
+export enum Tool {
+  Color = 'Color',
+  Flex = 'Flex',
+}
+
+export function useToolIcon(tool: Tool) {
+  switch (tool) {
+    case Tool.Color:
+      return '/color.svg';
+    case Tool.Flex:
+      return '/flex.svg';
+    default:
+      return '/element.svg';
+  }
 }
 
 function Tools({ activeTool }: ToolsProps) {
@@ -13,10 +29,6 @@ function Tools({ activeTool }: ToolsProps) {
       return <ColorTool />
     case Tool.Flex:
       return <FlexTool />
-    case Tool.Grid:
-      return <GridTool />
-    case Tool.List:
-      return <ListTool />
     default:
       return <span />;
   }

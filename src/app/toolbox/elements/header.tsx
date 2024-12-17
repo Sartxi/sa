@@ -1,30 +1,6 @@
-import { useMedia } from "../../hooks/viewport";
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
-
-export enum Tool {
-  Color = 'Color',
-  Flex = 'Flex',
-  Grid = 'Grid',
-  List = 'List'
-}
-
-const tools: string[] = Object.keys(Tool);
-
-export function useToolIcon(tool: Tool) {
-  switch (tool) {
-    case Tool.Color:
-      return '/about.svg';
-    case Tool.Flex:
-      return '/work.svg';
-    case Tool.Grid:
-      return '/skills.svg';
-    case Tool.List:
-      return '/contact.svg';
-    default:
-      return '/element.svg';
-  }
-}
+import { Tool, useToolIcon } from '../toolbox';
 
 function NavItem({ section }: { section: string }) {
   const icon = useToolIcon(Tool[section as keyof typeof Tool]);
@@ -42,28 +18,14 @@ function NavItem({ section }: { section: string }) {
   )
 }
 
-function MobileNavItem({ section }: { section: string }) {
-  const icon = useToolIcon(Tool[section as keyof typeof Tool]);
-  return (
-    <span className="mobile-nav-item">
-      <Image
-        src={icon}
-        alt={section}
-        width={25}
-        height={25}
-      />
-    </span>
-  )
-}
-
 interface ToolBoxHeaderProps {
   active: Tool;
   setActive: (tool: Tool) => void;
 }
 
 export default function ToolBoxHeader({ active, setActive }: ToolBoxHeaderProps) {
-  const { mobile } = useMedia();
   const router = useRouter();
+  const tools: string[] = Object.keys(Tool);
   return (
     <div id="ToolBoxHeader">
       <div className="header">
@@ -86,7 +48,7 @@ export default function ToolBoxHeader({ active, setActive }: ToolBoxHeaderProps)
                   key={tool}
                   className={tool === active ? 'active' : ''}
                   onClick={() => setActive(tool)}>
-                  {!mobile ? <NavItem section={key} /> : <MobileNavItem section={key} />}
+                  <NavItem section={key} />
                 </li>
               )
             })}

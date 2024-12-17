@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Tool, useToolIcon } from "../../elements/header";
+import { Tool, useToolIcon } from "../../toolbox";
 import Image from "next/image";
 import Code, { CodeProp } from "../../elements/code";
 import { FlexValue, flexValues, useFlexData } from "./data";
@@ -31,11 +31,11 @@ export default function FlexTool() {
   };
 
   return (
-    <div id="ColorTool" className="section">
+    <div id="FlexTool" className="section">
       <div className="toolbox">
         <h1>
           <Image src={icon} alt="Flex Tool Icon" width={35} height={35} />
-          Flex Tools
+          Flex Tool
         </h1>
         <div className="tool-content">
           <div className="inputs">
