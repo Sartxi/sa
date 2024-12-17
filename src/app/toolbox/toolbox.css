@@ -43,12 +43,34 @@ h1 img {
 
 .code-panel .code {
   height: calc(100% - 36px);
-  padding: 35px;
   color: #abb2bf;
   background: #282c34;
   position: relative;
   font-size: 1.4em;
   border-radius: 0 0 8px 8px;
+  display: flex;
+  flex-direction: row;
+}
+
+.code .panel {
+  position: relative;
+  padding: 35px;
+  width: 10px;
+  transition: flex-grow 200ms;
+  cursor: pointer;
+}
+
+.code .panel.multi:first-child {
+  border-right: 1px solid #555;
+}
+
+.code .panel:not(.active):hover {
+  background-color: var(--more-transparent);
+}
+
+.code .panel.active {
+  flex-grow: 2;
+  cursor: unset;
 }
 
 .code img {
@@ -125,6 +147,37 @@ h1 img {
   gap: 2px;
 }
 
+.flex-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  min-width: 300px;
+  height: 100%;
+}
+
+.flex-tools h3 {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.tool-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tool-row .tool-col {
+  width: 45%;
+  font-size: 0.9em;
+}
+
+.select-btns.direction {
+  width: 101px;
+}
+
 .filters {
   flex-direction: column;
   justify-content: space-between;
@@ -175,6 +228,25 @@ h1 img {
   border-radius: 0 0 5px 5px;
 }
 
+.flex-tools .result {
+  width: 100%;
+}
+
+.pod {
+  background-color: var(--transparent);
+  padding: 15px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pod.grow {
+  flex-grow: 1;
+}
+
+.pod:hover {
+  background-color: var(--less-transparent);
+}
+
 .select-shade {
   cursor: pointer;
 }
@@ -183,15 +255,16 @@ h1 img {
   color: var(--accent);
 }
 
-.shades-select {
+.select-btns {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
+  width: 100%;
 }
 
-.shades-select div {
-  width: 30%;
+.select-btns div {
+  flex-grow: 1;
   height: 40px;
   background-color: var(--more-transparent);
   cursor: pointer;
@@ -201,9 +274,118 @@ h1 img {
   justify-content: center;
 }
 
-.shades-select div:hover,
-.shades-select div.active {
+.select-btns div:hover,
+.select-btns div.active {
   background-color: var(--transparent);
+}
+
+.select-btns .column,
+.select-btns .row {
+  width: 45%;
+  display: flex;
+  gap: 3px;
+  padding: 5px;
+}
+
+.select-btns .column {
+  flex-direction: column;
+}
+
+.select-btns .row {
+  flex-direction: row;
+}
+
+.psuedo-elem {
+  content: '';
+  background-color: var(--less-transparent);
+}
+
+.column .psuedo-elem {
+  height: 40px;
+  width: 100%;
+}
+
+.row .psuedo-elem {
+  width: 40px;
+  height: 100%;
+}
+
+.select-tool {
+  width: 100%;
+  min-width: 100px;
+  min-height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+}
+
+.select-tool:not(.open) {
+  background-color: var(--more-transparent);
+  border: 2px solid var(--transparent);
+}
+
+.select-tool:not(.open):hover {
+  background-color: var(--slight-transparent);
+}
+
+.select-area {
+  position: absolute;
+  top: 0;
+  background-color: var(--slight-transparent);
+  border-radius: 5px;
+  min-width: 100px;
+  overflow: hidden;
+  z-index: 99;
+  border: 2px solid var(--transparent);
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--foreground);
+}
+
+.select-item {
+  padding: 5px 10px;
+  user-select: none;
+  font-size: 0.9em;
+}
+
+.select-item:not(.main) {
+  background-color: var(--slight-transparent);
+}
+
+.select-item.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.select-item i {
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.select-item:not(.main):hover,
+.select-item.active {
+  background-color: var(--light-text);
+  color: var(--background);
+}
+
+.flex-preview {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  max-height: 266px;
+  flex-grow: 2;
+  overflow: hidden;
 }
 
 .nohex {
@@ -231,6 +413,11 @@ h1 img {
   border-radius: 4px;
   font-size: 1.3em;
   width: auto;
+}
+
+.tools input.tiny {
+  font-size: 0.9em;
+  padding: 9px;
 }
 
 .processes {

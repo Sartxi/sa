@@ -1,6 +1,5 @@
 import 'highlight.js/styles/night-owl.css';
 import hl from 'highlight.js';
-import js from 'highlight.js/lib/languages/javascript';
 import css from 'highlight.js/lib/languages/css';
 import html from 'highlight.js/lib/languages/vbscript-html';
 
@@ -8,7 +7,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export enum CodeType {
-  javascript = 'javascript',
   css = 'css',
   html = 'html'
 };
@@ -41,20 +39,28 @@ export default function Code({ code }: CodeProps) {
   const [active, setActive] = useState<CodeProp | null>(null);
 
   useEffect(() => {
-    hl.registerLanguage('javascript', js);
     hl.registerLanguage('css', css);
     hl.registerLanguage('html', html);
   }, []);
 
   useEffect(() => {
-    if (code?.length) setActive(code[0]);
+    if (code?.length && !active) setActive(code[0]);
   }, [code]);
 
   return (
     <div className="code-panel">
       <div className="title">Output</div>
       <div className="code">
-        {code ? code.filter(c => c.type === active?.type).map(({ type, code }) => <PrettyCode key={type} code={code} type={type} />) : ''}
+        {code ? code.map((c) => {
+          return (
+            <div
+              key={c.type}
+              onClick={() => setActive(c)}
+              className={`panel ${code?.length > 1 ? 'multi' : ''} ${active?.type === c.type ? 'active' : ''}`}>
+              <PrettyCode code={c.code} type={c.type} />
+            </div>
+          )
+        }) : ''}
       </div>
     </div>
   )

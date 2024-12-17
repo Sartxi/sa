@@ -98,7 +98,7 @@ export default function ColorTool() {
             </div>
             <div className="result">
               {selectShades ? (
-                <div className="shades-select">
+                <div className="select-btns">
                   {[3, 4, 5, 6, 7, 8].map((num: number) => (<div key={num} className={num === shades ? 'active' : ''} onClick={() => {
                     setShades(num);
                     setSelectShades(false);
