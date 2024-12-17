@@ -1,39 +1,30 @@
 import { ColorTheme, HarmonyData } from "./data";
 
-export const getColorShadeCss = (shades: string[]) => {
-  return `:root {
-  --color: ${shades[0]};
-  --color-shade1: ${shades[1]};
-  --color-shade2: ${shades[2]};
-  --color-shade3: ${shades[3]};
-  --color-shade4: ${shades[4]};
+function write(vars: string[]) {
+  return `:root {\n  ${vars.join('\n  ')}\n}`;
 }
-`;
+
+export function getColorShadeCss(shades: string[] | undefined) {
+  if (!shades) return '';
+  const colors = shades.map((color: string, i: number) => (`--${i > 0 ? `shade-${i}` : 'primary'}: ${color};`));
+  return write(colors);
 };
 
-export const getColorThemeCss = (theme: ColorTheme | undefined) => {
+export function getColorThemeCss(theme: ColorTheme | undefined) {
   if (!theme) return '';
-  return `:root {
-  --primary: ${theme.primary};
-  --secondary: ${theme.secondary};
-  --tertiary: ${theme.tertiary};
-  --complimentary: ${theme.complimentary};
-  --primary-shade1: ${theme.shade1};
-  --primary-shade2: ${theme.shade2};
-  --primary-shade3: ${theme.shade3};
-  --primary-shade4: ${theme.shade4};
-}
-`;
+  const vars: string[] = [];
+  Object.entries(theme).forEach(([key, value]: string[]) => {
+    vars.push(`--${key}: ${value};`);
+  });
+  return write(vars);
 }
 
-export const getColorHarmonyCss = (harmony: HarmonyData | undefined) => {
+export function getColorHarmonyCss(harmony: HarmonyData | undefined) {
   if (!harmony) return '';
-  const variables: any = [];
-  Object.entries(harmony).forEach(([key, values]: any) => {
+  const vars: string[] = [];
+  Object.entries(harmony).forEach(([key, values]: [string, string[]]) => {
     const colors = values.map((color: string, i: number) => (`--${key}${i > 0 ? `-${i + 1}` : ''}: ${color};`));
-    variables.push(...colors);
+    vars.push(...colors);
   });
-  return `:root {
-  ${variables.join('\n  ')}
-}`
+  return write(vars);
 }

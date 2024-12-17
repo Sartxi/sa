@@ -19,7 +19,7 @@ export interface ColorTheme {
   primary: string;
   secondary: string;
   tertiary: string;
-  complimentary: string;
+  complement: string;
   shade1: string;
   shade2: string;
   shade3: string;
@@ -40,14 +40,14 @@ export interface HarmonyData {
   analogous: string[];
   complementary: string[];
   split: string[];
-  tetrad: string[];
-  triad: string[];
+  tetradic: string[];
+  triadic: string[];
 }
 
 function useShades() {
-  return (hex: string | null): ProcessResult => {
+  return (hex: string | null, shades: number): ProcessResult => {
     let code = '';
-    const data: ColorData = getColorShades(hex);
+    const data: ColorData = getColorShades(hex, shades);
     if (data.shades?.length) code = getColorShadeCss(data.shades);
     return { data, code: [{ code, type: CodeType.css }] };
   };
@@ -61,8 +61,8 @@ function useFilter() {
 }
 
 function useTheme() {
-  return (hex: string | null): ProcessResult => {
-    const { theme }: ColorData = getColorTheme(hex);
+  return (hex: string | null, shades: number): ProcessResult => {
+    const { theme }: ColorData = getColorTheme(hex, shades);
     return { data: { theme }, code: [{ code: getColorThemeCss(theme), type: CodeType.css }] };
   }
 }

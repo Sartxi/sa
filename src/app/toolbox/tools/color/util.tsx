@@ -19,9 +19,7 @@ function hslToRgb(h: number, s: number, l: number) {
   h /= 360;
   s /= 100;
   l /= 100;
-
   let r, g, b;
-
   if (s === 0) {
     r = g = b = l; // achromatic
   } else {
@@ -33,14 +31,12 @@ function hslToRgb(h: number, s: number, l: number) {
       if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
       return p;
     };
-
     const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
     const p = 2 * l - q;
     r = hue2rgb(p, q, h + 1 / 3);
     g = hue2rgb(p, q, h);
     b = hue2rgb(p, q, h - 1 / 3);
   }
-
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
@@ -181,19 +177,21 @@ class Color {
       primary: [rgbToHex(this.r, this.g, this.b)],
       complementary: harmonize(180, 180, 1),
       split: harmonize(150, 210, 60),
-      triad: harmonize(120, 240, 120),
-      tetrad: harmonize(90, 270, 90),
+      triadic: harmonize(120, 240, 120),
+      tetradic: harmonize(90, 270, 90),
       analogous: harmonize(30, 90, 30),
     }
   }
   shades(num: number = 6) {
     const shades = [];
-    const step = 255 / num;
-    for (let i = 0; i < num; i++) {
+    const quantity = num + 1;
+    const increment = [180, 170, 160, 150, 140, 130][num - 3];
+    const step = increment / quantity;
+    for (let i = 0; i < quantity; i++) {
       const r = Math.round(Math.max(0, this.r - i * step));
       const g = Math.round(Math.max(0, this.g - i * step));
       const b = Math.round(Math.max(0, this.b - i * step));
-      if (!(r == 0 && g == 0 && b == 0)) shades.push(rgbToHex(r, g, b));
+      shades.push(rgbToHex(r, g, b));
     }
     return shades;
   }
@@ -323,7 +321,7 @@ export function getColorShades(hex: string | null, num: number = 6): ColorData {
     if (!rgb) return { shades };
     if (rgb.length !== 3) alert('Invalid format!');
     const color = new Color(rgb[0], rgb[1], rgb[2]);
-    return { shades: color.shades() };
+    return { shades: color.shades(num) };
   } else return { shades: [] };
 };
 
@@ -349,13 +347,13 @@ export const getColorFilter = (hex: string | null): ColorData => {
   return { ...filter, message };
 };
 
-export const getColorTheme = (hex: string | null): ColorData => {
+export const getColorTheme = (hex: string | null, num: number): ColorData => {
   if (hex) {
     const rgb = hexToRgb(hex);
     if (rgb) {
       if (rgb.length !== 3) alert('Invalid format!');
       const color = new Color(rgb[0], rgb[1], rgb[2]);
-      const shades = color.shades();
+      const shades = color.shades(num);
       if (shades?.length) shades.shift();
       const shadeObj: any = {};
       const shadeData: any = shades?.reduce((acc, item, index): any => {
@@ -363,16 +361,14 @@ export const getColorTheme = (hex: string | null): ColorData => {
         return acc;
       }, shadeObj);
       const harmony = color.harmony();
-      const { complementary, analogous, tetrad } = harmony;
-      console.log(harmony);
-
+      const { complementary, analogous, tetradic } = harmony;
       return {
         theme: {
           primary: hex,
-          secondary: analogous[0],
-          tertiary: tetrad[0],
-          complimentary: complementary[0],
           ...shadeData,
+          secondary: analogous[0],
+          tertiary: tetradic[0],
+          complementary: complementary[0],
         }
       };
     }

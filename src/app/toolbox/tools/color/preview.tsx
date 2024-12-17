@@ -15,7 +15,7 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
             return (
               <div key={shade}>
                 <span className="sample" style={{ backgroundColor: shade }} />
-                {i ? `Shade ${i}` : 'Original'}
+                <span className="label">{i ? `Shade${i}` : 'Primary'}</span>
               </div>
             )
           })}
@@ -35,7 +35,7 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
               )
             })}
           </div>
-          {data.message}
+          <span className="nohex">{data.message}</span>
         </div>
       )
     case Process.Theme:
@@ -46,8 +46,8 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
           {theme ? theme.map(({ key, value }: any) => {
             return (
               <div key={key}>
-                <span className="sample" style={{ backgroundColor: value }} />
-                {key}
+                <span className={`sample ${theme.length > 10 ? 'small' : ''}`} style={{ backgroundColor: value }} />
+                <span className="label">{key}</span>
               </div>
             )
           }) : <span className="nohex">No theme generated</span>}
@@ -61,8 +61,8 @@ export default function ColorPreview({ process, data, code }: ColorPreviewProps)
           {harmony ? harmony.map(({ key, value }: any) => {
             return (
               <div key={key}>
-                {value.map((v: string) => (<span key={`key${v}`} className="sample" style={{ backgroundColor: v }} />))}
-                {key}
+                {value.map((color: string) => (<span key={`key${color}`} className="sample" style={{ backgroundColor: color }} />))}
+                <span className="label">{key}</span>
               </div>
             )
           }) : <span className="nohex">No harmony generated</span>}
