@@ -23,16 +23,21 @@ export function Loading({ complete, refresh, setTheme }: { complete: any; refres
     { loader: 'contents', progress: 'content', text: 'Loading Content' },
     { loader: 'layers', progress: 'theme', text: 'Randomizing Theme' },
   ]);
+
   const [active, setActive] = useState('content');
   const setRandomTheme = useRandomTheme(setTheme);
 
   useEffect(() => {
     switch (active) {
       case 'theme':
-        setRandomTheme(() => {
-          complete(true);
-          refresh();
-        });
+        const hadRandom = document.documentElement.getAttribute('data-random-theme');
+        if (!hadRandom) {
+          setRandomTheme(() => {
+            document.documentElement.setAttribute('data-random-theme', 'true');
+            complete(true);
+            refresh();
+          });
+        } else complete(true);
         break;
       default:
         setTimeout(() => setActive('theme'), 1000);

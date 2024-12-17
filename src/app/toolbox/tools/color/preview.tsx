@@ -6,7 +6,7 @@ interface ColorPreviewProps extends ProcessResult {
 }
 
 export default function ColorPreview({ process, data, code }: ColorPreviewProps) {
-  if (!code || !data) return <span className="nohex">Add hex code to see preview</span>
+  if (!code || !data) return <span className="nohex">Add hex value to preview</span>
   switch (process) {
     case Process.Shades:
       return (

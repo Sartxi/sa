@@ -114,6 +114,7 @@ h1 img {
 .preview {
   display: flex;
   color: var(--foreground);
+  height: 100%;
 }
 
 .shades,
