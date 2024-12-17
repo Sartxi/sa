@@ -8,7 +8,7 @@ interface FlexPreviewProps {
 
 export default function FlexPreview({ data, grow, setGrow }: FlexPreviewProps) {
   const items = data.items ? Array.from({ length: data.items }, (_, i) => i + 1) : [1];
-  let style: any = { display: 'flex', flexDirection: data.direction };
+  const style: any = { display: 'flex', flexDirection: data.direction };
 
   if (data.align) style.alignItems = data.align;
   if (data.justify) style.justifyContent = data.justify;
