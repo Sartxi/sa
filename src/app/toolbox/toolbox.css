@@ -412,7 +412,12 @@ h1 img {
 
 .tools input.tiny {
   font-size: 0.9em;
-  padding: 9px;
+  padding: 11px;
+  background-color: var(--more-transparent);
+  border: 2px solid var(--less-transparent);
+  border-radius: 4px;
+  outline: none;
+  opacity: 0.75;
 }
 
 .tools input[type="color"] {

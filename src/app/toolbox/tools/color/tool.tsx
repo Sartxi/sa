@@ -58,13 +58,7 @@ export default function ColorTool() {
     if (hex) send(hex);
   }, [hex, process]);
 
-  const handleChange = (event: any) => {
-    setHex(event.target.value);
-    console.log(event.target.value);
-
-    // const sample = document.getElementById('InputColor');
-    // if (sample) sample.style.backgroundColor = event.target.value;
-  };
+  const handleChange = (event: any) => setHex(event.target.value);
 
   return (
     <div id="ColorTool" className="section">
@@ -77,7 +71,7 @@ export default function ColorTool() {
           <div className="inputs">
             <div className="input">
               <label>Hex Value</label>
-              <input id="InputColor" type="color" name="color-picker" className="color-picker" onChange={handleChange} />
+              <input id="InputColor" type="color" name="color-picker" value={hex ?? ''} className="color-picker" onChange={handleChange} />
               <input
                 name="color"
                 type="text"
