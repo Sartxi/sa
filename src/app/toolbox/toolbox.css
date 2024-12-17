@@ -393,16 +393,11 @@ h1 img {
   color: #777;
 }
 
-.submit-btn {
-  content: '';
-  width: 34px;
-  height: 34px;
+.color-picker {
   cursor: pointer;
   position: absolute;
-  top: 36px;
+  top: 37px;
   right: 10px;
-  border-radius: 2px;
-  border: 2px solid var(--more-transparent);
 }
 
 .tools input[type="text"] {
