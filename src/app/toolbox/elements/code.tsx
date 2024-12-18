@@ -2,13 +2,17 @@ import 'highlight.js/styles/night-owl.css';
 import hl from 'highlight.js';
 import css from 'highlight.js/lib/languages/css';
 import html from 'highlight.js/lib/languages/vbscript-html';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export enum CodeType {
   css = 'css',
-  html = 'html'
+  html = 'html',
+  javascript = 'javascript',
+  typescript = 'typescript',
 };
 
 interface CodeProps {
@@ -41,10 +45,13 @@ export default function Code({ code }: CodeProps) {
   useEffect(() => {
     hl.registerLanguage('css', css);
     hl.registerLanguage('html', html);
+    hl.registerLanguage('javascript', javascript);
+    hl.registerLanguage('typescript', typescript);
   }, []);
 
   useEffect(() => {
-    if (code?.length && !active) setActive(code[0]);
+    if (code?.length) setActive(code[0]);
+    else setActive(null);
   }, [code]);
 
   return (
