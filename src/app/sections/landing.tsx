@@ -10,7 +10,7 @@ export function Landing(props: PageProps) {
       <div id="Intro" className="intro">
         <span id="iam">
           <h5>Hello, my name is</h5>
-          <h1>Sean.</h1>
+          <h1 id="MyName">Sean.</h1>
           <h2><span id="ilike">and I like</span> to build stuff</h2>
         </span>
         <p>I am a web and software engineer, focused on user experiences, and a lifelong learner with a can-do additude. I thrive on solving complex problems and collaborating with innovative professionals. Currently located in Salt Lake City, Utah focused on building accessible, human-centered products at <a href="https://thinkingbox.com/" className="inline" target="_blank">ThinkingBox</a>.</p>

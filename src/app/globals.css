@@ -602,12 +602,15 @@ a {
   position: absolute;
   top: -15px;
   background: var(--accent);
-  padding: 5px 10px;
+  padding: 7px 10px 3px;
   border-radius: 5px;
   color: var(--background);
   font-weight: bold;
   font-size: 1.3em;
-  width: 194px;
+}
+
+.mobile-select img {
+  filter: var(--icon-background);
 }
 
 .mobile-select span::after {
@@ -1216,6 +1219,10 @@ html[data-theme="timp"] .theme-item .indicator {
     font-size: 3em;
   }
 
+  h2.title {
+    font-size: clamp(30px, 6vw, 65px);
+  }
+
   .profile {
     margin-right: 57vw;
     margin-bottom: 25px;
@@ -1291,7 +1298,7 @@ html[data-theme="timp"] .theme-item .indicator {
   }
 
   .intro p {
-    margin-right: 35px;
+    margin-right: 8px;
     font-size: 14px;
   }
 
@@ -1346,17 +1353,18 @@ html[data-theme="timp"] .theme-item .indicator {
     left: 5px;
     z-index: 9;
     background-color: var(--header-background);
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px;
     overflow: hidden;
     border-bottom: 1px solid var(--light-text);
     border-left: 1px solid var(--light-text);
+    border-top: 1px solid var(--light-text);
   }
 
   .companies ul li {
     border-radius: 0;
     font-size: 16px;
-    padding: 20px 5px;
-    text-align: center;
+    padding: 20px 0 20px 15px;
+    text-align: left;
   }
 
   .company h2 a {

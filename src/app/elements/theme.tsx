@@ -120,7 +120,7 @@ function BlendsTool({ open, setOpen }: ThemeMenuProps) {
 
 export function Theme({ refresh, theme, setTheme }: { refresh: any, theme: any, setTheme: any }) {
   const [open, setOpen] = useState<number | undefined>();
-  const { mobile } = useMedia();
+  const { mobile, tablet } = useMedia();
   const router = useRouter();
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export function Theme({ refresh, theme, setTheme }: { refresh: any, theme: any, 
     else setOpen(item);
   }
 
-  if (mobile) return <span />;
+  if (mobile || tablet) return <span />;
 
   return (
     <div id="Themes">

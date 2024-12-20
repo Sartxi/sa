@@ -144,6 +144,7 @@ function CompanySelector({ company, setCompany }: CompanySelector) {
 
   useEffect(() => {
     if (!mobile && open === undefined) setOpen(true);
+    else setOpen(false);
   }, [mobile]);
 
   const selectCompany = (selection: string) => {
@@ -155,7 +156,7 @@ function CompanySelector({ company, setCompany }: CompanySelector) {
     <div id="CompanyList" className="companies">
       {mobile && (
         <div className="mobile-select" onClick={() => setOpen(!open)}>
-          <span>{company}</span>
+          <Image src="./contact.svg" width={20} height={20} alt="companies" />
         </div>
       )}
       {open && (

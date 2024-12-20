@@ -130,7 +130,12 @@ function useRoam(mobile: boolean) {
       setRoam(start);
       const frame = start.frames.find((frame: any) => frame?.section === active);
       setAxis(frame, document.getElementById(start.element));
-    } else setRoam(null);
+    } else {
+      const frame = { section: PageSections.Landing, axis: ['Intro', 'MyName'], offset: [25, 15, -10, -10] };
+      const frames = getFrames(frame);
+      setAxis(frames, document.getElementById(start.element));
+      setRoam(null);
+    };
   };
 
   const scroll = (active: PageSections) => {
