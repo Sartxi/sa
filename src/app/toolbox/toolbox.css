@@ -65,7 +65,7 @@ h1 img {
 }
 
 .code .panel:not(.active):hover {
-  background-color: var(--more-transparent);
+  background-color: var(--less-transparent);
 }
 
 .code .panel.active {
