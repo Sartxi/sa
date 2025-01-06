@@ -1,12 +1,12 @@
 import Script from "next/script";
+import * as gtag from "./gtag"
 
-const GA_ID = "G-HZV6B15TKG";
 const Analytics = () => {
   return (
     <>
       <Script
         strategy='afterInteractive'
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.TRACKING_ID}`}
       />
       <Script
         id='gtag-init'
@@ -16,7 +16,7 @@ const Analytics = () => {
                           window.dataLayer = window.dataLayer || [];
                           function gtag(){dataLayer.push(arguments);}
                           gtag('js', new Date());
-                          gtag('config', '${GA_ID}', {
+                          gtag('config', '${gtag.TRACKING_ID}', {
                           page_path: window.location.pathname,
                           });
                         `,

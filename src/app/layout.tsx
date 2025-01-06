@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins, Roboto, Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import Analytics from "./elements/analytics/analytics";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${roboto.variable} ${inter.variable} ${roboto_mono.variable}`}>
+        <Analytics />
         {children}
       </body>
     </html>
