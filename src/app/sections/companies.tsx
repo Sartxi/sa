@@ -33,7 +33,7 @@ export function JointSoftware() {
 export function SnapFinance() {
   return (
     <div className="company">
-      <h2>UI Engineering Manager <a href="https://snapfinance.com/" target="_blank">@ Snap Finance</a></h2>
+      <h2>Senior Frontend Engineer <a href="https://snapfinance.com/" target="_blank">@ Snap Finance</a></h2>
       <h4>Feb 2015 - Nov 2017</h4>
       <p>Managed the UI project and team driving customer/client centric enhancements and collaborating with business users to make improvements. Coordinated with cross-functional teams to produce data-driven solutions to complex problems.</p>
       <ul>
